@@ -1,0 +1,3 @@
+/azure/terraform/terraform.tfvars
+**/terraform.tfstate*
+**/*.swp

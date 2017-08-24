@@ -1,5 +1,5 @@
 # Replace below values if needed
-env_name                          = "oss-bosh-jumpbox" # Environment prefix for created resources
+env_name                          = "oss-bosh-infra" # Environment prefix for created resources
 location                          = "westus"           # Azure region to create the Resource Group
 azure_terraform_vnet_cidr         = "172.28.1.0/24"    # Network CIDR range
 azure_terraform_subnet_infra_cidr = "172.28.1.0/26"    # Valid CIDR range within the overall network CIDR

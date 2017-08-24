@@ -52,7 +52,7 @@ function create_env () {
 function destroy_env () {
   # Destroy terraformed jumpbox env 
   echo "Running terraform destroy"
-  terraform destroy -var-file=$TERRAFORM_VARS_FILE
+  terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
 
   # Delete Azure Active Directory app and Service Principle
   echo "Deleting Azure AD app and Service Principle"
