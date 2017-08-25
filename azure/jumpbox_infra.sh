@@ -6,6 +6,7 @@ function create_env () {
   TENANT_ID=$(az account list | jq -r '.[] | select(.isDefault == true) | .tenantId')
 
   # Create Service Principle and assign Contributor role
+  echo "Creating service principle and assigning contributor role."
   JUMPBOX_IDENTITY_AD=$(az ad sp create-for-rbac --name "http://TerraformJumpboxAzureCPI" --role="Contributor" --scopes="/subscriptions/$SUBSCRIPTION_ID" | jq -r '.| "\(.appId):\(.password)"')
   APPLICATION_ID=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f1)
   CLIENT_SECRET=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f2)
@@ -24,14 +25,6 @@ function create_env () {
 
   # Terraform Apply
   echo "Running terraform apply"
-#  terraform plan -var-file=$TERRAFORM_VARS_FILE
-#  RETURN_CODE=$?
-#  until [ $RETURN_CODE -eq "0" ]; do
-#    echo "Contributor role not applied yet. Retrying!"
-#    sleep 5
-#    terraform plan -var-file=$TERRAFORM_VARS_FILE
-#    RETURN_CODE=$?
-#  done
   terraform apply -var-file=$TERRAFORM_VARS_FILE
 }
 
@@ -39,13 +32,6 @@ function destroy_env () {
   # Destroy terraformed jumpbox env 
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
-#  RETURN_CODE=$?
-#  until [ $RETURN_CODE -eq "0" ]; do
-#    echo "Destroy errored. Retrying!"
-#    sleep 5
-#    terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
-#    RETURN_CODE=$?
-#  done
 
   # Delete Azure Active Directory app and Service Principle
   echo "Deleting Azure AD app and Service Principle"
