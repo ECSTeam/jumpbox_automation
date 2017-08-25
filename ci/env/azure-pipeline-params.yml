@@ -4,3 +4,5 @@ scripts-git-username: ecoles-cgi
 create-jumpbox-script: automation-scripts/ci/tasks/azure-create-jumpbox.yml
 
 iaas-directory: automation-scripts/azure/
+
+azure-username: 
