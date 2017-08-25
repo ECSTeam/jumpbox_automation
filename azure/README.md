@@ -11,10 +11,11 @@ Use the provided script, `jumpbox_infra.sh`, in this repo to spin up an Azure Re
 - If you have access to more than one Azure Subscriptions, then run `azure account list` to view your Subscriptions and set the default to the Subscription where you want the Jumpbox installed.
 > `az account set --subsciption SUBSCRIPTION_ID` where SUBSCRIPTION_ID is the value of the `id` field.
 
-- Copy the example Terraform Vars file and make any required changes: `cp terraform/example-terraform.tfvars terraform/terraform.tfvars`
+- Copy the example Terraform Vars file and make any required changes: `cp terraform/terraform.tfvars.example terraform/terraform.tfvars`
 
 ### Run the script
 Available commands are:
 - `./jumpbox-infra.sh apply`
 - `./jumpbox_infra.sh destroy`
 - `./jumpbox_infra.sh output`
+    - only works if state file is present. This is created during `apply`.

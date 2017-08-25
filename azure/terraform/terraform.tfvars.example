@@ -9,9 +9,3 @@ vm_admin_username                 = "ubuntu"           # Default VM user
 vm_admin_password                 = "welcome1"         # Required by terraform, can be anything
 client_secret                     = "A[jumpbox]Z"      # Client Secret for the Azure AD Service Principle
 
-
-# DO NOT EDIT. The create-jumpbox-env script will populate
-subscription_id                   = "AZURE_SUBSCRIPTION_ID"
-tenant_id                         = "AZURE_TENANT_ID"
-client_id                         = "AZURE_ACTIVE_DIRECTORY_APPLICATION_ID"
-vm_admin_public_key               = "SSH_PUBLIC_KEY_CONTENTS"
