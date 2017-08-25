@@ -18,3 +18,5 @@ jobs:
     params:
       JUMPBOX_ACTION: apply
       IAAS_DIRECTORY: {{iaas-directory}}
+      AZURE_USERNAME: {{azure-username}}
+      AZURE_PASSWORD: {{azure-password}}
