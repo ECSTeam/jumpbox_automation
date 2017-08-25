@@ -1,0 +1,7 @@
+scripts-git-uri: https://github.com/ECSTeam/jumpbox_automation
+scripts-git-username: ecoles-cgi
+scripts-git-password: 67b535d98ad0de714305bacf196493c1617d95a7
+
+create-jumpbox-script: automation-scripts/ci/tasks/azure-create-jumpbox.yml
+
+iaas-directory: automation-scripts/azure/
