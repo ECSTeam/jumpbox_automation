@@ -1,0 +1,5 @@
+scripts-git-uri: https://github.com/ECSTeam/jumpbox_automation
+
+create-jumpbox-script: automation-scripts/ci/tasks/vsphere-create-jumpbox.yml
+
+iaas-directory: automation-scripts/vsphere/
