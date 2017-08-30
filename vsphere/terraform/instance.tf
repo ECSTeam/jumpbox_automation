@@ -1,6 +1,6 @@
 
-resource "vsphere_virtual_machine" "ubuntuguest" {
-  name = "ubuntuguest"
+resource "vsphere_virtual_machine" "jumpbox" {
+  name = "jumpbox01"
   vcpu = 1
   memory = 1024
   datacenter = "Lab09-Datacenter01"

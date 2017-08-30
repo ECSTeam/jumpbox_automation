@@ -9,7 +9,7 @@ resources:
     password: {{scripts-git-password}}
 
 jobs:
-- name: Create Jumpbox
+- name: create-jumpbox
   plan:
   - aggregate:
     - get: automation-scripts
