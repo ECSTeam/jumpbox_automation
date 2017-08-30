@@ -51,6 +51,8 @@ TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform-final.tfvars
 
 cd $TERRAFORM_DIR
 
+terraform init
+
 if [ $action == output ]; then
   terraform output -state=$TERRAFORM_DIR/terraform.tfstate
 elif [ $action == apply ]; then
