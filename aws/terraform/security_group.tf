@@ -8,7 +8,7 @@
 resource "aws_security_group" "jumpboxSG" {
     name = "${var.prefix}-jumpbox_sg"
     description = "Allow incoming connections for the Jumpbox."
-    vpc_id = "${var.aws_vpc}"
+    vpc_id = "${aws_vpc.BoshInfraVpc.id}"
     tags {
         Name = "${var.prefix}-Jumpbox Security Group"
     }

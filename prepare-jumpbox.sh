@@ -10,6 +10,7 @@ function add_users_to_jumpbox() {
     echo -e "$user:$user" | chpasswd
     cp -r /home/ubuntu/.ssh/ /home/$user/.ssh/
     chown -R $user:$user /home/$user/.ssh/
+    echo -e "$user ALL=NOPASSWD: ALL" >> /etc/sudoers
   done
 }
 
