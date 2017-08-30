@@ -2,7 +2,7 @@
 
 cd $IAAS_DIRECTORY
 
-az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
+# az login -u $IAAS_USERNAME -p $IAAS_PASSWORD
 
 jumpbox_infra.sh $JUMPBOX_ACTION
 

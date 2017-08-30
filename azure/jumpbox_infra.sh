@@ -63,6 +63,8 @@ TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform-final.tfvars
 
 cd $TERRAFORM_DIR
 
+az login -u $IAAS_USERNAME -p $IAAS_PASSWORD
+
 if [ $action == output ]; then
   terraform output -state=$TERRAFORM_DIR/terraform.tfstate
 elif [ $action == apply ]; then
