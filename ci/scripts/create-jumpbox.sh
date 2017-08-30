@@ -1,6 +1,6 @@
 #!/bin/bash
 
--ex
+set -ex
 
 cd $IAAS_DIRECTORY
 
