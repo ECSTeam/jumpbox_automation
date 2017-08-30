@@ -1,5 +1,7 @@
 #!/bin/bash
 
+-ex
+
 cd $IAAS_DIRECTORY
 
 # az login -u $IAAS_USERNAME -p $IAAS_PASSWORD
