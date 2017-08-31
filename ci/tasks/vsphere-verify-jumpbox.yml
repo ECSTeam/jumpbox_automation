@@ -1,0 +1,14 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: cgicloudnative/cfjump
+
+inputs:
+  - name: automation-scripts
+  - name: jumpbox-keys
+
+run:
+  path: automation-scripts/ci/scripts/verify-jumpbox.sh
