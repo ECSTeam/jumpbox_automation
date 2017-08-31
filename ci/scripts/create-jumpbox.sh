@@ -6,7 +6,7 @@ root_dir=$PWD
 
 cd $IAAS_DIRECTORY
 
-cp terraform/terraform.tfvars.exampl terraform/terraform.tfvars
+cp terraform/terraform.tfvars.example terraform/terraform.tfvars
 
 # az login -u $IAAS_USERNAME -p $IAAS_PASSWORD
 
