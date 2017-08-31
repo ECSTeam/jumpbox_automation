@@ -12,7 +12,7 @@ function create_env () {
   CLIENT_SECRET=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f2)
 
   # Create Jumpbox SSH Keypair
-  if [[ ! -d "$HOME/.ssh ]]; then
+  if [[ ! -d "$HOME/.ssh" ]]; then
     mkdir ~/.ssh
   fi
   ssh-keygen -q -N '' -t rsa -f ~/.ssh/azure-jumpbox -C ubuntu
