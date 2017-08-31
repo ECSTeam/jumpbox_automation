@@ -4,8 +4,13 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: ramxx/cfjump-alpine
-    tag: "v0.2"
+    repository: cgicloudnative/cfjump
+
+params:
+  JUMPBOX_ACTION:
+  IAAS_DIRECTORY:
+  IAAS_USERNAME:
+  IAAS_PASSWORD:
 
 inputs:
   - name: automation-scripts
