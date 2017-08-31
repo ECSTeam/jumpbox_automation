@@ -62,6 +62,7 @@ TERRAFORM_DIR=$CWD/terraform
 TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform-final.tfvars
 
 cd $TERRAFORM_DIR
+terraform init
 
 az login -u $IAAS_USERNAME -p $IAAS_PASSWORD
 
