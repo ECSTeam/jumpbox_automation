@@ -11,5 +11,5 @@ terraform init
 cp $root_dir/jumpbox-artifacts/terraform.tfstate .
 cp $root_dir/jumpbox-artifacts/terraform-final.tfvars .
 
-cd $IAAS_DIRECTORY
+cd $root_dir/$IAAS_DIRECTORY
 ./jumpbox_infra.sh $JUMPBOX_ACTION
