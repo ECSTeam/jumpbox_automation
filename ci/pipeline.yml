@@ -24,7 +24,6 @@ jobs:
   plan:
   - aggregate:
     - get: automation-scripts
-    - get: jumpbox-artifacts
   - task: Verify
     file: {{verify-jumpbox-script}}
     params:
@@ -36,7 +35,6 @@ jobs:
   plan:
   - aggregate:
     - get: automation-scripts
-    - get: jumpbox-artifacts
   - task: Destroy
     file: {{destroy-jumpbox-script}}
     params:
