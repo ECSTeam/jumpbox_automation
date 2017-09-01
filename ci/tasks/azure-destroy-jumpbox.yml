@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: cgicloudnative/cfjump
+    repository: cgicloudnative/cfjump 
 
 params:
   JUMPBOX_ACTION:
@@ -14,9 +14,7 @@ params:
 
 inputs:
   - name: automation-scripts
-
-outputs:
- - name: jumpbox-artifacts
+  - name: jumpbox-artifacts
 
 run:
-  path: automation-scripts/ci/scripts/create-jumpbox.sh
+  path: automation-scripts/ci/scripts/destroy-jumpbox.sh

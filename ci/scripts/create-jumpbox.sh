@@ -8,10 +8,7 @@ cd $IAAS_DIRECTORY
 
 cp terraform/terraform.tfvars.example terraform/terraform.tfvars
 
-# az login -u $IAAS_USERNAME -p $IAAS_PASSWORD
-
-ls -la
-
 ./jumpbox_infra.sh $JUMPBOX_ACTION
 
-./jumpbox_infra.sh output jumpbox_public_ip >> $root_dir/jumpbox-keys/ip_address.txt
+cp terraform/terraform.tfstate $root_dir/jumpbox-artifacts/
+cp terraform/terraform-final.tfvars $root_dir/jumpbox-artifacts/

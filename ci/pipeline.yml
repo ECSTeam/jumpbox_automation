@@ -20,3 +20,27 @@ jobs:
       IAAS_DIRECTORY: {{iaas-directory}}
       IAAS_USERNAME: {{iaas-username}}
       IAAS_PASSWORD: {{iaas-password}}
+- name: verify-jumpbox
+  plan:
+  - aggregate:
+    - get: automation-scripts
+    - get: jumpbox-artifacts
+  - task: Verify
+    file: {{verify-jumpbox-script}}
+    params:
+      JUMPBOX_ACTION: verify
+      IAAS_DIRECTORY: {{iaas-directory}}
+      IAAS_USERNAME: {{iaas-username}}
+      IAAS_PASSWORD: {{iaas-password}}
+- name: destroy-jumpbox
+  plan:
+  - aggregate:
+    - get: automation-scripts
+    - get: jumpbox-artifacts
+  - task: Destroy
+    file: {{destroy-jumpbox-script}}
+    params:
+      JUMPBOX_ACTION: destroy
+      IAAS_DIRECTORY: {{iaas-directory}}
+      IAAS_USERNAME: {{iaas-username}}
+      IAAS_PASSWORD: {{iaas-password}}
