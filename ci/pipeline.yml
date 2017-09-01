@@ -9,7 +9,7 @@ resources:
     password: {{scripts-git-password}}
 
 jobs:
-- name: create-jumpbox
+- name: jumpbox-automation
   plan:
   - aggregate:
     - get: automation-scripts
@@ -20,10 +20,6 @@ jobs:
       IAAS_DIRECTORY: {{iaas-directory}}
       IAAS_USERNAME: {{iaas-username}}
       IAAS_PASSWORD: {{iaas-password}}
-- name: verify-jumpbox
-  plan:
-  - aggregate:
-    - get: automation-scripts
   - task: Verify
     file: {{verify-jumpbox-script}}
     params:
@@ -31,10 +27,6 @@ jobs:
       IAAS_DIRECTORY: {{iaas-directory}}
       IAAS_USERNAME: {{iaas-username}}
       IAAS_PASSWORD: {{iaas-password}}
-- name: destroy-jumpbox
-  plan:
-  - aggregate:
-    - get: automation-scripts
   - task: Destroy
     file: {{destroy-jumpbox-script}}
     params:
