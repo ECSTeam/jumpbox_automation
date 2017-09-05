@@ -82,9 +82,10 @@ fi
 
 if [[ ! -f /usr/local/bin/spiff ]]; then
   echo "Spiff not installed, now installing!"
-  wget -q -O /usr/local/bin/spiff.zip "$(curl -s https://api.github.com/repos/cloudfoundry-incubator/spiff/releases/latest | jq -r '.assets[] | select(.name == "spiff_linux_amd64.zip") | .browser_download_url')" 
-  unzip /usr/local/bin/spiff.zip
-  rm /usr/local/bin/spiff.zip
+  wget -q -O spiff.zip "$(curl -s https://api.github.com/repos/cloudfoundry-incubator/spiff/releases/latest | jq -r '.assets[] | select(.name == "spiff_linux_amd64.zip") | .browser_download_url')" 
+  unzip spiff.zip
+  mv spiff /usr/local/bin/
+  rm spiff.zip
 fi
 
 if [[ ! -f /usr/local/bin/spruce ]]; then
@@ -101,9 +102,10 @@ fi
 
 if [[ ! -f /usr/local/bin/vault ]]; then
   echo "vault not installed, now installing!"
-  wget -q -O /usr/local/bin/vault.zip $(curl -s https://www.vaultproject.io/downloads.html | grep linux_amd | awk -F "\"" '{print$2}')
-  unzip /usr/local/bin/vault.zip
-  rm /usr/local/bin/vault.zip
+  wget -q -O vault.zip $(curl -s https://www.vaultproject.io/downloads.html | grep linux_amd | awk -F "\"" '{print$2}')
+  unzip vault.zip
+  mv vault /usr/local/bin/
+  rm vault.zip
 fi
 
 if [[ ! -f /usr/local/bin/fly ]]; then
@@ -126,12 +128,12 @@ if [[ ! -d "/usr/local/rvm" ]]; then
 fi
 cd /
 if [[ ! "$(ls -A /usr/local/rvm/environments)" ]]; then
-  /usr/local/rvm/bin/rvm install ruby-2.1
+  /usr/local/rvm/bin/rvm install ruby-2.3.0
 fi
 if [[ ! -d "/usr/local/rvm/environments/default" ]]; then
-  /usr/local/rvm/bin/rvm alias create default 2.1
+  /usr/local/rvm/bin/rvm alias create default 2.3.0
 fi
-/usr/local/rvm/bin/rvm use 2.1 --default
+/usr/local/rvm/bin/rvm use 2.3.0 --default
 # Install BOSH_CLI and UAAC
 gem install bosh_cli --no-ri --no-rdoc
 
