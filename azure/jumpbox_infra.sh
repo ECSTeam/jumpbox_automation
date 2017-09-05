@@ -7,7 +7,7 @@ function create_env () {
   TENANT_ID=$(az account list | jq -r '.[] | select(.isDefault == true) | .tenantId')
 
   # Create Service Principle and assign Contributor role
-  echo "Creating service principle and assigning contributor role."
+  echo "Creating service principal and assigning contributor role."
   JUMPBOX_IDENTITY_AD=$(az ad sp create-for-rbac --name "http://TerraformJumpboxAzureCPI" --role="Contributor" --scopes="/subscriptions/$SUBSCRIPTION_ID" | jq -r '.| "\(.appId):\(.password)"')
   APPLICATION_ID=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f1)
   CLIENT_SECRET=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f2)
@@ -16,7 +16,7 @@ function create_env () {
   if [[ ! -d "$HOME/.ssh" ]]; then
     mkdir ~/.ssh
   fi
-  ssh-keygen -q -N '' -t rsa -f ~/.ssh/azure-jumpbox -C ubuntu
+  ssh-keygen -q -N '' -t rsa -f ~/.ssh/azure-jumpbox
   JUMPBOX_PUBLIC_KEY=$(cat ~/.ssh/azure-jumpbox.pub)
 
   # Replace place holders

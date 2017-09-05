@@ -1,3 +1,13 @@
+data "template_file" "PrepareJumpbox" {
+    template = <<-EOF
+              #!/bin/bash
+              apt-get update
+              wget https://s3.amazonaws.com/jumpbox-automation/prepare-jumpbox.sh 
+              chmod +x ./prepare-jumpbox.sh
+              ./prepare-jumpbox.sh -u "${var.jumpbox_users}"
+              EOF
+}
+
 resource "azurerm_network_interface" "jumpbox_nic" {
   name                = "${var.env_name}-jumpbox-nic"
   location            = "${var.location}"
@@ -23,7 +33,7 @@ resource "azurerm_virtual_machine" "jumpbox_vm" {
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "14.04.2-LTS"
+    sku       = "${var.jumpbox_image_version}"
     version   = "latest"
   }
 
@@ -38,6 +48,7 @@ resource "azurerm_virtual_machine" "jumpbox_vm" {
     computer_name  = "${var.env_name}-jumpbox"
     admin_username = "${var.vm_admin_username}"
     admin_password = "${var.vm_admin_password}"
+    custom_data    = "${data.template_file.PrepareJumpbox.rendered}"
   }
 
   os_profile_linux_config {
