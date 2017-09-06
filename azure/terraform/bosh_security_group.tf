@@ -42,7 +42,7 @@ resource "azurerm_network_security_group" "bosh_security_group" {
 
   security_rule {
     name                       = "director_endpoint"
-    priority                   = 200
+    priority                   = 202
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
