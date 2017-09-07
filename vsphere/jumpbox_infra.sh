@@ -2,8 +2,8 @@
 
 function create_env () {
   # Create Jumpbox SSH Keypair
-  # ssh-keygen -q -N '' -t rsa -f ~/.ssh/azure-jumpbox -C ubuntu
-  # JUMPBOX_PUBLIC_KEY=$(cat ~/.ssh/azure-jumpbox.pub)
+  # ssh-keygen -q -N '' -t rsa -f ~/.ssh/vsphere-jumpbox
+  # JUMPBOX_PUBLIC_KEY=$(cat ~/.ssh/vsphere-jumpbox.pub)
 
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
@@ -21,22 +21,34 @@ function destroy_env () {
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
 
-  # Delete Azure Active Directory app and Service Principle
-  echo "Deleting Azure AD app and Service Principle"
-  az ad app delete --id $(cat $TERRAFORM_VARS_FILE | grep "client_id" | awk '{print $3}' | tr -d '"')
-
   # Remove the state files. If present, this would take precedence. 
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
 
   # Cleanup Jumpbox SSH keys
-  echo "Removing Jumpbox Key Pair"
-  rm ~/.ssh/azure-jumpbox*
+  # echo "Removing Jumpbox Key Pair"
+  # rm ~/.ssh/azure-jumpbox*
 
   # Remove terraform vars final
   echo "Removing terraform vars final"
   rm $TERRAFORM_VARS_FILE
 }
+
+function verify_env () {
+  terraform_state_exists
+  
+  JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
+  # use netcat to check connectivity
+  nc -z $JUMPBOX_IP 22
+  RETURN_CODE=$(echo -e $?)
+  if [[ $RETURN_CODE == 0 ]]; then
+    echo -e "\nJumpbox is UP!"
+  else
+    echo -e "\nJumpbox is DOWN!"
+    exit 1
+  fi
+}
+
 
 action=$1
 
@@ -59,8 +71,8 @@ elif [ $action == apply ]; then
   create_env
 elif [ $action == destroy ]; then
   destroy_env
+elif [ $action == verify ]; then
+  verify_env
 else
   echo "Something went wrong!"  
 fi
-
-# nothing to see here
