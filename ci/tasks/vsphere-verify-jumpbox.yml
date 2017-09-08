@@ -8,7 +8,7 @@ image_resource:
 
 inputs:
   - name: automation-scripts
-  - name: jumpbox-keys
+  - name: jumpbox-artifacts
 
 run:
   path: automation-scripts/ci/scripts/verify-jumpbox.sh

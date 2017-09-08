@@ -11,7 +11,7 @@ inputs:
   # - name: vm-template
 
 outputs:
- - name: jumpbox-keys
+ - name: jumpbox-artifacts
 
 run:
   path: automation-scripts/ci/scripts/create-jumpbox.sh
