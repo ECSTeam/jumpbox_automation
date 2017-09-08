@@ -16,6 +16,13 @@ function create_env () {
   terraform apply -var-file=$TERRAFORM_VARS_FILE
 }
 
+function terraform_state_exists () {
+  if [[ ! -f $TERRAFORM_DIR/terraform.tfstate ]]; then
+    echo "terraform.tfstate file does not exist. Have you created the Jumpbox yet?"
+    exit 1
+  fi
+}
+
 function destroy_env () {
   # Destroy terraformed jumpbox env 
   echo "Running terraform destroy"
@@ -37,6 +44,7 @@ function destroy_env () {
 function verify_env () {
   terraform_state_exists
   
+  # double check if this works for vsphere!!
   JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
   # use netcat to check connectivity
   nc -z $JUMPBOX_IP 22
