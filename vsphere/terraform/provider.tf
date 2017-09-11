@@ -11,5 +11,5 @@ provider "vsphere" {
 # Create a folder
 resource "vsphere_folder" "concourse-base" {
   path = "VirtualMachines"
-  datacenter = "Lab09-Datacenter01"
+  datacenter = "Lab06-Datacenter01"
 }

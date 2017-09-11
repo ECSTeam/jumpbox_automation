@@ -9,8 +9,18 @@ variable "vmname" {
 
 // default datastore to deploy vmdk
 variable "vmdatastore" {
-  default = "nfs-lab09-vol1"
+  default = "nfs-lab06-vol1"
 }
 
 // default VM Template
 variable "vmtemp" {}
+
+variable "vm-prepare-source-file" {
+  default = "../../prepare-jumpbox.sh"
+}
+
+variable "vm-connection-user" {
+  default = "ubuntu"
+}
+
+variable "vm-connection-identity" {}
