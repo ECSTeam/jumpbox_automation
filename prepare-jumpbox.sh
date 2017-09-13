@@ -139,7 +139,7 @@ gem install bosh_cli --no-ri --no-rdoc
 
 gem install cf-uaac --no-ri --no-rdoc
 
-su - ubuntu
+# su - ubuntu
 source /etc/profile.d/rvm.sh
 
 echo "Script completed"

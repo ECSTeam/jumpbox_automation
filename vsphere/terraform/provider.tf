@@ -9,7 +9,7 @@ provider "vsphere" {
 }
 
 # Create a folder
-resource "vsphere_folder" "concourse-base" {
-  path = "VirtualMachines"
-  datacenter = "Lab06-Datacenter01"
-}
+# resource "vsphere_folder" "concourse-base" {
+#   path = "VirtualMachines"
+#   datacenter = "Lab06-Datacenter01"
+# }

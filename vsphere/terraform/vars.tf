@@ -1,26 +1,22 @@
-variable "viuser" {}
+variable "viuser"     {}
 variable "vipassword" {}
-variable "viserver" {}
+variable "viserver"   {}
 
-// default VM name in vSphere and its hostname
-variable "vmname" {
-  default = "test-vm"
-}
+# SSH User Credentials
+variable "ssh-user"     {}
+variable "ssh-password" {}
+variable "ssh-identity" { default = "" }
 
-// default datastore to deploy vmdk
-variable "vmdatastore" {
-  default = "nfs-lab06-vol1"
-}
-
-// default VM Template
-variable "vmtemp" {}
-
-variable "vm-prepare-source-file" {
-  default = "../../prepare-jumpbox.sh"
-}
-
-variable "vm-connection-user" {
-  default = "ubuntu"
-}
-
-variable "vm-connection-identity" {}
+variable vm-name          {}
+variable vm-cpu           {}
+variable vm-memory        {}
+variable vm-datacenter    {}
+variable vm-network-label {}
+variable vm-template      {}
+variable vm-data-type     { default = "thin" }
+variable vm-datastore     {}
+variable vm-default-user  { default = "ubuntu" }
+variable vm-rsa-file      {}
+variable vm-pub-rsa-file  {}
+variable vm-prepare-file  { default = "../../prepare-jumpbox.sh" }
+variable vm-user-list     {}
