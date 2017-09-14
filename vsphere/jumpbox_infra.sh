@@ -16,7 +16,7 @@ function create_env () {
 
   # Terraform Apply
   echo "Running terraform apply"
-  terraform apply -var-file=$TERRAFORM_VARS_FILE -state-out "/terraform-artifacts"
+  terraform apply -var-file=$TERRAFORM_VARS_FILE
 }
 
 function terraform_state_exists () {
