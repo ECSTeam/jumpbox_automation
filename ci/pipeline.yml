@@ -29,10 +29,3 @@ jobs:
       IAAS_DIRECTORY: {{iaas-directory}}
       IAAS_USERNAME: {{iaas-username}}
       IAAS_PASSWORD: {{iaas-password}}
-  - task: Destroy
-    file: {{destroy-jumpbox-script}}
-    params:
-      JUMPBOX_ACTION: destroy
-      IAAS_DIRECTORY: {{iaas-directory}}
-      IAAS_USERNAME: {{iaas-username}}
-      IAAS_PASSWORD: {{iaas-password}}
