@@ -31,10 +31,6 @@ function destroy_env () {
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
 
-  # Cleanup Jumpbox SSH keys
-  # echo "Removing Jumpbox Key Pair"
-  # rm ~/.ssh/azure-jumpbox*
-
   # Remove terraform vars final
   echo "Removing terraform vars final"
   rm $TERRAFORM_VARS_FILE
@@ -44,7 +40,9 @@ function verify_env () {
   terraform_state_exists
   
   # double check if this works for vsphere!!
-  JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
+  # JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
+  JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate jumpbox_public_ip)
+
   # use netcat to check connectivity
   nc -z $JUMPBOX_IP 22
   RETURN_CODE=$(echo -e $?)
@@ -55,7 +53,6 @@ function verify_env () {
     exit 1
   fi
 }
-
 
 action=$1
 
