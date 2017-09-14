@@ -34,10 +34,10 @@ resource "vsphere_virtual_machine" "jumpbox" {
     # private_key = "${file("${var.ssh-identity}")}"
   }
 
-  # Upload SSH Key
+  # Upload SSH Key 
   provisioner "file" {
     source = "${var.vm-pub-rsa-file}"
-    destination = "/home/${var.vm-default-user}/.ssh"
+    destination = "/home/${var.vm-default-user}/.ssh" # TODO: Figure out why key file cannot be uploaded directly to "/home/ubuntu/.ssh/authorized-keys"
   }
 
   # Upload Prepare SCript

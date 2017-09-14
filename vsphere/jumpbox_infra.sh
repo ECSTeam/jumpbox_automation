@@ -11,6 +11,9 @@ function create_env () {
   echo "viuser=\"$IAAS_USERNAME\"" >> $TERRAFORM_VARS_FILE
   echo "vipassword=\"$IAAS_PASSWORD\"" >> $TERRAFORM_VARS_FILE
 
+  echo "ssh-user=\"$INIT_VM_USERNAME\"" >> $TERRAFORM_VARS_FILE
+  echo "ssh-password=\"$INIT_VM_PASSWORD\"" >> $TERRAFORM_VARS_FILE
+
   # Terraform Apply
   echo "Running terraform apply"
   terraform apply -var-file=$TERRAFORM_VARS_FILE
