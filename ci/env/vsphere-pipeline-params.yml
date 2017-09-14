@@ -4,4 +4,4 @@ create-jumpbox-script: automation-scripts/ci/tasks/vsphere-create-jumpbox.yml
 verify-jumpbox-script: automation-scripts/ci/tasks/vsphere-verify-jumpbox.yml
 destroy-jumpbox-script: automation-scripts/ci/tasks/vsphere-destroy-jumpbox.yml
 
-iaas-directory: automation-scripts/vsphere/
+iaas-directory: automation-scripts/vsphere
