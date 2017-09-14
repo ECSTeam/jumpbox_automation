@@ -20,8 +20,8 @@ jobs:
       IAAS_DIRECTORY: {{iaas-directory}}
       IAAS_USERNAME: {{iaas-username}}
       IAAS_PASSWORD: {{iaas-password}}
-      VM_INIT_USERNAME: {{init-vm-username}}
-      VM_INIT_PASSWORD: {{init-vm-password}}
+      INIT_VM_USERNAME: {{init-vm-username}}
+      INIT_VM_PASSWORD: {{init-vm-password}}
   - task: Verify
     file: {{verify-jumpbox-script}}
     params:

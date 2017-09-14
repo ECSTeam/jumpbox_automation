@@ -29,6 +29,7 @@ if [ ! -e  $credentials ]; then
 fi
 
 cat $credentials > temp-config.yml
+echo "" >> temp-config.yml
 cat $config >> temp-config.yml
 
 fly -t $concourse_target set-pipeline -c $pipeline -l temp-config.yml -p $pipeline_name -n
