@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 function add_users_to_jumpbox() {
   users=`echo $USERS | tr ',' '\n'`
