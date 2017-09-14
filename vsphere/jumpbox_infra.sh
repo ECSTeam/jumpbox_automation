@@ -1,10 +1,6 @@
 #!/bin/bash
 
 function create_env () {
-  # Create Jumpbox SSH Keypair
-  # ssh-keygen -q -N '' -t rsa -f ~/.ssh/vsphere-jumpbox
-  # JUMPBOX_PUBLIC_KEY=$(cat ~/.ssh/vsphere-jumpbox.pub)
-
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
 
