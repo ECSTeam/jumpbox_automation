@@ -1,26 +1,26 @@
 ##### vSphere Host Credentials #####
-# viuser           = "CHANGE ME"                # Added via jumpbox_infra.sh
-# vipassword       = "CHANGE ME"                # Added via jumpbox_infra.sh
+# viuser           = "CHANGE ME"                 # Added via jumpbox_infra.sh
+# vipassword       = "CHANGE ME"                 # Added via jumpbox_infra.sh
   vidomain         = "lab.ecsteam.local"
   viserver         = "ecsdenlabvc01.lab.ecsteam.local"
 
 ##### File upload after creation #####
-# ssh-user         = "CHANGE ME"                # Added via jumpbox_infra.sh # Predefined User for initial preparation
-# ssh-password     = "CHANGE ME"                # Added via jumpbox_infra.sh # Predefined Password for initial preparation
-# ssh-identity     = "<identity file location>" # Currently unneeded, the initial SSH uses basic auth to upload key file
+# ssh-user         = "CHANGE ME"                 # Added via jumpbox_infra.sh # Predefined User for initial preparation
+# ssh-password     = "CHANGE ME"                 # Added via jumpbox_infra.sh # Predefined Password for initial preparation
+# ssh-identity     = "<identity file location>"  # Currently unneeded, the initial SSH uses basic auth to upload key file
 
 ##### VM Instance Configuration #####
-  vm-name          = "jumpbox01"                # Instance/DNS Name for the new VM
-  vm-cpu           = "1"                        # Number of virtual CPUs
-  vm-memory        = "1024"                     # Memory allocation (in MB)
-  vm-datacenter    = "Lab06-Datacenter01"       # vSphere Datacenter reference
-  vm-network-label = "Lab06-NetA"               # vSphere Network Label reference
-  vm-template      = "jumpbox-ubuntu-iso"       # Predefined OS/VM Image
-# vm-data-type     = "thin"                     # DEFAULTED # vSphere Disk storage type
-  vm-datastore     = "nfs-lab06-vol1"           # vSphere Datastore reference
-# vm-default-user  = "ubuntu"                   # DEFAULTED # Predefined User from vm-template
-  vm-rsa-file      = "./ssh-key/jumpbox_rsa"    # File to be stored in Vault after VM has been created
-  vm-pub-rsa-file  = "./ssh-key/jumpbox_ras.pub"    # New SSH authorized-key for VM
-# vm-prepare-file  = "../../prepare-jumpbox.sh" # DEFAULTED # Script to install required applications
-  vm-user-list     = "ecoles,mminges,swall"     # List of additional users that need to be added to the machine
+  vm-name          = "jumpbox01"                 # Instance/DNS Name for the new VM
+  vm-cpu           = "1"                         # Number of virtual CPUs
+  vm-memory        = "1024"                      # Memory allocation (in MB)
+  vm-datacenter    = "Lab06-Datacenter01"        # vSphere Datacenter reference
+  vm-network-label = "Lab06-NetA"                # vSphere Network Label reference
+  vm-template      = "jumpbox-ubuntu-iso"        # Predefined OS/VM Image
+# vm-data-type     = "thin"                      # DEFAULTED # vSphere Disk storage type
+  vm-datastore     = "nfs-lab06-vol1"            # vSphere Datastore reference
+# vm-default-user  = "ubuntu"                    # DEFAULTED # Predefined User from vm-template
+  vm-rsa-file      = "./ssh-key/jumpbox_rsa"     # File to be stored in Vault after VM has been created
+  vm-pub-rsa-file  = "./ssh-key/jumpbox_rsa.pub" # New SSH authorized-key for VM
+# vm-prepare-file  = "../../prepare-jumpbox.sh"  # DEFAULTED # Script to install required applications
+  vm-user-list     = "ecoles,mminges,swall"      # List of additional users that need to be added to the machine
 
