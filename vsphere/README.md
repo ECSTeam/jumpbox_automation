@@ -34,5 +34,6 @@
     - Run `<repo>/set-pipelines.sh`
 
 # Potential Improvements
+- Adding file storage (S3?) for tfstate and ssh key files
 - Research Stemcell usage for initial VM image
     - Experiencing Network/Permission releated issues with cloned VMs
