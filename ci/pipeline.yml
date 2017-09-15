@@ -13,19 +13,28 @@ jobs:
   plan:
   - aggregate:
     - get: automation-scripts
-  - task: Create
-    file: {{create-jumpbox-script}}
-    params:
-      JUMPBOX_ACTION: apply
-      IAAS_DIRECTORY: {{iaas-directory}}
-      IAAS_USERNAME: {{iaas-username}}
-      IAAS_PASSWORD: {{iaas-password}}
-      INIT_VM_USERNAME: {{init-vm-username}}
-      INIT_VM_PASSWORD: {{init-vm-password}}
-  - task: Verify
-    file: {{verify-jumpbox-script}}
-    params:
-      JUMPBOX_ACTION: verify
-      IAAS_DIRECTORY: {{iaas-directory}}
-      IAAS_USERNAME: {{iaas-username}}
-      IAAS_PASSWORD: {{iaas-password}}
+  - do:
+    - task: Create
+      file: {{create-jumpbox-script}}
+      params:
+        JUMPBOX_ACTION: apply
+        IAAS_DIRECTORY: {{iaas-directory}}
+        IAAS_USERNAME: {{iaas-username}}
+        IAAS_PASSWORD: {{iaas-password}}
+        INIT_VM_USERNAME: {{init-vm-username}}
+        INIT_VM_PASSWORD: {{init-vm-password}}
+    - task: Verify
+      file: {{verify-jumpbox-script}}
+      params:
+        JUMPBOX_ACTION: verify
+        IAAS_DIRECTORY: {{iaas-directory}}
+        IAAS_USERNAME: {{iaas-username}}
+        IAAS_PASSWORD: {{iaas-password}}
+    ensure:
+      task: Destroy
+      file: {{destroy-jumpbox-script}}
+      params:
+        JUMPBOX_ACTION: destroy
+        IAAS_DIRECTORY: {{iaas-directory}}
+        IAAS_USERNAME: {{iaas-username}}
+        IAAS_PASSWORD: {{iaas-password}}
