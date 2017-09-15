@@ -1,9 +1,12 @@
 # Pre Reqs
-- Existing base image in Vsphere
+- Existing base image in vSphere
     - Download ISO https://www.ubuntu.com/download/server
+    - Upload to vSphere
+    - Create new VM with ISO attached
     - Setup initial User (Default: ubuntu)
     - Add new user to sudoers.d
-- This image can be any valid VM template. Currently we are staying with a bare ISO install
+- This image can be any valid VM template. Currently we are staying with a bare ISO install.
+- A Snapshot of the VM must be created if `link_clone="true"` in the terraform config
 
 # Manual Deployment
 - `cd <repo>/vsphere/terraform`
