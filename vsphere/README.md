@@ -11,14 +11,16 @@
 # Manual Deployment
 - `cd <repo>/vsphere/terraform`
 - Copy `terraform.tfvars.example` to `terraform.tfvars`
-- Uncomment and enter valid credential variables: `viuser`, `vipassword`, `ssh-user`, `ssh-password`
+- Uncomment and enter valid credential values: `viuser`, `vipassword`, `ssh-user`, `ssh-password`
 - run command `terraform apply`
 
 # Concourse Deployment
 - Pipeline types: `ci`, `deploy`
+    - CI: Runs Create and Verify tasks with an ensured Destroy step to clean up
+    - Deploy: Runs Create and Verify tasks to setup a VM
 - Pipelines: `<repo>/<pipeline-type>/pipeline.yml`
 - Configuration: `<repo>/<pipeline-type>/env/vsphere-pipeline-params.yml`
-- Copy `<repo>/credentials.yml.stub` to `<repo>/credentials.yml` and add values
+- Copy `<repo>/credentials.yml.stub` to `<repo>/credentials.yml` and enter valid credential values
 - Credentials Required: 
     - `scripts-git-username`
     - `scripts-git-password`
