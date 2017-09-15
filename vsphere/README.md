@@ -18,6 +18,7 @@
 - Pipeline types: `ci`, `deploy`
 - Pipelines: `<repo>/<pipeline-type>/pipeline.yml`
 - Configuration: `<repo>/<pipeline-type>/env/vsphere-pipeline-params.yml`
+- Copy `<repo>/credentials.yml.stub` to `<repo>/credentials.yml` and add values
 - Credentials Required: 
     - `scripts-git-username`
     - `scripts-git-password`
@@ -27,7 +28,7 @@
     - `init-vm-password`
 - Upload pipeline
     - Edit `<repo>/set-pipelines.sh`
-    - Verify `./set-pipeline.sh lite "./<pipeline-type>/pipeline.yml" "./<pipeline-type>/env/vsphere-pipeline-params.yml" "<credentials file location>" <pipeline-type>-vsphere-jumpbox`
+    - Verify `./set-pipeline.sh lite "./<pipeline-type>/pipeline.yml" "./<pipeline-type>/env/vsphere-pipeline-params.yml" "./credentials.yml" <pipeline-type>-vsphere-jumpbox`
     - Run `<repo>/set-pipelines.sh`
 
 # Potential Improvements
