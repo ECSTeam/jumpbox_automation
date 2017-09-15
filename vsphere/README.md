@@ -3,7 +3,7 @@
     - Download ISO https://www.ubuntu.com/download/server
     - Upload to vSphere
     - Create new VM with ISO attached
-    - Setup initial User (Default: ubuntu)
+    - Setup initial User (Expected: ubuntu) [Can be anything, terraform config needs update if changed]
     - Add new user to sudoers.d
 - This image can be any valid VM template. Currently we are staying with a bare ISO install.
 - A Snapshot of the VM must be created if `link_clone="true"` in the terraform config
