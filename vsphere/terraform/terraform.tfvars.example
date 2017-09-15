@@ -23,4 +23,3 @@
   vm-pub-rsa-file  = "./ssh-key/jumpbox_rsa.pub" # New SSH authorized-key for VM
 # vm-prepare-file  = "../../prepare-jumpbox.sh"  # DEFAULTED # Script to install required applications
   vm-user-list     = "ecoles,mminges,swall"      # List of additional users that need to be added to the machine
-
