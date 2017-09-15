@@ -15,8 +15,9 @@
 - run command `terraform apply`
 
 # Concourse Deployment
-- Pipeline: `<repo>/ci/pipeline.yml`
-- Configuration: `<repo>/ci/env/vsphere-pipeline-params.yml`
+- Pipelines types: `ci`, `deploy`
+- Pipeline for CI: `<repo>/<pipeline-type>/pipeline.yml`
+- Configuration: `<repo>/<pipeline-type>/env/vsphere-pipeline-params.yml`
 - Credentials Required: 
     - `scripts-git-username`
     - `scripts-git-password`
@@ -26,7 +27,7 @@
     - `init-vm-password`
 - Upload pipeline
     - Edit `<repo>/set-pipelines.sh`
-    - Verify `./set-pipeline.sh lite "./ci/pipeline.yml" "./ci/env/vsphere-pipeline-params.yml" "<credentials file location>" deploy-vsphere-jumpbox`
+    - Verify `./set-pipeline.sh lite "./<pipeline-type>/pipeline.yml" "./<pipeline-type>/env/vsphere-pipeline-params.yml" "<credentials file location>" deploy-vsphere-jumpbox`
     - Run `<repo>/set-pipelines.sh`
 
 # Potential Improvements
