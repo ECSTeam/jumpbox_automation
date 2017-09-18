@@ -2,6 +2,15 @@
 - Pre existing project in GCP. We need the project identifier.
 - Pre existing Service Account with access to create resources within the project
 
+
+CREDS_TYPE
+CREDS_PROJECT_ID
+CREDS_PRIVATE_KEY_ID
+CREDS_PRIVATE_KEY
+CREDS_EMAIL
+CREDS_CLIENT_ID
+CREDS_CERT_URL
+
 # Manual Deployment
 - `cd <repo>/gcp/terraform`
 - Copy `terraform.tfvars.example` to `terraform.tfvars`
