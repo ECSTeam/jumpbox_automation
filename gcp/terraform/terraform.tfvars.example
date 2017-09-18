@@ -4,4 +4,4 @@ zones = ["us-west1-c", "us-west1-b", "us-west1-a"] # Deafult GCloud zones
 project = ""                                       # Existing Project Identifier
 jumpbox-image-url = "ubuntu-1604-xenial-v20170328" # Image Name for GCloud managed images
 jumpbox-machine-type= "n1-standard-1"              # GCloud Machine type
-credentials-file=""                                # Path to local files containing GCloud Credentials
+credentials-file="./credentials.json"                                # Path to local files containing GCloud Credentials
