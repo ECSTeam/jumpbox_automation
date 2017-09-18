@@ -4,7 +4,7 @@ function create_env () {
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
 
-  cat <<EOF >> /terraform-artifacts/credentials.json
+  cat <<EOF >> /jumpbox-artifacts/credentials.json
   {
     "type": "$CREDS_TYPE",
     "project_id": "$CREDS_PROJECT_ID",
