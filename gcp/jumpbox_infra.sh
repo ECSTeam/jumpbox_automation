@@ -12,7 +12,7 @@ function create_env () {
     "private_key": "$CREDS_PRIVATE_KEY",
     "client_email": "$CREDS_EMAIL",
     "client_id": "$CREDS_CLIENT_ID",
-    "client_x509_cert_url": "$CREDS_CERT_URL"
+    "client_x509_cert_url": "$CREDS_CERT_URL",
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
     "token_uri": "https://accounts.google.com/o/oauth2/token",
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
