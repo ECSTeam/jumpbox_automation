@@ -6,7 +6,7 @@ function create_env () {
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
 
-  cat <<EOF >> $TERRAFORM_DIR/credentials.json
+  cat <<EOF >> ./credentials.json
   {
     "type": "$CREDS_TYPE",
     "project_id": "$CREDS_PROJECT_ID",
@@ -20,7 +20,7 @@ function create_env () {
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
     }  
 EOF
-  cp $TERRAFORM_DIR/credentials.json ./jumpbox-artifacts
+  cp ./credentials.json ./jumpbox-artifacts
 
   # Terraform Apply
   echo "Running terraform apply"
