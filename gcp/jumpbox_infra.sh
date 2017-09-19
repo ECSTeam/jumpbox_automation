@@ -51,7 +51,7 @@ function destroy_env () {
     }  
 EOF
 
-  exit 1
+  #exit 1
 
   #echo "Running terraform init"
   #terraform init
