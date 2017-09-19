@@ -2,10 +2,6 @@ output "ops_manager_public_ip" {
   value = "${google_compute_instance.jumpbox.network_interface.0.access_config.0.assigned_nat_ip}"
 }
 
-output "jumpbox_public_ip" {
-  value = "${google_compute_instance.jumpbox-public-ip.ip_address}"
-}
-
 output "project" {
   value = "${var.project}"
 }

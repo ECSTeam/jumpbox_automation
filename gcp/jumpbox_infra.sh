@@ -35,7 +35,7 @@ function terraform_state_exists () {
 }
 
 function destroy_env () {
-  echo "Running terraform init"
+  echo "Running terraform destroy"
   terraform init
   # Destroy terraformed jumpbox env 
   echo "Running terraform destroy"
@@ -55,8 +55,7 @@ function verify_env () {
   
   # double check if this works for vsphere!!
   # JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
-  JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate jumpbox_public_ip)
-
+  JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate ops_manager_public_ip
   # use netcat to check connectivity
   nc -z $JUMPBOX_IP 22
   RETURN_CODE=$(echo -e $?)
