@@ -35,6 +35,8 @@ function terraform_state_exists () {
 }
 
 function destroy_env () {
+  echo "Running terraform init"
+  terraform init
   # Destroy terraformed jumpbox env 
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
