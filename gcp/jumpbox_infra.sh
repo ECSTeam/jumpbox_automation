@@ -35,6 +35,8 @@ function terraform_state_exists () {
 }
 
 function destroy_env () {
+  exit 1
+  
   echo "Running terraform destroy"
   terraform init
   # Destroy terraformed jumpbox env 
