@@ -35,10 +35,26 @@ function terraform_state_exists () {
 }
 
 function destroy_env () {
+
+  cat <<EOF >> ./credentials.json
+  {
+    "type": "$CREDS_TYPE",
+    "project_id": "$CREDS_PROJECT_ID",
+    "private_key_id": "$CREDS_PRIVATE_KEY_ID",
+    "private_key": "$CREDS_PRIVATE_KEY",
+    "client_email": "$CREDS_EMAIL",
+    "client_id": "$CREDS_CLIENT_ID",
+    "client_x509_cert_url": "$CREDS_CERT_URL",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://accounts.google.com/o/oauth2/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
+    }  
+EOF
+
   exit 1
-  
-  echo "Running terraform destroy"
-  terraform init
+
+  #echo "Running terraform init"
+  #terraform init
   # Destroy terraformed jumpbox env 
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
