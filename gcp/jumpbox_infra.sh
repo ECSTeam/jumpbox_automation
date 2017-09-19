@@ -20,7 +20,7 @@ function create_env () {
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
     }  
 EOF
-  cp $TERRAFORM_DIR/credentials.json $root_dir/jumpbox-artifacts
+  cp $TERRAFORM_DIR/credentials.json ./jumpbox-artifacts
 
   # Terraform Apply
   echo "Running terraform apply"
