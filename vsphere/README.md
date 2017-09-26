@@ -1,11 +1,14 @@
 # Pre Reqs
-- Existing base image in vSphere
+- Existing base image in vSphere. This image can be any valid VM template. Currently we are staying with a bare ISO install.
     - Download ISO https://www.ubuntu.com/download/server
     - Upload to vSphere
     - Create new VM with ISO attached
+      - New Virtual Machine->New Virtual Machine...->Follow Wizard to "Customize hardware"
+         - Change "New CD/DVD Drive" to "Datasource ISO File" and select uploaded ISO.
+    - Power on VM. This will start the OS installation. Expand the VM console and answer questions accordingly.
     - Setup initial User (Expected: ubuntu) [Can be anything, terraform config needs update if changed]
-    - Add new user to sudoers.d
-- This image can be any valid VM template. Currently we are staying with a bare ISO install.
+    - If you created a different user, add new user to /etc/sudoers using visudo
+    - Power off the VM. Right click on VM. Template->Convert to Template
 - A Snapshot of the VM must be created if `link_clone="true"` in the terraform config
 
 # Manual Deployment
