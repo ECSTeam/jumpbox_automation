@@ -5,6 +5,7 @@
     - Create new VM with ISO attached
       - New Virtual Machine->New Virtual Machine...->Follow Wizard to "Customize hardware"
          - Change "New CD/DVD Drive" to "Datasource ISO File" and select uploaded ISO.
+         - Select check box "Connect at power on"
     - Power on VM. This will start the OS installation. Expand the VM console and answer questions accordingly.
     - Setup initial User (Expected: ubuntu) [Can be anything, terraform config needs update if changed]
     - If you created a different user, add new user to /etc/sudoers using visudo
