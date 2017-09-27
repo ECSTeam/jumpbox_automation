@@ -7,10 +7,9 @@
          - Change "New CD/DVD Drive" to "Datasource ISO File" and select uploaded ISO.
          - Select check box "Connect at power on"
     - Power on VM. This will start the OS installation. Expand the VM console and answer questions accordingly.
-      - NOTE: Disk partitioning select "Guided - use entire disk". DO NOT select LVM.
+      - NOTE: Disk partitioning select "Guided - use entire disk". TODO: Confirm LVM is correct selection.
     - Setup initial User (Expected: ubuntu) [Can be anything, terraform config needs update if changed]
     - If you created a different user, add new user to /etc/sudoers using visudo
-    - Power off the VM. Right click on VM. Template->Convert to Template
 - A Snapshot of the VM must be created if `link_clone="true"` in the terraform config
 
 # Manual Deployment
