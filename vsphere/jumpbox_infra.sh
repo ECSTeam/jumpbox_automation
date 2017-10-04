@@ -38,9 +38,7 @@ function destroy_env () {
 
 function verify_env () {
   terraform_state_exists
-  
-  # double check if this works for vsphere!!
-  # JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
+
   JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate jumpbox_public_ip)
 
   # use netcat to check connectivity
@@ -50,6 +48,16 @@ function verify_env () {
     echo -e "\nJumpbox is UP!"
   else
     echo -e "\nJumpbox is DOWN!"
+    exit 1
+  fi
+
+  # Ensure the keys have been configured properly.
+  ssh -o BatchMode=yes -i terraform/ssh-key/jumpbox_rsa ubuntu@$JUMPBOX_IP pwd
+  RETURN_CODE=$(echo -e $?)
+  if [[ $RETURN_CODE == 0 ]]; then
+    echo -e "\nJumpbox ssh working!"
+  else
+    echo -e "\nJumpbox ssh failed"
     exit 1
   fi
 }
