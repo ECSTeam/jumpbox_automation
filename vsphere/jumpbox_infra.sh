@@ -51,10 +51,8 @@ function verify_env () {
     exit 1
   fi
 
-  pwd; ls
-  
   # Ensure the keys have been configured properly.
-  ssh -o BatchMode=yes -i ../jumpbox-artifacts/ssh-key/jumpbox_rsa ubuntu@$JUMPBOX_IP pwd
+  ssh -o BatchMode=yes -i ../../jumpbox-artifacts/ssh-key/jumpbox_rsa ubuntu@$JUMPBOX_IP pwd
   RETURN_CODE=$(echo -e $?)
   if [[ $RETURN_CODE == 0 ]]; then
     echo -e "\nJumpbox ssh PASSED"
