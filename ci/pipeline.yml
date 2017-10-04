@@ -5,8 +5,8 @@ resources:
   source:
     branch: master
     uri: {{scripts-git-uri}}
-    username: {{scripts-git-username}}
-    password: {{scripts-git-password}}
+    username: ((git-srv-user))
+    password: ((git-srv-password2))
 
 jobs:
 - name: jumpbox-automation
