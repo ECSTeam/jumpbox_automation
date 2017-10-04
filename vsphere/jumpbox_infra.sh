@@ -41,16 +41,6 @@ function verify_env () {
 
   JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate jumpbox_public_ip)
 
-  # use netcat to check connectivity
-  nc -z $JUMPBOX_IP 22
-  RETURN_CODE=$(echo -e $?)
-  if [[ $RETURN_CODE == 0 ]]; then
-    echo -e "\nJumpbox network ping PASSED"
-  else
-    echo -e "\nJumpbox network ping FAILED"
-    exit 1
-  fi
-
   # Ensure the keys have been configured properly.
   ssh -o BatchMode=yes -i ../../../jumpbox-artifacts/ssh-key/jumpbox_rsa ubuntu@$JUMPBOX_IP pwd
   RETURN_CODE=$(echo -e $?)
