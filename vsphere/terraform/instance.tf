@@ -37,7 +37,7 @@ resource "vsphere_virtual_machine" "jumpbox" {
   # Upload SSH Key 
   provisioner "file" {
     source = "${var.vm-pub-rsa-file}"
-    destination = "/home/${var.vm-default-user}/.ssh" # TODO: Figure out why key file cannot be uploaded directly to "/home/ubuntu/.ssh/authorized-keys"
+    destination = "/home/${var.vm-default-user}/.ssh" # TODO: Figure out why key file cannot be uploaded directly to "/home/ubuntu/.ssh/authorized_keys"
   }
 
   # Upload Prepare SCript
@@ -49,9 +49,9 @@ resource "vsphere_virtual_machine" "jumpbox" {
   # Setup SSH keys for box
   provisioner "remote-exec" {
     inline = [
-      "mv /home/${var.vm-default-user}/.ssh /home/${var.vm-default-user}/authorized-keys",
+      "mv /home/${var.vm-default-user}/.ssh /home/${var.vm-default-user}/authorized_keys",
       "mkdir /home/${var.vm-default-user}/.ssh/",
-      "mv /home/${var.vm-default-user}/authorized-keys /home/${var.vm-default-user}/.ssh/"
+      "mv /home/${var.vm-default-user}/authorized_keys /home/${var.vm-default-user}/.ssh/"
     ]
   }
 

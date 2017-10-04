@@ -2,4 +2,6 @@
 **/terraform.tfstate*
 **/*.swp
 **/.terraform
+**/ssh-key
+*.out
 credentials.yml

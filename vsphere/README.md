@@ -8,8 +8,11 @@
     - Power on VM. This will start the OS installation. Expand the VM console and answer questions accordingly.
     - Setup initial User (Expected: ubuntu) [Can be anything, terraform config needs update if changed]
     - If you created a different user, add new user to /etc/sudoers using visudo
-    - Power off the VM. Right click on VM. Template->Convert to Template
-- A Snapshot of the VM must be created if `link_clone="true"` in the terraform config
+    - Turn on ssh - `sudo service ssh start`
+    - Disable sudo password entry for the `ubuntu` user
+      - `sudo visudo`
+      - Add `ubuntu ALL=(ALL) NOPASSWD: ALL` to the bottom of the file.
+    - Take a snapshot of the VM
 
 # Manual Deployment
 - `cd <repo>/vsphere/terraform`
@@ -19,6 +22,7 @@
     - `vipassword`
     - `ssh-user`
     - `ssh-password`
+- Review the reset of the attributes and modify according to your environment.
 - run command `terraform apply`
 
 # Concourse Deployment
