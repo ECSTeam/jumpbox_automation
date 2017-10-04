@@ -6,7 +6,7 @@ resources:
     branch: master
     uri: {{scripts-git-uri}}
     username: ((git-srv-user))
-    password: ((git-srv-password2))
+    password: ((git-srv-password))
 
 jobs:
 - name: jumpbox-automation
@@ -16,6 +16,7 @@ jobs:
   - do:
     - task: Create
       file: {{create-jumpbox-script}}
+      output: jumpbox-artifacts
       params:
         JUMPBOX_ACTION: apply
         IAAS_DIRECTORY: {{iaas-directory}}
@@ -32,6 +33,7 @@ jobs:
         CREDS_CERT_URL: {{CREDS_CERT_URL}}
     - task: Verify
       file: {{verify-jumpbox-script}}
+      input: jumpbox-artifacts
       params:
         JUMPBOX_ACTION: verify
         IAAS_DIRECTORY: {{iaas-directory}}

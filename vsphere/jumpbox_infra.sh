@@ -45,19 +45,21 @@ function verify_env () {
   nc -z $JUMPBOX_IP 22
   RETURN_CODE=$(echo -e $?)
   if [[ $RETURN_CODE == 0 ]]; then
-    echo -e "\nJumpbox is UP!"
+    echo -e "\nJumpbox network ping PASSED"
   else
-    echo -e "\nJumpbox is DOWN!"
+    echo -e "\nJumpbox network ping FAILED"
     exit 1
   fi
 
+  pwd; ls
+  
   # Ensure the keys have been configured properly.
-  ssh -o BatchMode=yes -i terraform/ssh-key/jumpbox_rsa ubuntu@$JUMPBOX_IP pwd
+  ssh -o BatchMode=yes -i ../jumpbox-artifacts/ssh-key/jumpbox_rsa ubuntu@$JUMPBOX_IP pwd
   RETURN_CODE=$(echo -e $?)
   if [[ $RETURN_CODE == 0 ]]; then
-    echo -e "\nJumpbox ssh working!"
+    echo -e "\nJumpbox ssh PASSED"
   else
-    echo -e "\nJumpbox ssh failed"
+    echo -e "\nJumpbox ssh FAILED"
     exit 1
   fi
 }
