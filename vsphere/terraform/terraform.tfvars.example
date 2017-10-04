@@ -15,7 +15,7 @@
   vm-memory        = "1024"                      # Memory allocation (in MB)
   vm-datacenter    = "Lab01-Datacenter01"        # vSphere Datacenter reference
   vm-network-label = "Lab01-NetD"                # vSphere Network Label reference
-  vm-template      = "jump-box"                 # Name of the VM from which this one is created.
+  vm-template      = "jumpbox"                 # Name of the VM from which this one is created.
 # vm-data-type     = "thin"                      # DEFAULTED # vSphere Disk storage type
   vm-datastore     = "nfs-lab01-vol1"            # vSphere Datastore reference
 # vm-default-user  = "ubuntu"                    # DEFAULTED # Predefined User from vm-template
