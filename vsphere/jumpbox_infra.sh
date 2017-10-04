@@ -42,7 +42,7 @@ function verify_env () {
   JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate jumpbox_public_ip)
 
   # Ensure the keys have been configured properly.
-  ssh -o BatchMode=yes -i ../../../jumpbox-artifacts/ssh-key/jumpbox_rsa ubuntu@$JUMPBOX_IP pwd
+  ssh -o BatchMode=yes -i ../../../jumpbox-artifacts/jumpbox_rsa ubuntu@$JUMPBOX_IP pwd
   RETURN_CODE=$(echo -e $?)
   if [[ $RETURN_CODE == 0 ]]; then
     echo -e "\nJumpbox ssh PASSED"
