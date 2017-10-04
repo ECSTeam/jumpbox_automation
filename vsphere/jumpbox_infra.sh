@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x 
+
 function create_env () {
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
