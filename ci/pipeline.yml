@@ -18,6 +18,8 @@ jobs:
       file: {{create-jumpbox-script}}
       params:
         JUMPBOX_ACTION: apply
+        AZURE_USERNAME: ((azure/username))
+        AZURE_PASSWORD: ((azure/password))
         IAAS_DIRECTORY: {{iaas-directory}}
         IAAS_USERNAME: {{iaas-username}}
         IAAS_PASSWORD: {{iaas-password}}
