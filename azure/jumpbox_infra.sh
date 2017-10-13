@@ -15,11 +15,12 @@ function create_env () {
   CLIENT_SECRET=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f2)
 
   # Create Jumpbox SSH Keypair
-  if [[ ! -d "$HOME/.ssh" ]]; then
-    mkdir ~/.ssh
+  SSH_KEY_DIR=./ssh-key
+  if [[ ! -d "$SSH_KEY_DIR" ]]; then
+    mkdir $SSH_KEY_DIR
   fi
-  ssh-keygen -q -N '' -t rsa -f ~/.ssh/azure-jumpbox
-  JUMPBOX_PUBLIC_KEY=$(cat ~/.ssh/azure-jumpbox.pub)
+  ssh-keygen -q -N '' -t rsa -f $SSH_KEY_DIR/azure-jumpbox
+  JUMPBOX_PUBLIC_KEY=$(cat $SSH_KEY_DIR/azure-jumpbox.pub)
 
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars $TERRAFORM_VARS_FILE
