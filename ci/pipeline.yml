@@ -39,18 +39,18 @@ jobs:
         IAAS_DIRECTORY: {{iaas-directory}}
         IAAS_USERNAME: {{iaas-username}}
         IAAS_PASSWORD: {{iaas-password}}
-    # ensure:
-    #   task: Destroy
-    #   file: {{destroy-jumpbox-script}}
-    #   params:
-    #     JUMPBOX_ACTION: destroy
-    #     IAAS_DIRECTORY: {{iaas-directory}}
-    #     IAAS_USERNAME: {{iaas-username}}
-    #     IAAS_PASSWORD: {{iaas-password}}
-    #     CREDS_TYPE: {{CREDS_TYPE}}
-    #     CREDS_PROJECT_ID: {{CREDS_PROJECT_ID}}
-    #     CREDS_PRIVATE_KEY_ID: {{CREDS_PRIVATE_KEY_ID}}
-    #     CREDS_PRIVATE_KEY: {{CREDS_PRIVATE_KEY}}
-    #     CREDS_EMAIL: {{CREDS_EMAIL}}
-    #     CREDS_CLIENT_ID: {{CREDS_CLIENT_ID}}
-    #     CREDS_CERT_URL: {{CREDS_CERT_URL}}
+    ensure:
+      task: Destroy
+      file: {{destroy-jumpbox-script}}
+      params:
+        JUMPBOX_ACTION: destroy
+        IAAS_DIRECTORY: {{iaas-directory}}
+        IAAS_USERNAME: {{iaas-username}}
+        IAAS_PASSWORD: {{iaas-password}}
+        CREDS_TYPE: {{CREDS_TYPE}}
+        CREDS_PROJECT_ID: {{CREDS_PROJECT_ID}}
+        CREDS_PRIVATE_KEY_ID: {{CREDS_PRIVATE_KEY_ID}}
+        CREDS_PRIVATE_KEY: {{CREDS_PRIVATE_KEY}}
+        CREDS_EMAIL: {{CREDS_EMAIL}}
+        CREDS_CLIENT_ID: {{CREDS_CLIENT_ID}}
+        CREDS_CERT_URL: {{CREDS_CERT_URL}}
