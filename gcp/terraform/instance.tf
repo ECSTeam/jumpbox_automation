@@ -15,7 +15,9 @@ resource "google_compute_instance" "jumpbox" {
   tags           = ["${var.prefix}-jumpbox", "jumpbox"]
 
   boot_disk {
-    source_image = "${var.jumpbox-image-url}"
+    initialize_params {
+      image = "${var.jumpbox-image-url}"
+    }
   }
 
   network_interface {
