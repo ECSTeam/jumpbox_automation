@@ -39,6 +39,8 @@ function terraform_state_exists () {
 
 function destroy_env () {
 
+echo $CREDS_PRIVATE_KEY
+exit 1
   cat <<EOF >> ./credentials.json
   {
     "type": "$CREDS_TYPE",
