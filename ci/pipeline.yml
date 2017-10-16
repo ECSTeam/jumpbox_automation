@@ -25,13 +25,13 @@ jobs:
         IAAS_PASSWORD: {{iaas-password}}
         INIT_VM_USERNAME: {{init-vm-username}}
         INIT_VM_PASSWORD: {{init-vm-password}}
-        CREDS_TYPE: {{CREDS_TYPE}}
-        CREDS_PROJECT_ID: {{CREDS_PROJECT_ID}}
-        CREDS_PRIVATE_KEY_ID: {{CREDS_PRIVATE_KEY_ID}}
-        CREDS_PRIVATE_KEY: {{CREDS_PRIVATE_KEY}}
-        CREDS_EMAIL: {{CREDS_EMAIL}}
-        CREDS_CLIENT_ID: {{CREDS_CLIENT_ID}}
-        CREDS_CERT_URL: {{CREDS_CERT_URL}}
+        CREDS_TYPE: ((gcp-creds-type))
+        CREDS_PROJECT_ID: ((gcp-creds-project-id))
+        CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
+        CREDS_PRIVATE_KEY: ((gcp-creds-private-key))
+        CREDS_EMAIL: ((gcp-creds-email))
+        CREDS_CLIENT_ID: ((gcp-creds-client-id))
+        CREDS_CERT_URL: ((gcp-creds-cert-url))
     - task: Verify
       file: {{verify-jumpbox-script}}
       params:
