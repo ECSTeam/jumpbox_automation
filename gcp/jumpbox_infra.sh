@@ -25,6 +25,9 @@ EOF
   # Terraform Apply
   echo "Running terraform apply"
   terraform apply -var-file=$TERRAFORM_VARS_FILE
+
+  mkdir -p ssh-key 
+  cp key ssh-key/.
 }
 
 function terraform_state_exists () {
