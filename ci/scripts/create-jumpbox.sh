@@ -10,7 +10,7 @@ cp terraform/terraform.tfvars.example terraform/terraform.tfvars
 
 ./jumpbox_infra.sh $JUMPBOX_ACTION
 
-ls terraform/*
+ls *
 cp terraform/terraform.tfstate $root_dir/jumpbox-artifacts/
 cp terraform/terraform-final.tfvars $root_dir/jumpbox-artifacts/
 cp terraform/ssh-key/* $root_dir/jumpbox-artifacts/.
