@@ -4,8 +4,6 @@ set -x
 
 function create_env () {
 
-echo $CREDS_PRIVATE_KEY
-exit 1
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
 
