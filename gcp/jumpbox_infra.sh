@@ -3,6 +3,9 @@
 set -x
 
 function create_env () {
+
+echo $CREDS_PRIVATE_KEY
+exit 1
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
 
@@ -39,8 +42,6 @@ function terraform_state_exists () {
 
 function destroy_env () {
 
-echo $CREDS_PRIVATE_KEY
-exit 1
   cat <<EOF >> ./credentials.json
   {
     "type": "$CREDS_TYPE",
