@@ -14,7 +14,7 @@ resource "google_compute_instance" "jumpbox" {
 
   tags           = ["${var.prefix}-jumpbox", "jumpbox"]
 
-  attached_disk {
+  boot_disk {
     image = "${var.jumpbox-image-url}"
     size  = 150
   }
