@@ -29,10 +29,8 @@ EOF
   echo "Running terraform apply"
   terraform apply -var-file=$TERRAFORM_VARS_FILE
 
-  PRIVATE_KEY=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate ssh_private_key)
-
   mkdir -p ssh-key 
-  echo $PRIVATE_KEY > ssh-key/key
+  terraform output -state=$TERRAFORM_DIR/terraform.tfstate ssh_private_key > ssh-key/key
   chmod 0400 ssh-key/key
 }
 
@@ -61,10 +59,6 @@ function destroy_env () {
   }  
 EOF
 
-  #exit 1
-
-  #echo "Running terraform init"
-  #terraform init
   # Destroy terraformed jumpbox env 
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
