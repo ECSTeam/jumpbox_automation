@@ -13,7 +13,7 @@ function create_env () {
     "type": "$CREDS_TYPE",
     "project_id": "$CREDS_PROJECT_ID",
     "private_key_id": "$CREDS_PRIVATE_KEY_ID",
-    "private_key": "'$CREDS_PRIVATE_KEY'",
+    "private_key": "$CREDS_PRIVATE_KEY",
     "client_email": "$CREDS_EMAIL",
     "client_id": "$CREDS_CLIENT_ID",
     "client_x509_cert_url": "$CREDS_CERT_URL",
