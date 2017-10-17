@@ -23,15 +23,16 @@ function create_env () {
     }  
 EOF
 
-  cat ./credentials.json 
   cp ./credentials.json ./jumpbox-artifacts
 
   # Terraform Apply
   echo "Running terraform apply"
   terraform apply -var-file=$TERRAFORM_VARS_FILE
 
+  PRIVATE_KEY=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate ssh_private_key)
+
   mkdir -p ssh-key 
-  cp ../key ssh-key/.
+  echo $PRIVATE_KEY ssh-key/key
   chmod 0400 ssh-key/key
 }
 
