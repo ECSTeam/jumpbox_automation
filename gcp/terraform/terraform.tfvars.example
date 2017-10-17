@@ -1,4 +1,4 @@
-prefix = "cops"                                    # Unique Name for deployment
+prefix = "gold"                                    # Unique Name for deployment
 region = "us-east1"                                # Default GCloud Region
 zones = ["us-east1-c", "us-east1-b", "us-east1-a"] # Deafult GCloud zones
 project = "ecs-pcf-on-gce-2016"                    # Existing Project Identifier

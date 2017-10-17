@@ -3,5 +3,6 @@
 **/*.swp
 **/.terraform
 **/ssh-key
+**/key
 *.out
 credentials.yml

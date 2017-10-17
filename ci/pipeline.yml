@@ -28,8 +28,7 @@ jobs:
         CREDS_TYPE: ((gcp-creds-type))
         CREDS_PROJECT_ID: ((gcp-creds-project-id))
         CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
-        CREDS_PRIVATE_KEY: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC/q+w/UZC03Hn4\npRQGYGs36GA3vSW0nUp+TCGMmHFOVd4jyq2Jv+sPd+jPEDQIgHB/wZwlj/2xEKY7\nNJcB0A5CqpaMGQeVpC8lCur+Bim7UAfUVg+UWAKeE0UmuCPp+5ItUisVpprlPZkG\n6uysMzMJw+Pifm+/A95/TXMrGz3O4wmGdN9ugAgX2yXzjGB8devoGTHbLcNknguY\n0el3dT0CPdGFCKMQSUKCjYveMx3xtf5x6FHm/YWzeMR/qSCe5/+bBfNeLQL/qjc2\nNPHGKmwvf/2/FQtKhiErH/7skbpXUI/OzAnoblK1oe2p4kujAhR0soP2uCenOygp\ngcLpxR4zAgMBAAECggEABtEbrQwpbDKeiJLVGahKjT76U7vU6vhgeAnHdFjO8tJy\np5g46s9vZz9EVupEcib17qfuoJa0lvG4z8iTiaYiKQnTIowYrSBH6Evb8V6RE7ne\nxWpYJyuoJYIZnAJsOJFQxhmIMb7D/zIyeUCtW9nS+gkZrOpX7sBkTz0XGFSMMrQ9\noizZ/rGOatcCra+/Idn9dXGFBOMcMrMCcESz2VffuyPrktn5AMZgdx8+iDFxnN6n\nEGuqvJEbUSNZYMdyKjyMabYxvjQ2RnqompEtAcQxRVjx3Sc6z+OEk/NjPPLuz0O+\nrEerF3zoLnXTxiRli+WGbGhzWZ7i+941P1GyVw8LZQKBgQDtgjy+kOsqqjqg0l3O\nE6P5zlkNOYWRmwVe2p4vc+nnI2SBnwSJOcjGI1AIf2tiGvp0o8H+D5Xbuu4F5QJK\naem5YovGfEy/6GAAu3sBdJeyAIaPpg1z/Bi6dVILFJRiV4Na01JIHckXVnldVTuB\nlTk8OsjjDajLnEPeSWb1YDClBQKBgQDOmBwQ4Uq3WKOFJQQWO8/qlZtVz1CKCkO9\nwTT6DyTH5I/UTsW2zBTAOuGVz4HPdttS2DqXsSCdjSBaKsCUhpfgTflm/p7N89b4\nv1KBabuLR+abd0YEGadJTAWUePwIsnlSDGg8DdN9OwXUxxPi+MfNfQP1ur1lJjOX\nirwcOOcb1wKBgQDR1PotsoLRkstxQem2Iwv/qxpp4KPs2/SGtMaETfgcSNyG2CJ9\nyhtjUddnaotIhWU4n2TIPKS9GA0qEAVSEPh43GN43GBCO951Ry2JP6S1kllPl/jS\nu6ptMTFmsKvXplFacNCE/ium/rMCjkagWWHToGvSjULPgCNFw7u+lVjksQKBgQCl\nJblB0SbuG+BTnfx/XX7ecovC87/ZKU1vkdQslRB87nv/ZpzsfIWWCTutizykwMmg\nlxN3kXOWHmufSI+76z/bYdmd+Kqvzl2paR+mLgRq2aZB3v3MZ0lv8WKAhppKxYjw\nCtUENLU8ZYNKzX1bMi5eWLJiq82c3wXc/V1UXjR47wKBgGOpyc4H4FYl1DQEPIey\n92QsuQrZAiJrVZ4GytBw7fO5JaA/D9KNSh+HGjbfbrIuLS0CjdSG3cKm5BhRP8HC\n9+BPJsM1WTQJW5NS/TVDaon/6Wgum5wstlxGuEffvyfna9G5z7GOMN9BTNfBK4/p\nwVd5aHJen2gZezO7n+fofHm5\n-----END
-          PRIVATE KEY-----\n'
+        CREDS_PRIVATE_KEY: ((gcp-creds-private-key))
         CREDS_EMAIL: ((gcp-creds-email))
         CREDS_CLIENT_ID: ((gcp-creds-client-id))
         CREDS_CERT_URL: ((gcp-creds-cert-url))
@@ -40,19 +39,18 @@ jobs:
         IAAS_DIRECTORY: {{iaas-directory}}
         IAAS_USERNAME: {{iaas-username}}
         IAAS_PASSWORD: {{iaas-password}}
-    # ensure:
-    #   task: Destroy
-    #   file: {{destroy-jumpbox-script}}
-    #   params:
-    #     JUMPBOX_ACTION: destroy
-    #     IAAS_DIRECTORY: {{iaas-directory}}
-    #     IAAS_USERNAME: {{iaas-username}}
-    #     IAAS_PASSWORD: {{iaas-password}}
-    #     CREDS_TYPE: ((gcp-creds-type))
-    #     CREDS_PROJECT_ID: ((gcp-creds-project-id))
-    #     CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
-    #     CREDS_PRIVATE_KEY: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC/q+w/UZC03Hn4\npRQGYGs36GA3vSW0nUp+TCGMmHFOVd4jyq2Jv+sPd+jPEDQIgHB/wZwlj/2xEKY7\nNJcB0A5CqpaMGQeVpC8lCur+Bim7UAfUVg+UWAKeE0UmuCPp+5ItUisVpprlPZkG\n6uysMzMJw+Pifm+/A95/TXMrGz3O4wmGdN9ugAgX2yXzjGB8devoGTHbLcNknguY\n0el3dT0CPdGFCKMQSUKCjYveMx3xtf5x6FHm/YWzeMR/qSCe5/+bBfNeLQL/qjc2\nNPHGKmwvf/2/FQtKhiErH/7skbpXUI/OzAnoblK1oe2p4kujAhR0soP2uCenOygp\ngcLpxR4zAgMBAAECggEABtEbrQwpbDKeiJLVGahKjT76U7vU6vhgeAnHdFjO8tJy\np5g46s9vZz9EVupEcib17qfuoJa0lvG4z8iTiaYiKQnTIowYrSBH6Evb8V6RE7ne\nxWpYJyuoJYIZnAJsOJFQxhmIMb7D/zIyeUCtW9nS+gkZrOpX7sBkTz0XGFSMMrQ9\noizZ/rGOatcCra+/Idn9dXGFBOMcMrMCcESz2VffuyPrktn5AMZgdx8+iDFxnN6n\nEGuqvJEbUSNZYMdyKjyMabYxvjQ2RnqompEtAcQxRVjx3Sc6z+OEk/NjPPLuz0O+\nrEerF3zoLnXTxiRli+WGbGhzWZ7i+941P1GyVw8LZQKBgQDtgjy+kOsqqjqg0l3O\nE6P5zlkNOYWRmwVe2p4vc+nnI2SBnwSJOcjGI1AIf2tiGvp0o8H+D5Xbuu4F5QJK\naem5YovGfEy/6GAAu3sBdJeyAIaPpg1z/Bi6dVILFJRiV4Na01JIHckXVnldVTuB\nlTk8OsjjDajLnEPeSWb1YDClBQKBgQDOmBwQ4Uq3WKOFJQQWO8/qlZtVz1CKCkO9\nwTT6DyTH5I/UTsW2zBTAOuGVz4HPdttS2DqXsSCdjSBaKsCUhpfgTflm/p7N89b4\nv1KBabuLR+abd0YEGadJTAWUePwIsnlSDGg8DdN9OwXUxxPi+MfNfQP1ur1lJjOX\nirwcOOcb1wKBgQDR1PotsoLRkstxQem2Iwv/qxpp4KPs2/SGtMaETfgcSNyG2CJ9\nyhtjUddnaotIhWU4n2TIPKS9GA0qEAVSEPh43GN43GBCO951Ry2JP6S1kllPl/jS\nu6ptMTFmsKvXplFacNCE/ium/rMCjkagWWHToGvSjULPgCNFw7u+lVjksQKBgQCl\nJblB0SbuG+BTnfx/XX7ecovC87/ZKU1vkdQslRB87nv/ZpzsfIWWCTutizykwMmg\nlxN3kXOWHmufSI+76z/bYdmd+Kqvzl2paR+mLgRq2aZB3v3MZ0lv8WKAhppKxYjw\nCtUENLU8ZYNKzX1bMi5eWLJiq82c3wXc/V1UXjR47wKBgGOpyc4H4FYl1DQEPIey\n92QsuQrZAiJrVZ4GytBw7fO5JaA/D9KNSh+HGjbfbrIuLS0CjdSG3cKm5BhRP8HC\n9+BPJsM1WTQJW5NS/TVDaon/6Wgum5wstlxGuEffvyfna9G5z7GOMN9BTNfBK4/p\nwVd5aHJen2gZezO7n+fofHm5\n-----END
-    #       PRIVATE KEY-----\n'
-    #     CREDS_EMAIL: ((gcp-creds-email))
-    #     CREDS_CLIENT_ID: ((gcp-creds-client-id))
-    #     CREDS_CERT_URL: ((gcp-creds-cert-url))
+    ensure:
+      task: Destroy
+      file: {{destroy-jumpbox-script}}
+      params:
+        JUMPBOX_ACTION: destroy
+        IAAS_DIRECTORY: {{iaas-directory}}
+        IAAS_USERNAME: {{iaas-username}}
+        IAAS_PASSWORD: {{iaas-password}}
+        CREDS_TYPE: ((gcp-creds-type))
+        CREDS_PROJECT_ID: ((gcp-creds-project-id))
+        CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
+        CREDS_PRIVATE_KEY: ((gcp-creds-private-key))
+        CREDS_EMAIL: ((gcp-creds-email))
+        CREDS_CLIENT_ID: ((gcp-creds-client-id))
+        CREDS_CERT_URL: ((gcp-creds-cert-url))

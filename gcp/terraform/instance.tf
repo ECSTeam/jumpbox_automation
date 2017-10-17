@@ -29,8 +29,8 @@ resource "google_compute_instance" "jumpbox" {
   }
 
   metadata = {
-    ssh-keys               = "${format("ubuntu:%s", tls_private_key.jumpbox.public_key_openssh)}"
-    block-project-ssh-keys = "TRUE"
+    sshKeys                = "${format("ubuntu:%s", tls_private_key.jumpbox.public_key_openssh)}"
+    blockProjectSshKeys = "TRUE"
   }
 }
 
