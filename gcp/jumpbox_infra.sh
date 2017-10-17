@@ -6,7 +6,8 @@ function create_env () {
 
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
-
+  
+  CREDS_PRIVATE_KEY=$(echo $CREDS_PRIVATE_KEY | tr '\n' ' ')
   cat <<EOF >> ./credentials.json
   {
     "type": "$CREDS_TYPE",
