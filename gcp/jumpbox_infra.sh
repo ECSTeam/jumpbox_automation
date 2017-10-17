@@ -24,7 +24,6 @@ function create_env () {
 EOF
 
   cat ./credentials.json 
-  exit 1
   cp ./credentials.json ./jumpbox-artifacts
 
   # Terraform Apply
