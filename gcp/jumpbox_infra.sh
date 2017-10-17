@@ -29,6 +29,7 @@ EOF
 
   mkdir -p ssh-key 
   cp ../key ssh-key/.
+  chmod 0400 ssh-key/key
 }
 
 function terraform_state_exists () {
