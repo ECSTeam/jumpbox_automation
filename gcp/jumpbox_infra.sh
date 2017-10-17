@@ -45,6 +45,7 @@ function terraform_state_exists () {
 
 function destroy_env () {
 
+  CREDS_PRIVATE_KEY=$(echo $CREDS_PRIVATE_KEY | tr '\n' ' ')
   cat <<EOF >> ./credentials.json
   {
     "type": "$CREDS_TYPE",
@@ -57,7 +58,7 @@ function destroy_env () {
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
     "token_uri": "https://accounts.google.com/o/oauth2/token",
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
-    }  
+  }  
 EOF
 
   #exit 1
