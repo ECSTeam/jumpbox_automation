@@ -39,18 +39,18 @@ jobs:
         IAAS_DIRECTORY: {{iaas-directory}}
         IAAS_USERNAME: {{iaas-username}}
         IAAS_PASSWORD: {{iaas-password}}
-    # ensure:
-    #   task: Destroy
-    #   file: {{destroy-jumpbox-script}}
-    #   params:
-    #     JUMPBOX_ACTION: destroy
-    #     IAAS_DIRECTORY: {{iaas-directory}}
-    #     IAAS_USERNAME: {{iaas-username}}
-    #     IAAS_PASSWORD: {{iaas-password}}
-    #     CREDS_TYPE: ((gcp-creds-type))
-    #     CREDS_PROJECT_ID: ((gcp-creds-project-id))
-    #     CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
-    #     CREDS_PRIVATE_KEY: ((gcp-creds-private-key))
-    #     CREDS_EMAIL: ((gcp-creds-email))
-    #     CREDS_CLIENT_ID: ((gcp-creds-client-id))
-    #     CREDS_CERT_URL: ((gcp-creds-cert-url))
+    ensure:
+      task: Destroy
+      file: {{destroy-jumpbox-script}}
+      params:
+        JUMPBOX_ACTION: destroy
+        IAAS_DIRECTORY: {{iaas-directory}}
+        IAAS_USERNAME: {{iaas-username}}
+        IAAS_PASSWORD: {{iaas-password}}
+        CREDS_TYPE: ((gcp-creds-type))
+        CREDS_PROJECT_ID: ((gcp-creds-project-id))
+        CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
+        CREDS_PRIVATE_KEY: ((gcp-creds-private-key))
+        CREDS_EMAIL: ((gcp-creds-email))
+        CREDS_CLIENT_ID: ((gcp-creds-client-id))
+        CREDS_CERT_URL: ((gcp-creds-cert-url))
