@@ -32,7 +32,7 @@ EOF
   PRIVATE_KEY=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate ssh_private_key)
 
   mkdir -p ssh-key 
-  echo $PRIVATE_KEY ssh-key/key
+  echo $PRIVATE_KEY > ssh-key/key
   chmod 0400 ssh-key/key
 }
 
