@@ -9,8 +9,8 @@ image_resource:
 params:
   JUMPBOX_ACTION:
   IAAS_DIRECTORY:
-  IAAS_USERNAME:
-  IAAS_PASSWORD:
+  VSPHERE_USERNAME:
+  VSPHERE_PASSWORD:
 
 inputs:
   - name: automation-scripts

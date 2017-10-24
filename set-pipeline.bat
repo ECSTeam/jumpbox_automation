@@ -18,13 +18,7 @@ if [%3]==[] (
         set filename=%3
         call :test_file
     )
-if [%4]==[] ( 
-        goto usage 
-    ) else (
-        set filename=%4
-        call :test_file
-    )
-if [%5]==[] goto usage
+if [%4]==[] goto usage
 
 if ERRORLEVEL 1 (
     echo "ERROR Occured exiting script"
@@ -33,9 +27,9 @@ if ERRORLEVEL 1 (
 
 echo "Creating the pipeline"
 
-fly -t %1 set-pipeline -c %2 -l %3 -l %4 -p %5 -n
+fly -t %1 set-pipeline -c %2 -l %3  -p %4 -n
 
-fly -t %1 unpause-pipeline -p %5
+fly -t %1 unpause-pipeline -p %4
 
 EXIT /B %ERRORLEVEL%
 
@@ -58,7 +52,7 @@ EXIT /B %ERRORLEVEL%
 
 :usage
 
-echo %0 usage: %0 concourse-target pipeline.yml config.yml credentials.yml pipeline-name\
+echo %0 usage: %0 concourse-target pipeline.yml config.yml pipeline-name\
 
 set ERRORLEVEL=1
 

@@ -18,8 +18,8 @@ jobs:
     params:
       JUMPBOX_ACTION: apply
       IAAS_DIRECTORY: {{iaas-directory}}
-      IAAS_USERNAME: {{iaas-username}}
-      IAAS_PASSWORD: {{iaas-password}}
+      VSPHERE_USERNAME: ((vsphere-username))
+      VSPHERE_PASSWORD: ((vsphere-password))
       INIT_VM_USERNAME: {{init-vm-username}}
       INIT_VM_PASSWORD: {{init-vm-password}}
   - task: Verify
@@ -27,5 +27,5 @@ jobs:
     params:
       JUMPBOX_ACTION: verify
       IAAS_DIRECTORY: {{iaas-directory}}
-      IAAS_USERNAME: {{iaas-username}}
-      IAAS_PASSWORD: {{iaas-password}}
+      VSPHERE_USERNAME: ((vsphere-username))
+      VSPHERE_PASSWORD: ((vsphere-password))

@@ -16,7 +16,7 @@ function terraform_state_exists () {
 function verify_env () {
   terraform_state_exists
 
-    JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
+  JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
   echo "exit" | telnet $JUMPBOX_IP 22 | grep "Connected"
   RETURN_CODE=$(echo -e $?)
   if [[ $RETURN_CODE == 0 ]]; then

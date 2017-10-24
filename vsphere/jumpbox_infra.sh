@@ -6,8 +6,8 @@ function create_env () {
   # Replace place holders
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
 
-  echo "viuser=\"$IAAS_USERNAME\"" >> $TERRAFORM_VARS_FILE
-  echo "vipassword=\"$IAAS_PASSWORD\"" >> $TERRAFORM_VARS_FILE
+  echo "viuser=\"$VSPHERE_USERNAME\"" >> $TERRAFORM_VARS_FILE
+  echo "vipassword=\"$VSPHERE_PASSWORD\"" >> $TERRAFORM_VARS_FILE
 
   echo "ssh-user=\"$INIT_VM_USERNAME\"" >> $TERRAFORM_VARS_FILE
   echo "ssh-password=\"$INIT_VM_PASSWORD\"" >> $TERRAFORM_VARS_FILE

@@ -21,10 +21,10 @@ jobs:
         AZURE_USERNAME: ((azure-username))
         AZURE_PASSWORD: ((azure-password))
         IAAS_DIRECTORY: {{iaas-directory}}
-        IAAS_USERNAME: {{iaas-username}}
-        IAAS_PASSWORD: {{iaas-password}}
-        INIT_VM_USERNAME: {{init-vm-username}}
-        INIT_VM_PASSWORD: {{init-vm-password}}
+        VSPHERE_USERNAME: ((vsphere-username))
+        VSPHERE_PASSWORD: ((vsphere-password))
+        INIT_VM_USERNAME: ((init-vm-username))
+        INIT_VM_PASSWORD: ((init-vm-password))
         CREDS_TYPE: ((gcp-creds-type))
         CREDS_PROJECT_ID: ((gcp-creds-project-id))
         CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
@@ -37,16 +37,18 @@ jobs:
       params:
         JUMPBOX_ACTION: verify
         IAAS_DIRECTORY: {{iaas-directory}}
-        IAAS_USERNAME: {{iaas-username}}
-        IAAS_PASSWORD: {{iaas-password}}
+        VSPHERE_USERNAME: ((vsphere-username))
+        VSPHERE_PASSWORD: ((vsphere-password))
     ensure:
       task: Destroy
       file: {{destroy-jumpbox-script}}
       params:
         JUMPBOX_ACTION: destroy
+        AZURE_USERNAME: ((azure-username))
+        AZURE_PASSWORD: ((azure-password))
         IAAS_DIRECTORY: {{iaas-directory}}
-        IAAS_USERNAME: {{iaas-username}}
-        IAAS_PASSWORD: {{iaas-password}}
+        VSPHERE_USERNAME: ((vsphere-username))
+        VSPHERE_PASSWORD: ((vsphere-password))
         CREDS_TYPE: ((gcp-creds-type))
         CREDS_PROJECT_ID: ((gcp-creds-project-id))
         CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))

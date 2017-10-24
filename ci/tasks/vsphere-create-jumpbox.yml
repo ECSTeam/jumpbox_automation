@@ -6,9 +6,12 @@ image_resource:
   source:
     repository: cgicloudnative/cfjump
 
+params:
+  VSPHERE_USERNAME:
+  VSPHERE_PASSWORD:
+  
 inputs:
   - name: automation-scripts
-  # - name: vm-template
 
 outputs:
  - name: jumpbox-artifacts
