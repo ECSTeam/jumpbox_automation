@@ -17,10 +17,12 @@ jobs:
     - task: Create
       file: {{create-jumpbox-script}}
       params:
-        JUMPBOX_ACTION: apply
+        JUMPBOX_ACTION: apply        
+        IAAS_DIRECTORY: {{iaas-directory}}
+        AWS_ACCESS_KEY: ((aws-access-key-id))
+        AWS_SECRET_ACCESS_KEY: ((aws-secret-access-key))
         AZURE_USERNAME: ((azure-username))
         AZURE_PASSWORD: ((azure-password))
-        IAAS_DIRECTORY: {{iaas-directory}}
         VSPHERE_USERNAME: ((vsphere-username))
         VSPHERE_PASSWORD: ((vsphere-password))
         INIT_VM_USERNAME: ((init-vm-username))
