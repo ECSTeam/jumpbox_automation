@@ -12,8 +12,9 @@ function create_env () {
   echo "Running terraform apply"
 
   mkdir -p $TERRAFORM_DIR/ssh
-  
-  echo $AWS_PRIVATE_KEY > 
+
+  echo $AWS_PRIVATE_KEY 
+
   terraform apply -var-file=$TERRAFORM_VARS_FILE
 
 }
