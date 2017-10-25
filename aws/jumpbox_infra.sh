@@ -11,7 +11,7 @@ function create_env () {
   echo "prefix                = \"$AWS_PREFIX\"" >> $TERRAFORM_VARS_FILE
   echo "Running terraform apply"
 
-  mkdir -p $TERRAFORM_DIR/ssh
+  mkdir -p $TERRAFORM_DIR/ssh-key
 
   echo $AWS_PRIVATE_KEY > $TERRAFORM_DIR/ssh/gold-environment.pem
 
