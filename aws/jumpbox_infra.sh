@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 function create_env () {
   terraform init
