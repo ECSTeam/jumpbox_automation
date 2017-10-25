@@ -30,14 +30,24 @@ function verify_env () {
   terraform_state_exists
 
   JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
-  echo "exit" | telnet $JUMPBOX_IP 22 | grep "Connected"
-  RETURN_CODE=$(echo -e $?)
-  if [[ $RETURN_CODE == 0 ]]; then
-    echo -e "\nJumpbox is UP!"
-  else
-    echo -e "\nJumpbox is DOWN!"
-    exit 1
-  fi
+  RETURN_CODE=1
+  SSH_ATTEMPTS=0
+  # Ensure the keys have been configured properly.
+  until [ $RETURN_CODE == 0 ]; do
+    echo "exit" | telnet $JUMPBOX_IP 22 | grep "Connected"
+    RETURN_CODE=$(echo -e $?)
+    if [[ $RETURN_CODE == 0 ]]; then
+       echo -e "\nJumpbox is UP!"
+    else
+      ((SSH_ATTEMPTS++))
+      if [ "$SSH_ATTEMPTS" -gt "5" ]; then 
+        echo -e "\nJumpbox is DOWN!"
+        exit 1
+      fi
+
+      sleep 1
+    fi
+  done
 }
 
 function ssh_env () {
