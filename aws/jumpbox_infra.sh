@@ -10,7 +10,12 @@ function create_env () {
   echo "aws_key_name          = \"$AWS_KEY_NAME\"" >> $TERRAFORM_VARS_FILE
   echo "prefix                = \"$AWS_PREFIX\"" >> $TERRAFORM_VARS_FILE
   echo "Running terraform apply"
+
+  mkdir -p $TERRAFORM_DIR/ssh
+  
+  echo $AWS_PRIVATE_KEY > 
   terraform apply -var-file=$TERRAFORM_VARS_FILE
+
 }
 
 function terraform_state_exists () {
