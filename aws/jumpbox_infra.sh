@@ -8,7 +8,7 @@ function create_env () {
   echo "aws_access_key        = \"$AWS_ACCESS_KEY\"" >> $TERRAFORM_VARS_FILE
   echo "aws_secret_key        = \"$AWS_SECRET_ACCESS_KEY\"" >> $TERRAFORM_VARS_FILE
   echo "aws_key_name          = \"$AWS_KEY_NAME\"" >> $TERRAFORM_VARS_FILE
-
+  echo "prefix                = \"$AWS_PREFIX\"" >> $TERRAFORM_VARS_FILE
   echo "Running terraform apply"
   terraform apply -var-file=$TERRAFORM_VARS_FILE
 }
@@ -40,6 +40,20 @@ function ssh_env () {
   JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
   SSH_KEYNAME=$(cat $TERRAFORM_DIR/terraform.tfvars | grep "aws_key_name" | awk '{print $3}' | tr -d '"')
   ssh -i ~/.ssh/$SSH_KEYNAME.pem -o StrictHostKeyChecking=no ubuntu@$JUMPBOX_IP
+}
+
+function destroy_env () {
+  # Destroy terraformed jumpbox env 
+  echo "Running terraform destroy"
+  terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
+
+  # Remove the state files. If present, this would take precedence. 
+  echo "Deleting $TERRAFORM_DIR/*.tfstate*"
+  rm $TERRAFORM_DIR/*.tfstate*
+
+  # Remove terraform vars final
+  echo "Removing terraform vars final"
+  rm $TERRAFORM_VARS_FILE
 }
 
 action=$1
