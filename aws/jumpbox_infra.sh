@@ -6,7 +6,7 @@ function create_env () {
 
   cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
   echo "aws_access_key        = \"$AWS_ACCESS_KEY\"" >> $TERRAFORM_VARS_FILE
-  echo "aws_secret_access_key = \"$AWS_SECRET_ACCESS_KEY\"" >> $TERRAFORM_VARS_FILE
+  echo "aws_secret_key        = \"$AWS_SECRET_ACCESS_KEY\"" >> $TERRAFORM_VARS_FILE
   echo "aws_key_name          = \"$AWS_KEY_NAME\"" >> $TERRAFORM_VARS_FILE
 
   echo "Running terraform apply"
