@@ -51,7 +51,7 @@ fi
 
 CWD=$(pwd)
 TERRAFORM_DIR=$CWD/terraform
-TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform.tfvars
+TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform-final.tfvars
 
 cd $TERRAFORM_DIR
 
