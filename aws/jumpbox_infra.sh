@@ -13,7 +13,7 @@ function create_env () {
 
   mkdir -p $TERRAFORM_DIR/ssh
 
-  echo $AWS_PRIVATE_KEY 
+  echo $AWS_PRIVATE_KEY > $TERRAFORM_DIR/ssh/gold-environment.pem
 
   terraform apply -var-file=$TERRAFORM_VARS_FILE
 
