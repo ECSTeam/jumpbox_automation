@@ -53,7 +53,7 @@ function verify_env () {
       echo -e "\nJumpbox ssh PASSED"
     else
       ((SSH_ATTEMPTS++))
-      if [ $SSH_ATTEMPTS > 5 ]; then 
+      if [ "$SSH_ATTEMPTS" -gt "5" ]; then 
         echo -e "\nJumpbox ssh return code : $RETURN_CODE FAILED"
         exit 1
       fi
