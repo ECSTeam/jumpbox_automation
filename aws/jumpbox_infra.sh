@@ -34,7 +34,7 @@ function verify_env () {
   SSH_ATTEMPTS=0
   # Ensure the keys have been configured properly.
   until [ $RETURN_CODE == 0 ]; do
-    echo "exit" | telnet $JUMPBOX_IP 22 | grep "Connected"
+    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i ../../../jumpbox-artifacts/gold-environment.pem ubuntu@$JUMPBOX_IP pwd
     RETURN_CODE=$(echo -e $?)
     if [[ $RETURN_CODE == 0 ]]; then
        echo -e "\nJumpbox is UP!"

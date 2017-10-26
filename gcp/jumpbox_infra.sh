@@ -100,7 +100,7 @@ function verify_env () {
 action=$1
 
 if [ -z $action ]; then
-  echo "Missing argument. Requires one of {apply|destroy|output}"
+  echo "Missing argument. Requires one of {apply|destroy|output|verify}"
   exit 1
 fi
 
