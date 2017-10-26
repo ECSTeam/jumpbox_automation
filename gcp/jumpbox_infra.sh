@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 function create_env () {
 
   # Replace place holders

@@ -1,6 +1,4 @@
-#!/bin/bash
-
-set -x 
+#!/bin/bash 
 
 function create_env () {
   # Replace place holders
