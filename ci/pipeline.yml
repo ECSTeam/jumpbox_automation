@@ -44,20 +44,20 @@ jobs:
         IAAS_DIRECTORY: {{iaas-directory}}
         VSPHERE_USERNAME: ((vsphere-username))
         VSPHERE_PASSWORD: ((vsphere-password))
-    # ensure:
-    #   task: Destroy
-    #   file: {{destroy-jumpbox-script}}
-    #   params:
-    #     JUMPBOX_ACTION: destroy
-    #     AZURE_USERNAME: ((azure-username))
-    #     AZURE_PASSWORD: ((azure-password))
-    #     IAAS_DIRECTORY: {{iaas-directory}}
-    #     VSPHERE_USERNAME: ((vsphere-username))
-    #     VSPHERE_PASSWORD: ((vsphere-password))
-    #     CREDS_TYPE: ((gcp-creds-type))
-    #     CREDS_PROJECT_ID: ((gcp-creds-project-id))
-    #     CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
-    #     CREDS_PRIVATE_KEY: ((gcp-creds-private-key))
-    #     CREDS_EMAIL: ((gcp-creds-email))
-    #     CREDS_CLIENT_ID: ((gcp-creds-client-id))
-    #     CREDS_CERT_URL: ((gcp-creds-cert-url))
+    ensure:
+      task: Destroy
+      file: {{destroy-jumpbox-script}}
+      params:
+        JUMPBOX_ACTION: destroy
+        AZURE_USERNAME: ((azure-username))
+        AZURE_PASSWORD: ((azure-password))
+        IAAS_DIRECTORY: {{iaas-directory}}
+        VSPHERE_USERNAME: ((vsphere-username))
+        VSPHERE_PASSWORD: ((vsphere-password))
+        CREDS_TYPE: ((gcp-creds-type))
+        CREDS_PROJECT_ID: ((gcp-creds-project-id))
+        CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
+        CREDS_PRIVATE_KEY: ((gcp-creds-private-key))
+        CREDS_EMAIL: ((gcp-creds-email))
+        CREDS_CLIENT_ID: ((gcp-creds-client-id))
+        CREDS_CERT_URL: ((gcp-creds-cert-url))
