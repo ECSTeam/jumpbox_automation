@@ -5,7 +5,3 @@ provider "azurerm" {
   tenant_id       = "${var.tenant_id}"
   version         = "~> 0.2"
 }
-
-provider "template" {
-  version        = "~> 1.0"
-}
