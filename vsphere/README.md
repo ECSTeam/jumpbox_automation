@@ -14,6 +14,10 @@
     - Disable sudo password entry for the `ubuntu` user
       - `sudo visudo`
       - Add `ubuntu ALL=(ALL) NOPASSWD: ALL` to the bottom of the file.
+    - Disable the floppy. (A floppy?!? WTF? Why is this enabled by default?)
+      - echo "blacklist floppy" | sudo tee /etc/modprobe.d/blacklist-floppy.conf
+      - sudo rmmod floppy
+      - sudo update-initramfs -u
     - Take a snapshot of the VM
 
 # Manual Deployment
