@@ -8,12 +8,11 @@
          - Select check box "Connect at power on"
     - Power on VM. This will start the OS installation. Expand the VM console and answer questions accordingly.
       - NOTE: Disk partitioning select "Guided - use entire disk". TODO: Confirm LVM is correct selection.
-    - Setup initial User (Expected: ubuntu) [Can be anything, terraform config needs update if changed]
-    - If you created a different user, add new user to /etc/sudoers using visudo
-    - Turn on ssh - `sudo service ssh start`
+    - Setup initial User `ubuntu`
     - Disable sudo password entry for the `ubuntu` user
       - `sudo visudo`
       - Add `ubuntu ALL=(ALL) NOPASSWD: ALL` to the bottom of the file.
+    - Turn on ssh - `sudo service ssh start`
     - Disable the floppy. (A floppy?!? WTF? Why is this enabled by default?)
       - echo "blacklist floppy" | sudo tee /etc/modprobe.d/blacklist-floppy.conf
       - sudo rmmod floppy
