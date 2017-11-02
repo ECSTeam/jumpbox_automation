@@ -4,7 +4,7 @@ resource "vsphere_virtual_machine" "jumpbox" {
   vcpu = "${var.vm-cpu}"
   memory = "${var.vm-memory}"
   datacenter = "${var.vm-datacenter}"
-  folder = "{var.vm-folder}
+  folder = "{var.vm-folder}"
   linked_clone = "true"
 
   network_interface {
