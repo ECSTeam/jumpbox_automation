@@ -10,12 +10,13 @@
 # ssh-identity     = "<identity file location>"  # Currently unneeded, the initial SSH uses basic auth to upload key file
 
 ##### VM Instance Configuration #####
-  vm-name          = "jumpbox01"                 # Instance/DNS Name for the new VM
+  vm-name          = "jumpbox-iac-test"          # Instance/DNS Name for the new VM
   vm-cpu           = "1"                         # Number of virtual CPUs
   vm-memory        = "1024"                      # Memory allocation (in MB)
   vm-datacenter    = "Lab01-Datacenter01"        # vSphere Datacenter reference
   vm-network-label = "Lab01-NetD"                # vSphere Network Label reference
-  vm-template      = "jumpbox"                 # Name of the VM from which this one is created.
+  vm-template      = "jumpbox"                   # Name of the VM from which this one is created.
+  vm-folder        = "Gold"                      # Resource pool / folder used for the vm
 # vm-data-type     = "thin"                      # DEFAULTED # vSphere Disk storage type
   vm-datastore     = "nfs-lab01-vol1"            # vSphere Datastore reference
 # vm-default-user  = "ubuntu"                    # DEFAULTED # Predefined User from vm-template

@@ -13,6 +13,7 @@ variable vm-memory        {}
 variable vm-datacenter    {}
 variable vm-network-label {}
 variable vm-template      {}
+variable vm-folder        {}
 variable vm-data-type     { default = "thin" }
 variable vm-datastore     {}
 variable vm-default-user  { default = "ubuntu" }
