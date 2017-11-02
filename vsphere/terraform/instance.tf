@@ -5,6 +5,7 @@ resource "vsphere_virtual_machine" "jumpbox" {
   memory = "${var.vm-memory}"
   datacenter = "${var.vm-datacenter}"
   folder = "${var.vm-folder}"
+  resource_pool = "Lab01-Cluster01/Resources/Gold"
   linked_clone = "true"
 
   network_interface {
