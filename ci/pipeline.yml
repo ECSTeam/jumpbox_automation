@@ -17,12 +17,14 @@ jobs:
     - task: Create
       file: {{create-jumpbox-script}}
       params:
-        JUMPBOX_ACTION: apply        
+        JUMPBOX_ACTION: apply
         IAAS_DIRECTORY: {{iaas-directory}}
         AWS_ACCESS_KEY: ((aws-access-key-id))
         AWS_SECRET_ACCESS_KEY: ((aws-secret-access-key))
         AWS_KEY_NAME: gold-environment
         AWS_PREFIX: jumpbox
+        AWS_REGION: us-east-1
+        AWS_AZ1: us-east-1a
         AWS_PRIVATE_KEY: ((aws-private-key))
         AZURE_USERNAME: ((azure-username))
         AZURE_PASSWORD: ((azure-password))

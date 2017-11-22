@@ -11,7 +11,11 @@ params:
   IAAS_DIRECTORY:
   AWS_ACCESS_KEY:
   AWS_SECRET_ACCESS_KEY:
-  
+  AWS_KEY_NAME:
+  AWS_PREFIX:
+  AWS_REGION:
+  AWS_AZ1: 
+
 inputs:
   - name: automation-scripts
 

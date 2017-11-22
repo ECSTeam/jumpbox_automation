@@ -2,7 +2,7 @@
 ###################################################
 #
 #  This script creates a jumpbox on AWS. It also
-#  provides the ability to verify the jumpbox 
+#  provides the ability to verify the jumpbox
 #  was create as expected created for use by the
 #  test case.
 #
@@ -19,12 +19,14 @@ function create_env () {
   echo "aws_secret_key        = \"$AWS_SECRET_ACCESS_KEY\"" >> $TERRAFORM_VARS_FILE
   echo "aws_key_name          = \"$AWS_KEY_NAME\"" >> $TERRAFORM_VARS_FILE
   echo "prefix                = \"$AWS_PREFIX\"" >> $TERRAFORM_VARS_FILE
+  echo "aws_region            = \"$AWS_REGION\"" >> $TERRAFORM_VARS_FILE
+  echo "az1                   = \"$AWS_AZ1\"" >> $TERRAFORM_VARS_FILE
   echo "Running terraform apply"
 
   mkdir -p $TERRAFORM_DIR/ssh-key
 
-  echo "$AWS_PRIVATE_KEY" > $TERRAFORM_DIR/ssh-key/gold-environment.pem
-  chmod 0400 $TERRAFORM_DIR/ssh-key/gold-environment.pem
+  cp ~/.ssh/$AWS_KEY_NAME.pem $TERRAFORM_DIR/ssh-key/$AWS_KEY_NAME.pem
+  chmod 0400 $TERRAFORM_DIR/ssh-key/$AWS_KEY_NAME.pem
 
   terraform apply -var-file=$TERRAFORM_VARS_FILE
 
@@ -45,13 +47,13 @@ function verify_env () {
   SSH_ATTEMPTS=0
   # Ensure the keys have been configured properly.
   until [ $RETURN_CODE == 0 ]; do
-    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i ../../../jumpbox-artifacts/gold-environment.pem ubuntu@$JUMPBOX_IP pwd
+    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i ../../../jumpbox-artifacts/$AWS_KEY_NAME.pem ubuntu@$JUMPBOX_IP pwd
     RETURN_CODE=$(echo -e $?)
     if [[ $RETURN_CODE == 0 ]]; then
        echo -e "\nJumpbox is UP!"
     else
       ((SSH_ATTEMPTS++))
-      if [ "$SSH_ATTEMPTS" -gt "5" ]; then 
+      if [ "$SSH_ATTEMPTS" -gt "5" ]; then
         echo -e "\nJumpbox is DOWN!"
         exit 1
       fi
@@ -70,11 +72,11 @@ function ssh_env () {
 }
 
 function destroy_env () {
-  # Destroy terraformed jumpbox env 
+  # Destroy terraformed jumpbox env
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
 
-  # Remove the state files. If present, this would take precedence. 
+  # Remove the state files. If present, this would take precedence.
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
 
