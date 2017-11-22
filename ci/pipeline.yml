@@ -21,7 +21,7 @@ jobs:
         IAAS_DIRECTORY: {{iaas-directory}}
         AWS_ACCESS_KEY: ((aws-access-key-id))
         AWS_SECRET_ACCESS_KEY: ((aws-secret-access-key))
-        AWS_KEY_NAME: gold-environment
+        AWS_KEY_NAME: gold-environment-test
         AWS_PREFIX: jumpbox
         AWS_PRIVATE_KEY: ((aws-private-key))
         AZURE_USERNAME: ((azure-username))
