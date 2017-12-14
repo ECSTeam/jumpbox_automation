@@ -26,7 +26,7 @@ function create_env () {
 
   mkdir -p $TERRAFORM_DIR/ssh-key
 
-  cp ~/.ssh/$AWS_KEY_NAME.pem $TERRAFORM_DIR/ssh-key/$AWS_KEY_NAME.pem
+  echo "$AWS_PRIVATE_KEY" >  $TERRAFORM_DIR/ssh-key/$AWS_KEY_NAME.pem
   chmod 0400 $TERRAFORM_DIR/ssh-key/$AWS_KEY_NAME.pem
 
   terraform apply -var-file=$TERRAFORM_VARS_FILE
