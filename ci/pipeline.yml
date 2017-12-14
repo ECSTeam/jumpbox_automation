@@ -7,12 +7,17 @@ resources:
     uri: {{scripts-git-uri}}
     username: ((git-svc-user))
     password: ((git-svc-password))
+    ignore_paths:
+    - README.md
+    - .gitignore
+    - ci/pipeline.yml
 
 jobs:
 - name: jumpbox-automation
   plan:
   - aggregate:
     - get: automation-scripts
+      trigger: true
   - do:
     - task: Create
       file: {{create-jumpbox-script}}

@@ -10,7 +10,7 @@
 #
 ##################################################
 
-set -x 
+#set -x 
 
 function create_env () {
   terraform init
