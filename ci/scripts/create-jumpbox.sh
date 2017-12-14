@@ -2,15 +2,16 @@
 
 set -e
 
-root_dir=$PWD
+ROOT_DIR=$PWD
+IAAS_DIR=$ROOT_DIR/$IAAS_DIRECTORY
+TERRAFORM_DIR=$IAAS_DIR/terraform
+cd $IAAS_DIR
 
-cd $IAAS_DIRECTORY
-
-cp terraform/terraform.tfvars.example terraform/terraform.tfvars
+cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_DIR/terraform.tfvars
 
 ./jumpbox_infra.sh $JUMPBOX_ACTION
 
 ls *
-cp terraform/terraform.tfstate $root_dir/jumpbox-artifacts/
-cp terraform/terraform-final.tfvars $root_dir/jumpbox-artifacts/
-cp terraform/ssh-key/* $root_dir/jumpbox-artifacts/.
+cp $TERRAFORM_DIR/terraform.tfstate $ROOT_DIR/jumpbox-artifacts/
+cp $TERRAFORM_DIR/terraform-final.tfvars $ROOT_DIR/jumpbox-artifacts/
+cp $TERRAFORM_DIR/ssh-key/* $ROOT_DIR/jumpbox-artifacts/.

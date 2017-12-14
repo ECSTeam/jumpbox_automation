@@ -3,13 +3,14 @@
 #
 #  This script creates a jumpbox on AWS. It also
 #  provides the ability to verify the jumpbox
-#  was create as expected created for use by the
-#  test case.
+#  was created as expected. 
 #
 #  You can also use this script to delete the
 #  jumpbox and ssh to it.
 #
 ##################################################
+
+set -x 
 
 function create_env () {
   terraform init
