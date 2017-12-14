@@ -40,6 +40,13 @@ function terraform_state_exists () {
   fi
 }
 
+################################################################################################
+#
+#   This function was created to be used by the ci/pipeline.yml verify task. The create task
+#   in the pipeline places AWS private key in its output "jumpbox-artifacts". This function
+#   uses that key to ssh into the jumpbox, thus verifying it exists.
+#
+################################################################################################
 function verify_env () {
   terraform_state_exists
 
@@ -48,7 +55,8 @@ function verify_env () {
   SSH_ATTEMPTS=0
   # Ensure the keys have been configured properly.
   until [ $RETURN_CODE == 0 ]; do
-    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i ../../../jumpbox-artifacts/$AWS_KEY_NAME.pem ubuntu@$JUMPBOX_IP pwd
+    # The jumpbox-artifacts are the output of the "create" task in the ci/pipeline.yml. 
+    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i $CWD/../../jumpbox-artifacts/$AWS_KEY_NAME.pem ubuntu@$JUMPBOX_IP pwd
     RETURN_CODE=$(echo -e $?)
     if [[ $RETURN_CODE == 0 ]]; then
        echo -e "\nJumpbox is UP!"
