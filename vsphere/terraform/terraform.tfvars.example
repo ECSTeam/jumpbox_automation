@@ -1,17 +1,17 @@
 ### See setup-env.sh for substitutions that affect shell & terraform
 
 ##### VM Instance Configuration #####
-  vm-name          = "jumpbox-lab-08"                    # Instance/DNS Name for the new VM
+  vm-name          = "jumpbox-iac-tst"                    # Instance/DNS Name for the new VM
   vm-cpu           = "1"                                 # Number of virtual CPUs
   vm-cores         = "1"                                 # The number of cpu cores for the vm  ***** note: num_cpus must be evenly divisible by this num
   vm-memory        = "1024"                              # Memory allocation (in MB)
-  vm-datacenter    = "Lab08-Datacenter01"                # vSphere Datacenter reference
-  vm-network-label = "Lab08-NetD"                        # vSphere Network Label reference
-  vm-template      = "Ubuntu-16-svr-template"            # Name of the VM from which this one is created.
-  vm-pool          = "pcfPool"                           # The name of the resource pool
+  vm-datacenter    = "Lab01-Datacenter01"                # vSphere Datacenter reference
+  vm-network-label = "Lab01-NetD"                        # vSphere Network Label reference
+  vm-template      = "jumpbox"            # Name of the VM from which this one is created.
+  vm-pool          = "Gold"                           # The name of the resource pool
   vm-folder        = ""                                  # Resource pool / folder used for the vm
 # vm-data-type     = "thin"                              # DEFAULTED # vSphere Disk storage type
-  vm-datastore     = "nfs-lab08-vol1"                    # vSphere Datastore reference
+  vm-datastore     = "nfs-lab01-vol1"                    # vSphere Datastore reference
   vm-default-user  = "ubuntu"                            # DEFAULTED # Predefined User from vm-template
 # vm-prepare-file  = "../../prepare-jumpbox.sh"          # DEFAULTED # Script to install required applications
   vm-user-list     = "jnewell,ecoles,mminges,swall"      # List of additional users that need to be added to the machine
@@ -19,6 +19,3 @@
   vm-ipv4-addr     = "172.28.84.2"                       # The static ip that the jumpbox will be assigned
   vm-ipv4-netmask  = "24"                                # The netmask for the network segment the jumpbox is on
   vm-ipv4-gateway  = "172.28.84.1"                       # The default gateway for the network segment the jumpbox is on
-  vm-client-cert-path = "../../ssh-keys/"                # The path where you want the new client cert(private/public keys) to be created
-  vm-client-cert   = "jumpbox_client"                    # The name used for the cert that clients can use to ssh into the jumpbox
-  vm-svr-cert      = "jumpbox_svr_rsa"                   # The name used for the jumpbox's cert. This is the cert that will be used to other boxes so that they can be accessed from the jumpbox

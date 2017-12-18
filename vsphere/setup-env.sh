@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #These are defined here so they can be used by both the shell and terraform!
-export TF_VAR_viuser=lab08admin@lab.ecsteam.local
-export TF_VAR_vipassword=Ecsl@b99
+export TF_VAR_viuser=<CHANGE ME>
+export TF_VAR_vipassword=<CHANGE ME>
 export TF_VAR_viserver=ecsdenlabvc01.lab.ecsteam.local
 export TF_VAR_vidomain=lab.ecsteam.local
 export TF_VAR_ssh_user=ubuntu
-export TF_VAR_ssh_password=ubuntu
-export TF_VAR_ssh_key_path=../ssh-keys/
+export TF_VAR_ssh_password=<CHANGE ME>
+export TF_VAR_ssh_key_path=./ssh-key/
 export TF_VAR_vm_client_cert=jumpbox_client
 export TF_VAR_vm_svr_cert=jumpbox_svr
 
