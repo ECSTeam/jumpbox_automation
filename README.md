@@ -17,8 +17,12 @@ To use these scripts change directory to the IAS specific folder and follow the 
 ##### Standard Linux Operating Environment
 
   1. bash
-  - vi (vim)
-  - ssh
-  - ssh-keygen
-  - sshpass (1.05)
-  - terraform (>= v.0.11.1)
+  2. vi (vim)
+  3. ssh
+  4. ssh-keygen
+  5. sshpass (1.05)
+  6. terraform (>= v.0.11.1)
+
+>Note: A docker container has been built that meets all General Prerequisites. If you
+don't have access to the repo or want to customize it. The docker file is in the docker folder.
+The image is called 'jumpbox-automation'.
