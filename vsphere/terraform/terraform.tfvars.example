@@ -1,26 +1,24 @@
-##### vSphere Host Credentials #####
-# viuser           = "CHANGE ME"                 # Added via jumpbox_infra.sh
-# vipassword       = "CHANGE ME"                 # Added via jumpbox_infra.sh
-  vidomain         = "lab.ecsteam.local"
-  viserver         = "ecsdenlabvc01.lab.ecsteam.local"
-
-##### File upload after creation #####
-# ssh-user         = "CHANGE ME"                 # Added via jumpbox_infra.sh # Predefined User for initial preparation
-# ssh-password     = "CHANGE ME"                 # Added via jumpbox_infra.sh # Predefined Password for initial preparation
-# ssh-identity     = "<identity file location>"  # Currently unneeded, the initial SSH uses basic auth to upload key file
+### See setup-env.sh for substitutions that affect shell & terraform
 
 ##### VM Instance Configuration #####
-  vm-name          = "jumpbox-iac-test"          # Instance/DNS Name for the new VM
-  vm-cpu           = "1"                         # Number of virtual CPUs
-  vm-memory        = "1024"                      # Memory allocation (in MB)
-  vm-datacenter    = "Lab01-Datacenter01"        # vSphere Datacenter reference
-  vm-network-label = "Lab01-NetD"                # vSphere Network Label reference
-  vm-template      = "jumpbox"                   # Name of the VM from which this one is created.
-  vm-folder        = "Gold"                      # Resource pool / folder used for the vm
-# vm-data-type     = "thin"                      # DEFAULTED # vSphere Disk storage type
-  vm-datastore     = "nfs-lab01-vol1"            # vSphere Datastore reference
-# vm-default-user  = "ubuntu"                    # DEFAULTED # Predefined User from vm-template
-  vm-rsa-file      = "./ssh-key/jumpbox_rsa"     # File to be stored in Vault after VM has been created
-  vm-pub-rsa-file  = "./ssh-key/jumpbox_rsa.pub" # New SSH authorized_keys for VM
-# vm-prepare-file  = "../../prepare-jumpbox.sh"  # DEFAULTED # Script to install required applications
-  vm-user-list     = "ecoles,mminges,swall"      # List of additional users that need to be added to the machine
+  vm-name          = "jumpbox-lab-08"                    # Instance/DNS Name for the new VM
+  vm-cpu           = "1"                                 # Number of virtual CPUs
+  vm-cores         = "1"                                 # The number of cpu cores for the vm  ***** note: num_cpus must be evenly divisible by this num
+  vm-memory        = "1024"                              # Memory allocation (in MB)
+  vm-datacenter    = "Lab08-Datacenter01"                # vSphere Datacenter reference
+  vm-network-label = "Lab08-NetD"                        # vSphere Network Label reference
+  vm-template      = "Ubuntu-16-svr-template"            # Name of the VM from which this one is created.
+  vm-pool          = "pcfPool"                           # The name of the resource pool
+  vm-folder        = ""                                  # Resource pool / folder used for the vm
+# vm-data-type     = "thin"                              # DEFAULTED # vSphere Disk storage type
+  vm-datastore     = "nfs-lab08-vol1"                    # vSphere Datastore reference
+  vm-default-user  = "ubuntu"                            # DEFAULTED # Predefined User from vm-template
+# vm-prepare-file  = "../../prepare-jumpbox.sh"          # DEFAULTED # Script to install required applications
+  vm-user-list     = "jnewell,ecoles,mminges,swall"      # List of additional users that need to be added to the machine
+# See the instances.tf By default the vm is configured to use DHCP. If you wish to use a static ip set the values below and un-comment the ipv4 settings for the resource
+  vm-ipv4-addr     = "172.28.84.2"                       # The static ip that the jumpbox will be assigned
+  vm-ipv4-netmask  = "24"                                # The netmask for the network segment the jumpbox is on
+  vm-ipv4-gateway  = "172.28.84.1"                       # The default gateway for the network segment the jumpbox is on
+  vm-client-cert-path = "../../ssh-keys/"                # The path where you want the new client cert(private/public keys) to be created
+  vm-client-cert   = "jumpbox_client"                    # The name used for the cert that clients can use to ssh into the jumpbox
+  vm-svr-cert      = "jumpbox_svr_rsa"                   # The name used for the jumpbox's cert. This is the cert that will be used to other boxes so that they can be accessed from the jumpbox
