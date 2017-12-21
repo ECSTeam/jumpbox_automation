@@ -43,8 +43,8 @@ In order to create a Vsphere VM via terraform you need a template to clone. Ther
 # Concourse Deployment
   1. Ensure the pre-reqs are met
   2. Pipeline types: `ci`, `deploy`
-      - CI: Runs Create and Verify tasks with an ensured Destroy step to clean up
-      - Deploy: Runs Create and Verify tasks to setup a VM
+      - CI: Runs the Create and Verify tasks with an ensured Destroy step to clean up
+      - Deploy: Runs the Create and Verify tasks to setup a VM
   3. Pipelines: `<repo>/<pipeline-type>/pipeline.yml`
   4. Configuration: `<repo>/<pipeline-type>/env/vsphere-pipeline-params.yml`
   5. Copy `<repo>/credentials.yml.stub` to `<repo>/credentials.yml`

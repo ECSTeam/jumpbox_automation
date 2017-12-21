@@ -12,6 +12,7 @@ function setup_env() {
     export TF_VAR_viuser=$VSPHERE_USERNAME
     export TF_VAR_vipassword=$VSPHERE_PASSWORD
     export TF_VAR_viserver=$VSPHERE_SERVER
+    export TF_VAR_vidomain=$VSPHERE_DOMAIN
     export TF_VAR_ssh_user=$INIT_VM_USERNAME
     export TF_VAR_ssh_password=$INIT_VM_PASSWORD
     export TF_VAR_ssh_key_path=$TERRAFORM_DIR/ssh-key/

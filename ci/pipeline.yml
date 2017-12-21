@@ -35,6 +35,7 @@ jobs:
         AZURE_PASSWORD: ((azure-password))
         VSPHERE_USERNAME: ((vsphere-username))
         VSPHERE_PASSWORD: ((vsphere-password))
+        VSPHERE_DOMAIN: lab.ecsteam.local
         INIT_VM_USERNAME: ((init-vm-username))
         INIT_VM_PASSWORD: ((init-vm-password))
         CREDS_TYPE: ((gcp-creds-type))
