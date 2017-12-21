@@ -63,6 +63,8 @@ fi
 # Run the add_users_to_jumpbox function defined above
 add_users_to_jumpbox
 
+# Check to see if there is a pip update available
+pip install --upgrade pip
 # Install the AWS CLI
 pip install awscli
 
@@ -82,7 +84,7 @@ fi
 
 if [[ ! -f /usr/local/bin/spiff ]]; then
   echo "Spiff not installed, now installing!"
-  wget -q -O spiff.zip "$(curl -s https://api.github.com/repos/cloudfoundry-incubator/spiff/releases/latest | jq -r '.assets[] | select(.name == "spiff_linux_amd64.zip") | .browser_download_url')" 
+  wget -q -O spiff.zip "$(curl -s https://api.github.com/repos/cloudfoundry-incubator/spiff/releases/latest | jq -r '.assets[] | select(.name == "spiff_linux_amd64.zip") | .browser_download_url')"
   unzip spiff.zip
   mv spiff /usr/local/bin/
   rm spiff.zip
