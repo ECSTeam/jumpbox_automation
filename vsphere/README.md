@@ -27,8 +27,8 @@ In order to create a Vsphere VM via terraform you need a template to clone. Ther
           - `sudo visudo`
           - Add `ubuntu ALL=(ALL) NOPASSWD: ALL` to the bottom of the file.
           - Turn on ssh - `sudo service ssh start` (or ensure it is running)
-    7. Stop the VM (power it off. The VM must be off to be cloned!)
-    8. Take a snapshot of the VM (to be used as a clone linked template it must have 1 and only 1 snapshot!)
+    7. Stop the VM (power it off. The VM must be off to be cloned.)
+    8. Take a snapshot of the VM (to be used as a clone linked template it must only 1 snapshot.)
 
 # Manual Deployment
   1. Ensure the pre-reqs are met
