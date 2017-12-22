@@ -33,7 +33,7 @@ function create_env () {
   PWD=$(pwd)
   # Terraform Apply
   echo "Running terraform apply in working directory: $PWD"
-  terraform apply -var-file=$TERRAFORM_VARS_FILE
+  terraform apply -auto-approve -var-file=$TERRAFORM_VARS_FILE
 }
 
 function terraform_state_exists () {

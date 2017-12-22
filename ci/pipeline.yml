@@ -36,6 +36,7 @@ jobs:
         VSPHERE_USERNAME: ((vsphere-username))
         VSPHERE_PASSWORD: ((vsphere-password))
         VSPHERE_DOMAIN: lab.ecsteam.local
+        VSPHERE_SERVER: ecsdenlabvc01.lab.ecsteam.local
         INIT_VM_USERNAME: ((init-vm-username))
         INIT_VM_PASSWORD: ((init-vm-password))
         CREDS_TYPE: ((gcp-creds-type))
