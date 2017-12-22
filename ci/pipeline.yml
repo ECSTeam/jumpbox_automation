@@ -65,6 +65,8 @@ jobs:
         IAAS_DIRECTORY: {{iaas-directory}}
         VSPHERE_USERNAME: ((vsphere-username))
         VSPHERE_PASSWORD: ((vsphere-password))
+        VSPHERE_DOMAIN: lab.ecsteam.local
+        VSPHERE_SERVER: ecsdenlabvc01.lab.ecsteam.local
         CREDS_TYPE: ((gcp-creds-type))
         CREDS_PROJECT_ID: ((gcp-creds-project-id))
         CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
