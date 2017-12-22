@@ -2,10 +2,10 @@
 
 set -e
 
-root_dir=$PWD
+export ROOT_DIR=$PWD
 
 cd $IAAS_DIRECTORY
 
-cp $root_dir/jumpbox-artifacts/terraform.tfstate terraform/
+cp $ROOT_DIR/jumpbox-artifacts/terraform.tfstate terraform/
 
 ./jumpbox_infra.sh $JUMPBOX_ACTION
