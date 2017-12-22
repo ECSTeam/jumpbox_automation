@@ -3,6 +3,7 @@
 set -e
 
 export ROOT_DIR=$PWD
+export SSH_KEY_PATH=$ROOT_DIR/jumpbox-artifacts
 
 cd $IAAS_DIRECTORY/terraform
 # Have to run terraform init again since each task runs in a new docker container
