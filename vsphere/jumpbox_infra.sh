@@ -1,4 +1,17 @@
 #!/bin/bash
+######################################################
+#
+# Uses terraform to create and destroy a jumpbox on
+# vSphere. 
+#
+# Requirements:
+#  -  Either a setup-env.sh script to set environment
+#     variables or those variables must be set in the
+#     environment.
+#  - ~/.ssh directory must exist. This is required when
+#    creating ssh keys.
+#
+######################################################
 
 set -x 
 

@@ -9,6 +9,10 @@ cd $IAAS_DIR
 
 cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_DIR/terraform.tfvars
 
+# Create the .ssh for the user. It is needed to 
+# perform ssh copy.
+mkdir -p ~/.ssh 
+
 ./jumpbox_infra.sh $JUMPBOX_ACTION
 
 cp $TERRAFORM_DIR/terraform.tfstate $ROOT_DIR/jumpbox-artifacts/
