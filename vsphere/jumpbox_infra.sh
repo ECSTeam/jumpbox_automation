@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x 
+
 function setup_env() {
   echo 'Checking for environment setup script in working directory [$CWD]'
   # Source script with username/passwords stuff
