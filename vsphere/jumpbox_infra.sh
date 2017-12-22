@@ -64,9 +64,9 @@ function create_client_key () {
   fi
 
   # Create SSH Key Directory
-  if [ ! -e $TF_VAR_ssh_key_path$TF_VAR_vm_client_cert ]; then
+  if [ ! -e $TF_VAR_ssh_key_path/$TF_VAR_vm_client_cert ]; then
     echo 'Creating Jumpbox Client Key...'
-    ssh-keygen -t rsa -C jumpbox-clients -f $TF_VAR_ssh_key_path$TF_VAR_vm_client_cert -q -N ''
+    ssh-keygen -t rsa -C jumpbox-clients -f $TF_VAR_ssh_key_path/$TF_VAR_vm_client_cert -q -N ''
   fi
 }
 

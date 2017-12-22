@@ -50,14 +50,14 @@ resource "vsphere_virtual_machine" "jumpbox" {
   # Push Client Key to server
   # We disable host checking for this first ssh connection so that the jumpbox's identity can get stored into the known_hosts file without requiring user intervention
   provisioner "local-exec" {
-    command = "sshpass -p ${var.ssh_password} ssh-copy-id -o StrictHostKeyChecking=no -i ${var.ssh_key_path}${var.vm_client_cert} ${var.ssh_user}@${vsphere_virtual_machine.jumpbox.default_ip_address}"
+    command = "sshpass -p ${var.ssh_password} ssh-copy-id -o StrictHostKeyChecking=no -i ${var.ssh_key_path}/${var.vm_client_cert} ${var.ssh_user}@${vsphere_virtual_machine.jumpbox.default_ip_address}"
   }
 
   # SSH Connection for all remote provisioner calls. This uses the client key and acts as additional validation that it was pushed correctly
   connection {
     type        = "ssh"
     user        = "${var.ssh_user}"
-    private_key = "${file("${var.ssh_key_path}${var.vm_client_cert}")}"
+    private_key = "${file("${var.ssh_key_path}/${var.vm_client_cert}")}"
   }
 
   # Setup Jumpbox Server SSH keys for VM
@@ -69,7 +69,7 @@ resource "vsphere_virtual_machine" "jumpbox" {
 
   #Retrieve Server Public SSH Key and place in local Directory
   provisioner "local-exec" {
-    command = "scp -i ${var.ssh_key_path}${var.vm_client_cert} ${var.ssh_user}@${vsphere_virtual_machine.jumpbox.default_ip_address}:~/.ssh/${var.vm_svr_cert}.pub ${var.ssh_key_path}."
+    command = "scp -i ${var.ssh_key_path}/${var.vm_client_cert} ${var.ssh_user}@${vsphere_virtual_machine.jumpbox.default_ip_address}:~/.ssh/${var.vm_svr_cert}.pub ${var.ssh_key_path}."
   }
 
 
