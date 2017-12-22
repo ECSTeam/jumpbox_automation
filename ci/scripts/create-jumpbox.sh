@@ -10,6 +10,7 @@
 
 
 set -e
+set -x
 
 export ROOT_DIR=$PWD
 export IAAS_DIR=$ROOT_DIR/$IAAS_DIRECTORY
