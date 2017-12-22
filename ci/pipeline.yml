@@ -51,6 +51,7 @@ jobs:
       params:
         JUMPBOX_ACTION: verify
         AWS_KEY_NAME: gold-environment
+        INIT_VM_USERNAME: ((init-vm-username))
         IAAS_DIRECTORY: {{iaas-directory}}
         VSPHERE_USERNAME: ((vsphere-username))
         VSPHERE_PASSWORD: ((vsphere-password))

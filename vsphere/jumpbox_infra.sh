@@ -96,7 +96,7 @@ function verify_env () {
     # The pipeline `Create` job outputs artifacts into jumpbox-artifacts which
     # is an input into the `Verify` job. One of those artifacts is the client
     # certificate used for ssh.
-    ssh -o BatchMode=yes -i $ROOT_DIR/jumpbox-artifacts/$TF_VAR_vm_client_cert $TF_VAR_ssh_user@$JUMPBOX_IP pwd
+    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i $ROOT_DIR/jumpbox-artifacts/$TF_VAR_vm_client_cert $TF_VAR_ssh_user@$JUMPBOX_IP pwd
     RETURN_CODE=$(echo -e $?)
     if [[ $RETURN_CODE == 0 ]]; then
       echo -e "\nJumpbox ssh PASSED"
