@@ -1,10 +1,13 @@
 #!/bin/bash
+################################################################
+#
+#  Calls the IaaS specific script to create a jumpbox.
 
 set -e
 
-ROOT_DIR=$PWD
-IAAS_DIR=$ROOT_DIR/$IAAS_DIRECTORY
-TERRAFORM_DIR=$IAAS_DIR/terraform
+export ROOT_DIR=$PWD
+export IAAS_DIR=$ROOT_DIR/$IAAS_DIRECTORY
+export TERRAFORM_DIR=$IAAS_DIR/terraform
 cd $IAAS_DIR
 
 cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_DIR/terraform.tfvars
