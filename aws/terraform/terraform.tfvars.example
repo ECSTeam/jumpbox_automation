@@ -1,11 +1,9 @@
-# Credentials are populated by the jumpbox_infra.sh script
-# using values inject from Concourse/Vault.
-# aws_access_key = ""
-# aws_secret_key = ""
-# aws_key_name = ""
-# prefix = ""
-# aws_region = "us-east-1"
-# az1 = "us-east-1a"
+# Commented out values are populated by the jumpbox_infra.sh script using flags
+# aws_role_arn = ""		# TF_VAR variable set in jumpbox_infra.sh with the -a flag
+# aws_key_name = ""		# TF_VAR variable set in jumpbox_infra.sh with the -k flag
+# prefix = ""			# TF_VAR variable set in jumpbox_infra.sh with the -p flag
+# aws_region = "us-east-1"	# TF_VAR variable set in jumpbox_infra.sh with the -r flag
+# az1 = "us-east-1a"		# TF_VAR variable set in jumpbox_infra.sh with the -z flag
 vpc_cidr= "172.28.0.0/22"
 public_subnet_cidr = "172.28.0.0/24"
 private_subnet_cidr = "172.28.1.0/24"
