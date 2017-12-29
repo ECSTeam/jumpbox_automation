@@ -1,13 +1,3 @@
-data "template_file" "PrepareJumpbox" {
-    template = <<-EOF
-              #!/bin/bash
-              apt-get update
-              wget https://s3.amazonaws.com/jumpbox-automation/prepare-jumpbox.sh 
-              chmod +x ./prepare-jumpbox.sh
-              ./prepare-jumpbox.sh -u "${var.jumpbox_users}"
-              EOF
-}
-
 resource "azurerm_network_interface" "jumpbox_nic" {
   name                = "${var.env_name}-jumpbox-nic"
   location            = "${var.location}"
@@ -48,7 +38,6 @@ resource "azurerm_virtual_machine" "jumpbox_vm" {
     computer_name  = "${var.env_name}-jumpbox"
     admin_username = "${var.vm_admin_username}"
     admin_password = "${var.vm_admin_password}"
-    custom_data    = "${data.template_file.PrepareJumpbox.rendered}"
   }
 
   os_profile_linux_config {
@@ -58,5 +47,23 @@ resource "azurerm_virtual_machine" "jumpbox_vm" {
       path     = "/home/${var.vm_admin_username}/.ssh/authorized_keys"
       key_data = "${var.vm_admin_public_key}"
     }
+  }
+
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = "${file(var.ssh_private_file)}"
+    host        = "${azurerm_public_ip.jumpbox-public-ip.ip_address}"
+  }
+  provisioner "file" {
+    source      = "../../files/prepare-jumpbox.sh"
+    destination = "/home/ubuntu/prepare-jumpbox.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/ubuntu/prepare-jumpbox.sh",
+      "sudo /home/ubuntu/prepare-jumpbox.sh -u ${var.jumpbox_users}",
+    ]
   }
 }
