@@ -31,7 +31,7 @@ resource "aws_instance" "jumpbox" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/ubuntu/prepare-jumpbox.sh",
-      "/home/ubuntu/prepare-jumpbox.sh -u ${var.jumpbox_users}",
+      "sudo /home/ubuntu/prepare-jumpbox.sh -u ${var.jumpbox_users}",
     ]
   }
 }
