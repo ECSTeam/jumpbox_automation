@@ -23,12 +23,14 @@ USAGE:
 EOF
 }
 
-function create_env () {
-  if [[ ! -f $TERRAFORM_VARS_FILE ]]; then
-    echo -e "\nterraform.tfvars does not exist.\nSee the prereqs in the README.md\n"
+function terraform_state_exists () {
+  if [[ ! -f $TERRAFORM_DIR/terraform.tfstate ]]; then
+    echo "terraform.tfstate file does not exist. Have you created the Jumpbox yet?"
     exit 1
   fi
+}
 
+function load_ssh_key () {
   if [[ ! -f $SSH_KEY_DIR/$AWS_KEY_NAME ]]; then
     echo -e "$AWS_KEY_NAME not found. Now generating and uploading to AWS"
     mkdir -p $SSH_KEY_DIR
@@ -38,17 +40,20 @@ function create_env () {
     echo "SSH keypair exists, skipping generation and upload to AWS"
   fi
 
-  echo "Running terraform apply"
-  terraform init
   export TF_VAR_ssh_private_file=$SSH_KEY_DIR/$AWS_KEY_NAME
-  terraform apply -var-file=$TERRAFORM_VARS_FILE -auto-approve
 }
 
-function terraform_state_exists () {
-  if [[ ! -f $TERRAFORM_DIR/terraform.tfstate ]]; then
-    echo "terraform.tfstate file does not exist. Have you created the Jumpbox yet?"
+function create_env () {
+  if [[ ! -f $TERRAFORM_VARS_FILE ]]; then
+    echo -e "\nterraform.tfvars does not exist.\nSee the prereqs in the README.md\n"
     exit 1
   fi
+
+  load_ssh_key
+
+  echo "Running terraform apply"
+  terraform init
+  terraform apply -var-file=$TERRAFORM_VARS_FILE -auto-approve
 }
 
 ################################################################################################
@@ -90,6 +95,8 @@ function ssh_env () {
 }
 
 function destroy_env () {
+  load_ssh_key
+
   # Destroy terraformed jumpbox env
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
@@ -97,10 +104,6 @@ function destroy_env () {
   # Remove the state files. If present, this would take precedence.
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
-
-  # Remove terraform vars final
-  echo "Removing terraform vars final"
-  rm $TERRAFORM_VARS_FILE
 }
 
 CWD=$(pwd)
@@ -108,6 +111,7 @@ SSH_KEY_DIR=$CWD/ssh-key
 TERRAFORM_DIR=$CWD/terraform
 TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform.tfvars
 AWS_KEY_NAME=$(cat $TERRAFORM_VARS_FILE | grep "env_name" | awk '{print $3}' | tr -d '"')
+
 
 cd $TERRAFORM_DIR
 
