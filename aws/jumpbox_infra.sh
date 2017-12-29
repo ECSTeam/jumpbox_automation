@@ -22,6 +22,7 @@ USAGE:
 	-z <aws_availability_zone>	AWS Availability Zone where the Jumpbox will be deployed
         -k <aws_key_name>               AWS SSH Key Name to be generated an uploaded to AWS
 	-a <aws_role_arn>		AWS ARN for the IAM Role that terraform will assume
+        -u <jumpbox_users>		Comma delimited list of users to add to the Jumpbox
 
    verify   			Verify connection to the Jumpbox after creation
 
@@ -41,9 +42,10 @@ function get_opts () {
   TF_VAR_az1=""
   TF_VAR_aws_key_name=""
   TF_VAR_aws_role_arn=""
+  TF_VAR_jumpbox_users=""
 
   # Parse the command argument list
-  while getopts hp:r:z:k:a: opt; do
+  while getopts hp:r:z:k:a:u: opt; do
     case $opt in
       h|\?)
           usage
@@ -63,6 +65,9 @@ function get_opts () {
           ;;
       a)
           export TF_VAR_aws_role_arn=$OPTARG
+          ;;
+      u)
+          export TF_VAR_jumpbox_users=$OPTARG
           ;;
       *)
           echo "Unknown argument - $opt"
@@ -175,7 +180,8 @@ case "$action" in
                -z "$TF_VAR_az1" || \
                -z "$TF_VAR_aws_role_arn" || \
                -z "$TF_VAR_aws_key_name" || \
-               -z "$TF_VAR_prefix" ]];
+               -z "$TF_VAR_prefix" || \
+               -z "$TF_VAR_jumpbox_users" ]];
          then
              echo -e "Missing a required flag\n"
              usage

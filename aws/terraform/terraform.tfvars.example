@@ -4,6 +4,7 @@
 # prefix = ""			# TF_VAR variable set in jumpbox_infra.sh with the -p flag
 # aws_region = "us-east-1"	# TF_VAR variable set in jumpbox_infra.sh with the -r flag
 # az1 = "us-east-1a"		# TF_VAR variable set in jumpbox_infra.sh with the -z flag
+# jumpbox_users = ""		# TF_VAR variable set in jumpbox_infra.sh with the -u flag
 vpc_cidr= "172.28.0.0/22"
 public_subnet_cidr = "172.28.0.0/24"
 private_subnet_cidr = "172.28.1.0/24"
