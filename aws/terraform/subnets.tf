@@ -10,7 +10,7 @@ resource "aws_subnet" "BoshInfraVpcPublicSubnet_az1" {
     availability_zone = "${var.az1}"
 
     tags {
-        Name = "${var.prefix}-BoshInfraVpc Public Subnet AZ1"
+        Name = "${var.env_name}-BoshInfraVpc Public Subnet AZ1"
     }
 }
 
@@ -22,6 +22,6 @@ resource "aws_subnet" "BoshInfraVpcPrivateSubnet_az1" {
     availability_zone = "${var.az1}"
 
     tags {
-        Name = "${var.prefix}-BoshInfraVpc Private Subnet"
+        Name = "${var.env_name}-BoshInfraVpc Private Subnet"
     }
 }
