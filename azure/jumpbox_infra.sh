@@ -16,14 +16,16 @@ function create_env () {
   AZURE_ACCOUNT_METADATA=$(az account list | jq -r '.[] | select(.isDefault == true) | "\(.id):\(.tenantId)"')
   echo $AZURE_ACCOUNT_METADATA > $METADATA_FILE
 
+  export TF_VAR_subscription_id=$(echo $AZURE_ACCOUNT_METADATA | cut -d ':' -f1)
+  export TF_VAR_tenant_id=$(echo $AZURE_ACCOUNT_METADATA | cut -d ':' -f2)
+
   # Create Service Principle and assign Contributor role
   echo "Creating service principal and assigning contributor role."
-  JUMPBOX_IDENTITY_AD=$(az ad sp create-for-rbac \
-    --name "http://TerraformJumpboxAzureCPI" \
-    --role="Contributor" \
-    --scopes="/subscriptions/$SUBSCRIPTION_ID" \
-    | jq -r '.| "\(.appId):\(.password)"')
+  JUMPBOX_IDENTITY_AD=$(az ad sp create-for-rbac --name "http://TerraformJumpboxAzureCPI" --role="Contributor" --scopes="/subscriptions/$TF_VAR_subscription_id" | jq -r '.| "\(.appId):\(.password)"')
   echo $JUMPBOX_IDENTITY_AD >> $METADATA_FILE
+
+  export TF_VAR_client_id=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f1)
+  export TF_VAR_client_secret=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f2)
 
   # Create Jumpbox SSH Keypair
   if [[ ! -f $SSH_KEY_DIR/$AZURE_KEY_NAME ]]; then
@@ -33,17 +35,12 @@ function create_env () {
     echo "SSH keypair exists, skipping generation"
   fi
 
-  # Create a load vars function. Apply and destroy will need these vars
-  export TF_VAR_subscription_id=$(echo $AZURE_ACCOUNT_METADATA | cut -d ':' -f1)
-  export TF_VAR_tenant_id=$(echo $AZURE_ACCOUNT_METADATA | cut -d ':' -f2)
-  export TF_VAR_client_id=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f1)
-  export TF_VAR_client_secret=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f2)
   export TF_VAR_vm_admin_public_key=$(cat $SSH_KEY_DIR/$AZURE_KEY_NAME.pub)
   export TF_VAR_ssh_private_file=$SSH_KEY_DIR/$AZURE_KEY_NAME
 
   # Terraform Apply
   echo "Running terraform apply"
-  terraform apply -var-file=$TERRAFORM_VARS_FILE
+  terraform apply -var-file=$TERRAFORM_VARS_FILE -auto-approve
 }
 
 function terraform_state_exists () {
@@ -76,8 +73,13 @@ function verify_env () {
 }
 
 function destroy_env () {
-  # Exit for now
-  exit 1
+  # load vars. Need to clean up
+  export TF_VAR_subscription_id=$(awk 'NR==1' $METADATA_FILE | cut -d ':' -f1)
+  export TF_VAR_tenant_id=$(awk 'NR==1' $METADATA_FILE | cut -d ':' -f2)
+  export TF_VAR_client_id=$(awk 'NR==2' $METADATA_FILE | cut -d ':' -f1)
+  export TF_VAR_client_secret=$(awk 'NR==2' $METADATA_FILE | cut -d ':' -f2)
+  export TF_VAR_vm_admin_public_key=$(cat $SSH_KEY_DIR/$AZURE_KEY_NAME.pub)
+  export TF_VAR_ssh_private_file=$SSH_KEY_DIR/$AZURE_KEY_NAME
 
   # Destroy terraformed jumpbox env 
   echo "Running terraform destroy"
@@ -85,15 +87,19 @@ function destroy_env () {
 
   # Delete Azure Active Directory app and Service Principle
   echo "Deleting Azure AD app and Service Principle"
-  az ad app delete --id $(cat $TERRAFORM_VARS_FILE | grep "client_id" | awk '{print $3}' | tr -d '"')
+  az ad app delete --id $TF_VAR_client_id
+
+  # Remove the generated metadata file.
+  echo "Deleting $METADATA_FILE"
+  rm $METADATA_FILE
 
   # Remove the state files. If present, this would take precedence. 
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
 
   # Cleanup Jumpbox SSH keys
-  # echo "Removing Jumpbox Key Pair"
-  # rm $SSH_KEY_DIR/$AZURE_KEY_NAME*
+  echo "Removing Jumpbox Key Pair"
+  rm -rf $SSH_KEY_DIR
 
   # Remove terraform vars final
   # echo "Removing terraform vars final"
