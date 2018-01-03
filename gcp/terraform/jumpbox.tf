@@ -1,12 +1,3 @@
-# resource "google_compute_image" "jumpbox-image" {
-#   name           = "${var.env_name}-jumpbox-image"
-#   create_timeout = 20
-
-#   raw_disk {
-#     source = "${var.jumpbox-image-url}"
-#   }
-# }
-
 resource "google_compute_instance" "jumpbox" {
   name           = "${var.env_name}-jumpbox"
   depends_on   = ["google_compute_subnetwork.subnet-infra-public"]

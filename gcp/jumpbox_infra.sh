@@ -37,6 +37,10 @@ function create_env () {
   echo "Running terraform apply"
   export TF_VAR_credentials_file=$TERRAFORM_DIR/terraform.key.json
   terraform apply -var-file=$TERRAFORM_VARS_FILE -auto-approve
+
+  mkdir -p $SSH_KEY_DIR
+  terraform output -state=$TERRAFORM_DIR/terraform.tfstate ssh_private_key > $SSH_KEY_DIR/key
+  chmod 0400 $SSH_KEY_DIR/key
 }
 
 function terraform_state_exists () {
@@ -54,9 +58,11 @@ function destroy_env () {
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
 
   # Delete the GCP IAM Service Account
+  PROJECT_ID=$(cat $TERRAFORM_VARS_FILE | grep "project" | awk '{print $3}' | tr -d '"')
   IAM_SERVICE_ACCOUNT_NAME=$(cat $TERRAFORM_VARS_FILE | grep "env_name" | awk '{print $3}' | tr -d '"')
   IAM_SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --format json | jq -r '.[] | select(.displayName == "'$IAM_SERVICE_ACCOUNT_NAME'") .email')
   echo "Deleting the service account user"
+  gcloud projects remove-iam-policy-binding $PROJECT_ID --role roles/editor --member serviceAccount:$IAM_SERVICE_ACCOUNT_EMAIL
   gcloud iam service-accounts delete $IAM_SERVICE_ACCOUNT_EMAIL 
 
   # Remove the state files. If present, this would take precedence. 
@@ -101,10 +107,6 @@ function ssh_env {
   terraform_state_exists
 
   JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate jumpbox_public_ip)
-  mkdir -p $SSH_KEY_DIR
-  terraform output -state=$TERRAFORM_DIR/terraform.tfstate ssh_private_key > $SSH_KEY_DIR/key
-  chmod 0400 $SSH_KEY_DIR/key
-
   ssh -i $SSH_KEY_DIR/key -o StrictHostKeyChecking=no ubuntu@$JUMPBOX_IP
 }
 
