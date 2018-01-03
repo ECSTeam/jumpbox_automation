@@ -78,7 +78,7 @@ fi
 # Install bosh-init if not already installed
 if [[ ! -f /usr/local/bin/bosh-init ]]; then
   echo "bosh-init not installed, now installing!"
-  wget -O /usr/local/bin/bosh-init https://s3.amazonaws.com/bosh-init-artifacts/bosh-init-"$(curl -s https://api.github.com/repos/cloudfoundry/bosh-init/releases/latest | jq -r '.name' | tr -d 'v')"-linux-amd64
+  wget -q -O /usr/local/bin/bosh-init https://s3.amazonaws.com/bosh-init-artifacts/bosh-init-"$(curl -s https://api.github.com/repos/cloudfoundry/bosh-init/releases/latest | jq -r '.name' | tr -d 'v')"-linux-amd64
   chmod +x /usr/local/bin/bosh-init
 fi
 
@@ -98,7 +98,7 @@ fi
 
 if [[ ! -f /usr/local/bin/yaml2json ]]; then
   echo "yaml2json not installed, now installing!"
-  wget -O /usr/local/bin/yaml2json https://github.com/bronze1man/yaml2json/blob/master/builds/linux_amd64/yaml2json?raw=true
+  wget -q -O /usr/local/bin/yaml2json https://github.com/bronze1man/yaml2json/blob/master/builds/linux_amd64/yaml2json?raw=true
   chmod +x /usr/local/bin/yaml2json
 fi
 
