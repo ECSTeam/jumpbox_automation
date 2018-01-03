@@ -63,7 +63,7 @@ function destroy_env () {
   IAM_SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --format json | jq -r '.[] | select(.displayName == "'$IAM_SERVICE_ACCOUNT_NAME'") .email')
   echo "Deleting the service account user"
   gcloud projects remove-iam-policy-binding $PROJECT_ID --role roles/editor --member serviceAccount:$IAM_SERVICE_ACCOUNT_EMAIL
-  gcloud iam service-accounts delete $IAM_SERVICE_ACCOUNT_EMAIL 
+  gcloud -q iam service-accounts delete $IAM_SERVICE_ACCOUNT_EMAIL 
 
   # Remove the state files. If present, this would take precedence. 
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
