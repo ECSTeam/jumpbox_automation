@@ -1,7 +1,9 @@
-prefix = "gold"                                    # Unique Name for deployment
+env_name = ""                                      # Unique Name for deployment
+project = ""                                       # Existing Project Identifier
 region = "us-east1"                                # Default GCloud Region
-zones = ["us-east1-c", "us-east1-b", "us-east1-a"] # Deafult GCloud zones
-project = "ecs-pcf-on-gce-2016"                    # Existing Project Identifier
+zones = ["us-east1-a", "us-east1-b", "us-east1-c"] # Default GCloud zones
 jumpbox-image-url = "ubuntu-1604-xenial-v20170328" # Image Name for GCloud managed images
-jumpbox-machine-type= "n1-standard-1"              # GCloud Machine type
-credentials-file="./credentials.json"              # Path to local files containing GCloud Credentials
+jumpbox-machine-type = "n1-standard-1"             # GCloud Machine type
+private_infra_cidr = "172.28.1.0/24"
+public_infra_cidr = "172.28.0.0/24"
+jumpbox_users = "user1,user2"

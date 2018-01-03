@@ -1,35 +1,42 @@
 #!/bin/bash
 
-function create_env () {
-
-  # Replace place holders
-  cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
-  
-  CREDS_PRIVATE_KEY=$(echo $CREDS_PRIVATE_KEY | tr '\n' ' ')
-  cat <<EOF >> ./credentials.json
-  {
-    "type": "$CREDS_TYPE",
-    "project_id": "$CREDS_PROJECT_ID",
-    "private_key_id": "$CREDS_PRIVATE_KEY_ID",
-    "private_key": "$CREDS_PRIVATE_KEY",
-    "client_email": "$CREDS_EMAIL",
-    "client_id": "$CREDS_CLIENT_ID",
-    "client_x509_cert_url": "$CREDS_CERT_URL",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://accounts.google.com/o/oauth2/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
-    }  
+function usage () {
+  cat <<EOF
+USAGE:
+   apply                Create IaaS resources and Jumpbox
+   verify               Verify connection to the Jumpbox after creation
+   ssh                  SSH into the Jumpbox
+   destroy              Destroy all Terraform Resources that were created
 EOF
+}
 
-  cp ./credentials.json ./jumpbox-artifacts
+function create_env () {
+  if [[ ! -f $TERRAFORM_VARS_FILE ]]; then
+    echo -e "\nterraform.tfvars does not exist.\nSee the prereqs in the README.md\n"
+    exit 1
+  fi
+
+  PROJECT_ID=$(cat $TERRAFORM_VARS_FILE | grep "project" | awk '{print $3}' | tr -d '"')
+  IAM_SERVICE_ACCOUNT_NAME=$(cat $TERRAFORM_VARS_FILE | grep "env_name" | awk '{print $3}' | tr -d '"')
+  IAM_SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --format json | jq -r '.[] | select(.displayName == "'$IAM_SERVICE_ACCOUNT_NAME'") .email')
+
+  if [[ -z $IAM_SERVICE_ACCOUNT_EMAIL ]]; then
+    gcloud iam service-accounts create $IAM_SERVICE_ACCOUNT_NAME --display-name $IAM_SERVICE_ACCOUNT_NAME
+    IAM_SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --format json | jq -r '.[] | select(.displayName == "'$IAM_SERVICE_ACCOUNT_NAME'") .email')
+    gcloud iam service-accounts keys create "terraform.key.json" --iam-account $IAM_SERVICE_ACCOUNT_EMAIL
+    gcloud projects add-iam-policy-binding $PROJECT_ID --role roles/editor --member serviceAccount:$IAM_SERVICE_ACCOUNT_EMAIL 
+    #gcloud projects add-iam-policy-binding $PROJECT_ID --member 'serviceAccount:'$IAM_SERVICE_ACCOUNT_EMAIL'' --role 'roles/owner'
+    mv terraform.key.json $TERRAFORM_DIR/terraform.key.json
+  else
+    echo "Service account $IAM_SERVICE_ACCOUNT_EMAIL already exists"
+  fi
+
+  terraform init
 
   # Terraform Apply
   echo "Running terraform apply"
-  terraform apply -var-file=$TERRAFORM_VARS_FILE
-
-  mkdir -p ssh-key 
-  terraform output -state=$TERRAFORM_DIR/terraform.tfstate ssh_private_key > ssh-key/key
-  chmod 0400 ssh-key/key
+  export TF_VAR_credentials_file=$TERRAFORM_DIR/terraform.key.json
+  terraform apply -var-file=$TERRAFORM_VARS_FILE -auto-approve
 }
 
 function terraform_state_exists () {
@@ -40,46 +47,41 @@ function terraform_state_exists () {
 }
 
 function destroy_env () {
-
-  CREDS_PRIVATE_KEY=$(echo $CREDS_PRIVATE_KEY | tr '\n' ' ')
-  cat <<EOF >> ./credentials.json
-  {
-    "type": "$CREDS_TYPE",
-    "project_id": "$CREDS_PROJECT_ID",
-    "private_key_id": "$CREDS_PRIVATE_KEY_ID",
-    "private_key": "$CREDS_PRIVATE_KEY",
-    "client_email": "$CREDS_EMAIL",
-    "client_id": "$CREDS_CLIENT_ID",
-    "client_x509_cert_url": "$CREDS_CERT_URL",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://accounts.google.com/o/oauth2/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
-  }  
-EOF
+  export TF_VAR_credentials_file=$TERRAFORM_DIR/terraform.key.json
 
   # Destroy terraformed jumpbox env 
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
 
+  # Delete the GCP IAM Service Account
+  IAM_SERVICE_ACCOUNT_NAME=$(cat $TERRAFORM_VARS_FILE | grep "env_name" | awk '{print $3}' | tr -d '"')
+  IAM_SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --format json | jq -r '.[] | select(.displayName == "'$IAM_SERVICE_ACCOUNT_NAME'") .email')
+  echo "Deleting the service account user"
+  gcloud iam service-accounts delete $IAM_SERVICE_ACCOUNT_EMAIL 
+
   # Remove the state files. If present, this would take precedence. 
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
 
-  # Remove terraform vars final
-  echo "Removing terraform vars final"
-  rm $TERRAFORM_VARS_FILE
+  # Remove GCP IAM service account credentials file
+  echo "Removing $TERRAFORM_DIR/terraform.key.json"
+  rm $TERRAFORM_DIR/terraform.key.json
+
+  # Remove SSH_KEY_DIR
+  echo "Removig $SSH_KEY_DIR"
+  rm -rf $SSH_KEY_DIR
 }
 
 function verify_env () {
   terraform_state_exists
   
-  JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate ops_manager_public_ip)
+  JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate jumpbox_public_ip)
 
   RETURN_CODE=1
   SSH_ATTEMPTS=0
   # Ensure the keys have been configured properly.
   until [ $RETURN_CODE == 0 ]; do
-    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i ../../../jumpbox-artifacts/key ubuntu@$JUMPBOX_IP pwd
+    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i $SSH_KEY_DIR/key ubuntu@$JUMPBOX_IP pwd
     RETURN_CODE=$(echo -e $?)
     if [[ $RETURN_CODE == 0 ]]; then
       echo -e "\nJumpbox ssh PASSED"
@@ -95,29 +97,45 @@ function verify_env () {
   done
 }
 
-action=$1
+function ssh_env {
+  terraform_state_exists
 
-if [ -z $action ]; then
-  echo "Missing argument. Requires one of {apply|destroy|output|verify}"
-  exit 1
-fi
+  JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate jumpbox_public_ip)
+  mkdir -p $SSH_KEY_DIR
+  terraform output -state=$TERRAFORM_DIR/terraform.tfstate ssh_private_key > $SSH_KEY_DIR/key
+  chmod 0400 $SSH_KEY_DIR/key
+
+  ssh -i $SSH_KEY_DIR/key -o StrictHostKeyChecking=no ubuntu@$JUMPBOX_IP
+}
 
 CWD=$(pwd)
+SSH_KEY_DIR=$CWD/ssh-key
 TERRAFORM_DIR=$CWD/terraform
-TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform-final.tfvars
+TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform.tfvars
 
 cd $TERRAFORM_DIR
 
-terraform init
+action=$1
 
-if [ $action == output ]; then
-  terraform output -state=$TERRAFORM_DIR/terraform.tfstate
-elif [ $action == apply ]; then
-  create_env
-elif [ $action == destroy ]; then
-  destroy_env
-elif [ $action == verify ]; then
-  verify_env
-else
-  echo "Something went wrong!"  
-fi
+case "$action" in
+  help)
+       usage
+       exit 0
+       ;;
+  apply)
+       create_env
+       ;;
+  verify)
+       verify_env
+       ;;
+  ssh)
+       ssh_env
+       ;;
+  destroy)
+       destroy_env
+       ;;
+  *)   echo "Invalid option"
+       usage
+       exit
+       ;;
+esac
