@@ -39,7 +39,7 @@ resource "aws_security_group" "nat_instance_sg" {
 }
 # Create NAT instance
 resource "aws_instance" "nat_az1" {
-    ami = "${var.nat_ami}"
+    ami = "${lookup(var.nat_ami, var.aws_region)}"
     availability_zone = "${var.az1}"
     instance_type = "${var.nat_instance_type}"
     key_name = "${var.env_name}"
