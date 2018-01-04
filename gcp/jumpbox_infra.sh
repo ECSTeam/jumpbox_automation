@@ -24,7 +24,7 @@ function create_env () {
     gcloud iam service-accounts create $IAM_SERVICE_ACCOUNT_NAME --display-name $IAM_SERVICE_ACCOUNT_NAME
     IAM_SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --format json | jq -r '.[] | select(.displayName == "'$IAM_SERVICE_ACCOUNT_NAME'") .email')
     gcloud iam service-accounts keys create "terraform.key.json" --iam-account $IAM_SERVICE_ACCOUNT_EMAIL
-    gcloud projects add-iam-policy-binding $PROJECT_ID --role roles/editor --member serviceAccount:$IAM_SERVICE_ACCOUNT_EMAIL 
+    gcloud projects add-iam-policy-binding $PROJECT_ID --role roles/editor --member serviceAccount:$IAM_SERVICE_ACCOUNT_EMAIL
     #gcloud projects add-iam-policy-binding $PROJECT_ID --member 'serviceAccount:'$IAM_SERVICE_ACCOUNT_EMAIL'' --role 'roles/owner'
     mv terraform.key.json $TERRAFORM_DIR/terraform.key.json
   else
@@ -53,7 +53,7 @@ function terraform_state_exists () {
 function destroy_env () {
   export TF_VAR_credentials_file=$TERRAFORM_DIR/terraform.key.json
 
-  # Destroy terraformed jumpbox env 
+  # Destroy terraformed jumpbox env
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
 
@@ -63,9 +63,9 @@ function destroy_env () {
   IAM_SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --format json | jq -r '.[] | select(.displayName == "'$IAM_SERVICE_ACCOUNT_NAME'") .email')
   echo "Deleting the service account user"
   gcloud projects remove-iam-policy-binding $PROJECT_ID --role roles/editor --member serviceAccount:$IAM_SERVICE_ACCOUNT_EMAIL
-  gcloud -q iam service-accounts delete $IAM_SERVICE_ACCOUNT_EMAIL 
+  gcloud -q iam service-accounts delete $IAM_SERVICE_ACCOUNT_EMAIL
 
-  # Remove the state files. If present, this would take precedence. 
+  # Remove the state files. If present, this would take precedence.
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
 
@@ -74,13 +74,13 @@ function destroy_env () {
   rm $TERRAFORM_DIR/terraform.key.json
 
   # Remove SSH_KEY_DIR
-  echo "Removig $SSH_KEY_DIR"
+  echo "Removing $SSH_KEY_DIR"
   rm -rf $SSH_KEY_DIR
 }
 
 function verify_env () {
   terraform_state_exists
-  
+
   JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate jumpbox_public_ip)
 
   RETURN_CODE=1
@@ -93,7 +93,7 @@ function verify_env () {
       echo -e "\nJumpbox ssh PASSED"
     else
       ((SSH_ATTEMPTS++))
-      if [ "$SSH_ATTEMPTS" -gt "5" ]; then 
+      if [ "$SSH_ATTEMPTS" -gt "5" ]; then
         echo -e "\nJumpbox ssh return code : $RETURN_CODE FAILED"
         exit 1
       fi
