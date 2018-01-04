@@ -19,7 +19,11 @@ variable "jumpbox_instance_type" {
 }
 variable "nat_ami" {
     description = "Amazon Machine Image for Nat VM"
-    default = "ami-303b1458"
+    type = "map"
+    default = {
+      us-east-1 = "ami-303b1458"
+      us-west-2 = "ami-69ae8259"
+    }
 }
 variable "nat_instance_type" {
     description = "Instance Type for Nat VM"
