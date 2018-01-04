@@ -34,12 +34,13 @@ function load_ssh_key () {
   if [[ ! -f $SSH_KEY_DIR/$AWS_KEY_NAME ]]; then
     echo -e "$AWS_KEY_NAME not found. Now generating and uploading to AWS"
     mkdir -p $SSH_KEY_DIR
-    aws ec2 create-key-pair --key-name $AWS_KEY_NAME | jq -r '.KeyMaterial' > $SSH_KEY_DIR/$AWS_KEY_NAME
+    ssh-keygen -q -N '' -t rsa -f $SSH_KEY_DIR/$AWS_KEY_NAME
     chmod 0400 $SSH_KEY_DIR/$AWS_KEY_NAME
   else
     echo "SSH keypair exists, skipping generation and upload to AWS"
   fi
 
+  export TF_VAR_public_key=$(cat $SSH_KEY_DIR/$AWS_KEY_NAME.pub)
   export TF_VAR_ssh_private_file=$SSH_KEY_DIR/$AWS_KEY_NAME
 }
 
@@ -53,7 +54,7 @@ function create_env () {
 
   echo "Running terraform apply"
   terraform init
-  terraform apply -var-file=$TERRAFORM_VARS_FILE -auto-approve
+  terraform apply -var-file=$TERRAFORM_VARS_FILE --auto-approve
 }
 
 ################################################################################################

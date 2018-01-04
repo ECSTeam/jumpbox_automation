@@ -10,6 +10,7 @@ variable "nat_ip" {}
 variable "jumpbox_ami" {}
 variable "jumpbox_private_ip" {}
 variable "jumpbox_users" {}
+variable "public_key" {}
 variable "ssh_private_file" {
     description = "Path to an SSH private key"
 }
