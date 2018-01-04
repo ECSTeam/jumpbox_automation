@@ -4,14 +4,14 @@
 #
 #  This script creates a jumpbox on AWS. It also
 #  provides the ability to verify the jumpbox
-#  was created as expected. 
+#  was created as expected.
 #
 #  You can also use this script to delete the
 #  jumpbox and ssh to it.
 #
 ###################################################
 
-#set -x 
+#set -x
 
 function usage () {
   cat <<EOF
@@ -32,12 +32,12 @@ function terraform_state_exists () {
 
 function load_ssh_key () {
   if [[ ! -f $SSH_KEY_DIR/$AWS_KEY_NAME ]]; then
-    echo -e "$AWS_KEY_NAME not found. Now generating and uploading to AWS"
+    echo -e "$AWS_KEY_NAME not found. Now generating..."
     mkdir -p $SSH_KEY_DIR
     ssh-keygen -q -N '' -t rsa -f $SSH_KEY_DIR/$AWS_KEY_NAME
     chmod 0400 $SSH_KEY_DIR/$AWS_KEY_NAME
   else
-    echo "SSH keypair exists, skipping generation and upload to AWS"
+    echo "SSH keypair exists, skipping generation."
   fi
 
   export TF_VAR_public_key=$(cat $SSH_KEY_DIR/$AWS_KEY_NAME.pub)
@@ -72,7 +72,7 @@ function verify_env () {
   SSH_ATTEMPTS=0
   # Ensure the keys have been configured properly.
   until [ $RETURN_CODE == 0 ]; do
-    # The jumpbox-artifacts are the output of the "create" task in the ci/pipeline.yml. 
+    # The jumpbox-artifacts are the output of the "create" task in the ci/pipeline.yml.
     ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i $SSH_KEY_DIR/$AWS_KEY_NAME ubuntu@$JUMPBOX_IP pwd
     RETURN_CODE=$(echo -e $?)
     if [[ $RETURN_CODE == 0 ]]; then
