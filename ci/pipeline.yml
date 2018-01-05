@@ -3,7 +3,7 @@ resources:
 - name: automation-scripts
   type: git
   source:
-    branch: master
+    branch: master 
     uri: {{scripts-git-uri}}
     username: ((git-svc-user))
     password: ((git-svc-password))
@@ -24,9 +24,9 @@ jobs:
       params:
         JUMPBOX_ACTION: apply
         IAAS_DIRECTORY: {{iaas-directory}}
+        CONFIG_DIRECTORY: {{config-directory}}
         AWS_ACCESS_KEY: ((aws-access-key-id))
         AWS_SECRET_ACCESS_KEY: ((aws-secret-access-key))
-        AWS_KEY_NAME: gold-environment
         AWS_PREFIX: jumpbox
         AWS_REGION: us-east-1
         AWS_AZ1: us-east-1a
@@ -52,7 +52,6 @@ jobs:
       file: {{verify-jumpbox-script}}
       params:
         JUMPBOX_ACTION: verify
-        AWS_KEY_NAME: gold-environment
         INIT_VM_USERNAME: ((init-vm-username))
         IAAS_DIRECTORY: {{iaas-directory}}
         VSPHERE_USERNAME: ((vsphere-username))
@@ -62,6 +61,7 @@ jobs:
       file: {{destroy-jumpbox-script}}
       params:
         JUMPBOX_ACTION: destroy
+        CONFIG_DIRECTORY: {{config-directory}}
         AWS_ACCESS_KEY: ((aws-access-key-id))
         AWS_SECRET_ACCESS_KEY: ((aws-secret-access-key))
         AZURE_USERNAME: ((azure-username))
