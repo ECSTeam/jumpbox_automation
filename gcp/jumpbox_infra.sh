@@ -16,7 +16,7 @@ function create_env () {
     exit 1
   fi
 
-  PROJECT_ID=$(cat $TERRAFORM_VARS_FILE | grep "project" | awk '{print $3}' | tr -d '"')
+  PROJECT_ID=$(gcloud config list --format json | jq -r '.core.project')
   IAM_SERVICE_ACCOUNT_NAME=$(cat $TERRAFORM_VARS_FILE | grep "env_name" | awk '{print $3}' | tr -d '"')
   IAM_SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --format json | jq -r '.[] | select(.displayName == "'$IAM_SERVICE_ACCOUNT_NAME'") .email')
 

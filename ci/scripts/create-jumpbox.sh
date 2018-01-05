@@ -33,6 +33,10 @@ if [[ -f $IAAS_DIR/metadata.txt ]]; then
   cp $IAAS_DIR/metadata.txt $ROOT_DIR/jumpbox-artifacts/
 fi
 
+if [[ -f $TERRAFORM_DIR/terraform.key.json ]]; then
+  cp $TERRAFORM_DIR/terraform.key.json $ROOT_DIR/jumpbox-artifacts/
+fi
+
 cp $TERRAFORM_DIR/terraform.tfstate $ROOT_DIR/jumpbox-artifacts/
 cp $TERRAFORM_DIR/terraform.tfvars $ROOT_DIR/jumpbox-artifacts/
 cp -R $IAAS_DIR/ssh-key/ $ROOT_DIR/jumpbox-artifacts/ssh-key/
