@@ -35,4 +35,4 @@ fi
 
 cp $TERRAFORM_DIR/terraform.tfstate $ROOT_DIR/jumpbox-artifacts/
 cp $TERRAFORM_DIR/terraform.tfvars $ROOT_DIR/jumpbox-artifacts/
-cp $IAAS_DIR/ssh-key/* $ROOT_DIR/jumpbox-artifacts/.
+cp -R $IAAS_DIR/ssh-key/ $ROOT_DIR/jumpbox-artifacts/ssh-key/

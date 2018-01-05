@@ -21,5 +21,9 @@ if [[ -f $ROOT_DIR/jumpbox-artifacts/metadata.txt ]]; then
   cp $ROOT_DIR/jumpbox-artifacts/metadata.txt $ROOT_DIR/$IAAS_DIRECTORY
 fi
 
+if [[ ! -d $ROOT_DIR/$IAAS_DIRECTORY/ssh-key ]]; then
+  cp -R $ROOT_DIR/jumpbox-artifacts/ssh-key/ $ROOT_DIR/$IAAS_DIRECTORY/ssh-key/
+fi
+
 cd $ROOT_DIR/$IAAS_DIRECTORY
 ./jumpbox_infra.sh $JUMPBOX_ACTION
