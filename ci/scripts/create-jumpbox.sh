@@ -25,7 +25,7 @@ cp $CONFIG_DIR/terraform.tfvars.example $TERRAFORM_DIR/terraform.tfvars
 mkdir -p ~/.ssh
 
 if [[ -f $CONFIG_DIR/load_creds.sh ]]; then
-  . ./$CONFIG_DIR/load_creds.sh
+  . $CONFIG_DIR/load_creds.sh
 fi
 
 ./jumpbox_infra.sh $JUMPBOX_ACTION

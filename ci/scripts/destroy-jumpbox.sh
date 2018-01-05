@@ -14,7 +14,7 @@ cp $ROOT_DIR/jumpbox-artifacts/terraform.tfstate .
 cp $ROOT_DIR/jumpbox-artifacts/terraform.tfvars .
 
 if [[ -f $CONFIG_DIR/load_creds.sh ]]; then
-  . ./$CONFIG_DIR/load_creds.sh
+  . $CONFIG_DIR/load_creds.sh
 fi
 
 cd $ROOT_DIR/$IAAS_DIRECTORY
