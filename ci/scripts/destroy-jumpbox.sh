@@ -17,5 +17,9 @@ if [[ -f $CONFIG_DIR/load_creds.sh ]]; then
   . $CONFIG_DIR/load_creds.sh
 fi
 
+if [[ -f $ROOT_DIR/jumpbox-artifacts/metadata.txt ]]; then
+  cp $ROOT_DIR/jumpbox-artifacts/metadata.txt $ROOT_DIR/$IAAS_DIRECTORY
+fi
+
 cd $ROOT_DIR/$IAAS_DIRECTORY
 ./jumpbox_infra.sh $JUMPBOX_ACTION
