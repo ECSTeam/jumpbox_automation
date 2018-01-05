@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function usage () {
   cat <<EOF
 USAGE:
@@ -58,7 +60,7 @@ function destroy_env () {
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
 
   # Delete the GCP IAM Service Account
-  PROJECT_ID=$(cat $TERRAFORM_VARS_FILE | grep "project" | awk '{print $3}' | tr -d '"')
+  PROJECT_ID=$(gcloud config list --format json | jq -r '.core.project')
   IAM_SERVICE_ACCOUNT_NAME=$(cat $TERRAFORM_VARS_FILE | grep "env_name" | awk '{print $3}' | tr -d '"')
   IAM_SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list --format json | jq -r '.[] | select(.displayName == "'$IAM_SERVICE_ACCOUNT_NAME'") .email')
   echo "Deleting the service account user"
