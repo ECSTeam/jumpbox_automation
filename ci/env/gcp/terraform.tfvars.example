@@ -1,4 +1,4 @@
-env_name = "gold"                                  # Unique Name for deployment
+env_name = "goldenv"                                  # Unique Name for deployment. Must be longer than 6 characters
 region = "us-east1"                                # Default GCloud Region
 zones = ["us-east1-a", "us-east1-b", "us-east1-c"] # Default GCloud zones
 jumpbox-image-url = "ubuntu-1604-xenial-v20170328" # Image Name for GCloud managed images
