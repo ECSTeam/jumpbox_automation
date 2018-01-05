@@ -7,6 +7,9 @@ image_resource:
     repository: cgicloudnative/cfjump
 
 params:
+  JUMPBOX_ACTION:
+  IAAS_DIRECTORY:
+  CONFIG_DIRECTORY:
   VSPHERE_USERNAME:
   VSPHERE_PASSWORD:
   
