@@ -5,3 +5,4 @@ verify-jumpbox-script: automation-scripts/ci/tasks/vsphere-verify-jumpbox.yml
 destroy-jumpbox-script: automation-scripts/ci/tasks/vsphere-destroy-jumpbox.yml
 
 iaas-directory: automation-scripts/vsphere
+config-directory: automation-scripts/ci/env/aws
