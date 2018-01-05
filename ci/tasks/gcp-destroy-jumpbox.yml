@@ -6,6 +6,13 @@ image_resource:
   source:
     repository: cgicloudnative/cfjump 
 
+params:
+  JUMPBOX_ACTION:
+  IAAS_DIRECTORY:
+  CONFIG_DIRECTORY:
+  GCP_PROJECT:
+  GCP_CREDS_FILE:
+
 inputs:
   - name: automation-scripts
   - name: jumpbox-artifacts

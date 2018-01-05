@@ -1,0 +1,8 @@
+env_name                          = "gold"             # Environment prefix for created resources
+location                          = "westus"           # Azure region to create the Resource Group
+azure_terraform_vnet_cidr         = "172.28.1.0/24"    # Network CIDR range
+azure_terraform_subnet_infra_cidr = "172.28.1.0/26"    # Valid CIDR range within the overall network CIDR
+jumpbox_image_version             = "16.04-LTS"        # Jumpbox Image (i.e. Ubuntu, Centos)
+jumpbox_vm_size                   = "Standard_DS1_v2"  # Azure Image type for the Jumpbox Server
+jumpbox_private_ip                = "172.28.1.10"      # Assign a static IP to the Jumpbox Server
+jumpbox_users                     = "ci"               # Optional comma-delimited list of users to add to the Jumpbox

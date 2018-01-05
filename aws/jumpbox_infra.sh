@@ -1,36 +1,26 @@
 #!/bin/bash
+
 ###################################################
 #
 #  This script creates a jumpbox on AWS. It also
 #  provides the ability to verify the jumpbox
-#  was created as expected. 
+#  was created as expected.
 #
 #  You can also use this script to delete the
 #  jumpbox and ssh to it.
 #
-##################################################
+###################################################
 
-#set -x 
+set -e
 
-function create_env () {
-  terraform init
-
-  cp $TERRAFORM_DIR/terraform.tfvars.example $TERRAFORM_VARS_FILE
-  echo "aws_access_key        = \"$AWS_ACCESS_KEY\"" >> $TERRAFORM_VARS_FILE
-  echo "aws_secret_key        = \"$AWS_SECRET_ACCESS_KEY\"" >> $TERRAFORM_VARS_FILE
-  echo "aws_key_name          = \"$AWS_KEY_NAME\"" >> $TERRAFORM_VARS_FILE
-  echo "prefix                = \"$AWS_PREFIX\"" >> $TERRAFORM_VARS_FILE
-  echo "aws_region            = \"$AWS_REGION\"" >> $TERRAFORM_VARS_FILE
-  echo "az1                   = \"$AWS_AZ1\"" >> $TERRAFORM_VARS_FILE
-  echo "Running terraform apply"
-
-  mkdir -p $TERRAFORM_DIR/ssh-key
-
-  echo "$AWS_PRIVATE_KEY" >  $TERRAFORM_DIR/ssh-key/$AWS_KEY_NAME.pem
-  chmod 0400 $TERRAFORM_DIR/ssh-key/$AWS_KEY_NAME.pem
-
-  terraform apply -var-file=$TERRAFORM_VARS_FILE
-
+function usage () {
+  cat <<EOF
+USAGE:
+   apply		Create IaaS resources and Jumpbox
+   verify		Verify connection to the Jumpbox after creation
+   ssh			SSH into the Jumpbox
+   destroy		Destroy all Terraform Resources that were created
+EOF
 }
 
 function terraform_state_exists () {
@@ -38,6 +28,32 @@ function terraform_state_exists () {
     echo "terraform.tfstate file does not exist. Have you created the Jumpbox yet?"
     exit 1
   fi
+}
+
+function load_ssh_key () {
+  if [[ ! -f $SSH_KEY_DIR/$AWS_KEY_NAME ]]; then
+    echo -e "$AWS_KEY_NAME not found. Now generating..."
+    mkdir -p $SSH_KEY_DIR
+    ssh-keygen -q -N '' -t rsa -f $SSH_KEY_DIR/$AWS_KEY_NAME
+  else
+    echo "SSH keypair exists, skipping generation."
+  fi
+
+  export TF_VAR_public_key=$(cat $SSH_KEY_DIR/$AWS_KEY_NAME.pub)
+  export TF_VAR_ssh_private_file=$SSH_KEY_DIR/$AWS_KEY_NAME
+}
+
+function create_env () {
+  if [[ ! -f $TERRAFORM_VARS_FILE ]]; then
+    echo -e "\nterraform.tfvars does not exist.\nSee the prereqs in the README.md\n"
+    exit 1
+  fi
+
+  load_ssh_key
+
+  echo "Running terraform apply"
+  terraform init
+  terraform apply -var-file=$TERRAFORM_VARS_FILE --auto-approve
 }
 
 ################################################################################################
@@ -55,8 +71,8 @@ function verify_env () {
   SSH_ATTEMPTS=0
   # Ensure the keys have been configured properly.
   until [ $RETURN_CODE == 0 ]; do
-    # The jumpbox-artifacts are the output of the "create" task in the ci/pipeline.yml. 
-    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i $CWD/../../jumpbox-artifacts/$AWS_KEY_NAME.pem ubuntu@$JUMPBOX_IP pwd
+    # The jumpbox-artifacts are the output of the "create" task in the ci/pipeline.yml.
+    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i $SSH_KEY_DIR/$AWS_KEY_NAME ubuntu@$JUMPBOX_IP pwd
     RETURN_CODE=$(echo -e $?)
     if [[ $RETURN_CODE == 0 ]]; then
        echo -e "\nJumpbox is UP!"
@@ -74,13 +90,13 @@ function verify_env () {
 
 function ssh_env () {
   terraform_state_exists
-
   JUMPBOX_IP=$(terraform output -state=$TERRAFORM_DIR/terraform.tfstate --json | jq -r '.jumpbox_public_ip.value')
-  SSH_KEYNAME=$(cat $TERRAFORM_DIR/terraform.tfvars | grep "aws_key_name" | awk '{print $3}' | tr -d '"')
-  ssh -i ~/.ssh/$SSH_KEYNAME.pem -o StrictHostKeyChecking=no ubuntu@$JUMPBOX_IP
+  ssh -i $SSH_KEY_DIR/$AWS_KEY_NAME -o StrictHostKeyChecking=no ubuntu@$JUMPBOX_IP
 }
 
 function destroy_env () {
+  load_ssh_key
+
   # Destroy terraformed jumpbox env
   echo "Running terraform destroy"
   terraform destroy -var-file=$TERRAFORM_VARS_FILE -force
@@ -88,33 +104,38 @@ function destroy_env () {
   # Remove the state files. If present, this would take precedence.
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
-
-  # Remove terraform vars final
-  echo "Removing terraform vars final"
-  rm $TERRAFORM_VARS_FILE
 }
 
-action=$1
-
-if [ -z $action ]; then
-  echo "Missing argument. Requires one of {apply|verify|ssh|destroy}"
-  exit 1
-fi
-
 CWD=$(pwd)
+SSH_KEY_DIR=$CWD/ssh-key
 TERRAFORM_DIR=$CWD/terraform
-TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform-final.tfvars
+TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform.tfvars
+AWS_KEY_NAME=$(cat $TERRAFORM_VARS_FILE | grep "env_name" | awk '{print $3}' | tr -d '"')
+
 
 cd $TERRAFORM_DIR
 
-if [ $action == "apply" ]; then
-  create_env
-elif [ $action == "verify" ]; then
-  verify_env
-elif [ $action == "ssh" ]; then
-  ssh_env
-elif [ $action == "destroy" ]; then
-  destroy_env
-else
-  echo "Something went wrong!"
-fi
+action=$1
+
+case "$action" in
+  help)
+       usage
+       exit 0
+       ;;
+  apply)
+       create_env
+       ;;
+  verify)
+       verify_env
+       ;;
+  ssh)
+       ssh_env
+       ;;
+  destroy)
+       destroy_env
+       ;;
+  *)   echo "Invalid option"
+       usage
+       exit
+       ;;
+esac

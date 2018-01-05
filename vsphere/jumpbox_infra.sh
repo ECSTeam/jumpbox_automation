@@ -30,7 +30,7 @@ function setup_env() {
     export TF_VAR_vidomain=$VSPHERE_DOMAIN
     export TF_VAR_ssh_user=$INIT_VM_USERNAME
     export TF_VAR_ssh_password=$INIT_VM_PASSWORD
-    export TF_VAR_ssh_key_path=$SSH_KEY_PATH
+    export TF_VAR_ssh_key_path=$SSH_KEY_DIR
     export TF_VAR_vm_client_cert=jumpbox_client
     export TF_VAR_vm_svr_cert=jumpbox_svr
   fi
@@ -79,8 +79,8 @@ function destroy_env () {
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
 
-  # Remove terraform vars final
-  echo "Removing terraform vars final"
+  # Remove terraform vars file
+  echo "Removing terraform vars file"
   rm $TERRAFORM_VARS_FILE
 }
 
@@ -96,7 +96,7 @@ function verify_env () {
     # The pipeline `Create` job outputs artifacts into jumpbox-artifacts which
     # is an input into the `Verify` job. One of those artifacts is the client
     # certificate used for ssh.
-    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i $ROOT_DIR/jumpbox-artifacts/$TF_VAR_vm_client_cert $TF_VAR_ssh_user@$JUMPBOX_IP pwd
+    ssh -o StrictHostKeyChecking=no -o BatchMode=yes -i $SSH_KEY_DIR/$TF_VAR_vm_client_cert $TF_VAR_ssh_user@$JUMPBOX_IP pwd
     RETURN_CODE=$(echo -e $?)
     if [[ $RETURN_CODE == 0 ]]; then
       echo -e "\nJumpbox ssh PASSED"
@@ -117,6 +117,7 @@ function verify_env () {
 #CAPTURE CURRENT DIRECTORY
 CWD=$(pwd)
 TERRAFORM_DIR=$CWD/terraform
+SSH_KEY_DIR=$CWD/ssh-key
 
 #ENSURE VARs are appropriately populated
 setup_env
@@ -129,7 +130,7 @@ if [ -z $action ]; then
 fi
 
 #Assumes current directory is the vsphere folder of the jumpbox_automation repo cloned to the filesystem
-TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform-final.tfvars
+TERRAFORM_VARS_FILE=$TERRAFORM_DIR/terraform.tfvars
 
 cd $TERRAFORM_DIR
 

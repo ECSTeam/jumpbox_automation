@@ -5,3 +5,4 @@ verify-jumpbox-script: automation-scripts/ci/tasks/gcp-verify-jumpbox.yml
 destroy-jumpbox-script: automation-scripts/ci/tasks/gcp-destroy-jumpbox.yml
 
 iaas-directory: automation-scripts/gcp/
+config-directory: automation-scripts/ci/env/gcp

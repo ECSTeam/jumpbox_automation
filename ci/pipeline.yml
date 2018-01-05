@@ -3,7 +3,7 @@ resources:
 - name: automation-scripts
   type: git
   source:
-    branch: master
+    branch: master 
     uri: {{scripts-git-uri}}
     username: ((git-svc-user))
     password: ((git-svc-password))
@@ -24,9 +24,9 @@ jobs:
       params:
         JUMPBOX_ACTION: apply
         IAAS_DIRECTORY: {{iaas-directory}}
+        CONFIG_DIRECTORY: {{config-directory}}
         AWS_ACCESS_KEY: ((aws-access-key-id))
         AWS_SECRET_ACCESS_KEY: ((aws-secret-access-key))
-        AWS_KEY_NAME: gold-environment
         AWS_PREFIX: jumpbox
         AWS_REGION: us-east-1
         AWS_AZ1: us-east-1a
@@ -39,6 +39,8 @@ jobs:
         VSPHERE_SERVER: ecsdenlabvc01.lab.ecsteam.local
         INIT_VM_USERNAME: ((init-vm-username))
         INIT_VM_PASSWORD: ((init-vm-password))
+        GCP_PROJECT: ((gcp-project-id))
+        GCP_CREDS_FILE: ((gcp-gold-service-account-key))
         CREDS_TYPE: ((gcp-creds-type))
         CREDS_PROJECT_ID: ((gcp-creds-project-id))
         CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))
@@ -50,7 +52,6 @@ jobs:
       file: {{verify-jumpbox-script}}
       params:
         JUMPBOX_ACTION: verify
-        AWS_KEY_NAME: gold-environment
         INIT_VM_USERNAME: ((init-vm-username))
         IAAS_DIRECTORY: {{iaas-directory}}
         VSPHERE_USERNAME: ((vsphere-username))
@@ -60,6 +61,9 @@ jobs:
       file: {{destroy-jumpbox-script}}
       params:
         JUMPBOX_ACTION: destroy
+        CONFIG_DIRECTORY: {{config-directory}}
+        AWS_ACCESS_KEY: ((aws-access-key-id))
+        AWS_SECRET_ACCESS_KEY: ((aws-secret-access-key))
         AZURE_USERNAME: ((azure-username))
         AZURE_PASSWORD: ((azure-password))
         IAAS_DIRECTORY: {{iaas-directory}}
@@ -67,6 +71,8 @@ jobs:
         VSPHERE_PASSWORD: ((vsphere-password))
         VSPHERE_DOMAIN: lab.ecsteam.local
         VSPHERE_SERVER: ecsdenlabvc01.lab.ecsteam.local
+        GCP_PROJECT: ((gcp-project-id))
+        GCP_CREDS_FILE: ((gcp-gold-service-account-key))
         CREDS_TYPE: ((gcp-creds-type))
         CREDS_PROJECT_ID: ((gcp-creds-project-id))
         CREDS_PRIVATE_KEY_ID: ((gcp-creds-private-key-id))

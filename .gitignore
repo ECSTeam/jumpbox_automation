@@ -5,4 +5,5 @@
 **/ssh-key
 **/key
 *.out
+**/metadata.txt
 credentials.yml

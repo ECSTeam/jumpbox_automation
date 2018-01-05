@@ -1,9 +1,8 @@
-env_name = ""                                      # Unique Name for deployment. Must be longer than 6 characters
-project = ""                                       # Existing Project Identifier
+env_name = "goldenv"                                  # Unique Name for deployment. Must be longer than 6 characters
 region = "us-east1"                                # Default GCloud Region
 zones = ["us-east1-a", "us-east1-b", "us-east1-c"] # Default GCloud zones
 jumpbox-image-url = "ubuntu-1604-xenial-v20170328" # Image Name for GCloud managed images
 jumpbox-machine-type = "n1-standard-1"             # GCloud Machine type
 private_infra_cidr = "172.28.1.0/24"
 public_infra_cidr = "172.28.0.0/24"
-jumpbox_users = "user1,user2"
+jumpbox_users = "ci"

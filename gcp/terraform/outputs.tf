@@ -1,4 +1,4 @@
-output "ops_manager_public_ip" {
+output "jumpbox_public_ip" {
   value = "${google_compute_instance.jumpbox.network_interface.0.access_config.0.assigned_nat_ip}"
 }
 
@@ -15,7 +15,7 @@ output "azs" {
 }
 
 output "network_name" {
-  value = "${google_compute_network.pcf-virt-net.name}"
+  value = "${google_compute_network.infra-virt-net.name}"
 }
 
 output "ssh_private_key" {
