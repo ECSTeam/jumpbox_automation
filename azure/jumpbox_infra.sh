@@ -20,8 +20,11 @@ function create_env () {
   export TF_VAR_tenant_id=$(echo $AZURE_ACCOUNT_METADATA | cut -d ':' -f2)
 
   # Create Service Principle and assign Contributor role
+  # Ensure unique naming of the service principle by prepending the environment name.
+
+  SERVICE_PRINCIPAL="${AZURE_KEY_NAME}_TerraformJumboxAzureCPI"
   echo "Creating service principal and assigning contributor role."
-  JUMPBOX_IDENTITY_AD=$(az ad sp create-for-rbac --name "http://TerraformJumpboxAzureCPI" --role="Contributor" --scopes="/subscriptions/$TF_VAR_subscription_id" | jq -r '.| "\(.appId):\(.password)"')
+  JUMPBOX_IDENTITY_AD=$(az ad sp create-for-rbac --name="${SERVICE_PRINCIPAL}" --role="Contributor" --scopes="/subscriptions/$TF_VAR_subscription_id" | jq -r '.| "\(.appId):\(.password)"')
   echo $JUMPBOX_IDENTITY_AD >> $METADATA_FILE
 
   export TF_VAR_client_id=$(echo $JUMPBOX_IDENTITY_AD | cut -d ':' -f1)
