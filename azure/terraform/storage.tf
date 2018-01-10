@@ -1,12 +1,12 @@
 resource "azurerm_storage_account" "bosh_storage_account" {
-  name                = "boshinfrastorage"
+  name                = "${var.env_name}-boshinfrastorage"
   resource_group_name = "${azurerm_resource_group.oss_bosh_infra_resource_group.name}"
   location            = "${var.location}"
   account_type        = "Standard_LRS"
 }
 
 resource "azurerm_storage_container" "bosh_storage_container" {
-  name                  = "bosh"
+  name                  = "${var.env_name}-bosh"
   depends_on            = ["azurerm_storage_account.bosh_storage_account"]
   resource_group_name   = "${azurerm_resource_group.oss_bosh_infra_resource_group.name}"
   storage_account_name  = "${azurerm_storage_account.bosh_storage_account.name}"
@@ -14,7 +14,7 @@ resource "azurerm_storage_container" "bosh_storage_container" {
 }
 
 resource "azurerm_storage_container" "stemcell_storage_container" {
-  name                  = "stemcell"
+  name                  = "${var.env_name}-stemcell"
   depends_on            = ["azurerm_storage_account.bosh_storage_account"]
   resource_group_name   = "${azurerm_resource_group.oss_bosh_infra_resource_group.name}"
   storage_account_name  = "${azurerm_storage_account.bosh_storage_account.name}"
@@ -22,7 +22,7 @@ resource "azurerm_storage_container" "stemcell_storage_container" {
 }
 
 resource "azurerm_storage_table" "stemcells_storage_table" {
-  name                 = "stemcells"
+  name                 = "${var.env_name}-stemcells"
   resource_group_name  = "${azurerm_resource_group.oss_bosh_infra_resource_group.name}"
   storage_account_name = "${azurerm_storage_account.bosh_storage_account.name}"
 }
