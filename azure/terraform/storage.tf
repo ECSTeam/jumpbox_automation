@@ -22,7 +22,7 @@ resource "azurerm_storage_container" "stemcell_storage_container" {
 }
 
 resource "azurerm_storage_table" "stemcells_storage_table" {
-  name                 = "${var.env_name}stemcells"
+  name                 = "stemcells"
   resource_group_name  = "${azurerm_resource_group.oss_bosh_infra_resource_group.name}"
   storage_account_name = "${azurerm_storage_account.bosh_storage_account.name}"
 }
