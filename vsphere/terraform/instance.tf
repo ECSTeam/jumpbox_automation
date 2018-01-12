@@ -63,7 +63,7 @@ resource "vsphere_virtual_machine" "jumpbox" {
   # Setup Jumpbox Server SSH keys for VM
   provisioner "remote-exec" {
       inline = [
-        "ssh-keygen -t rsa -C ${var.vm-default-user}-${var.vm-name} -f ~/.ssh/${var.vm_svr_cert} -q -N ''"
+        "ssh-keygen -t rsa -C ${var.vm-default-user}-${var.vm-name} -f ~/.ssh/${var.vm_svr_cert} -q -N ''",
       ]
   }
 
@@ -83,7 +83,7 @@ resource "vsphere_virtual_machine" "jumpbox" {
   provisioner "remote-exec" {
       inline = [
         "chmod +x /tmp/prepare-jumpbox.sh",
-        "sudo /tmp/prepare-jumpbox.sh -u ${var.vm-user-list}"
+        "sudo /tmp/prepare-jumpbox.sh -u ${var.vm-user-list}",
       ]
     }
  } # End jumpbox resource
