@@ -6,7 +6,7 @@ resource "azurerm_storage_account" "bosh_storage_account" {
 }
 
 resource "azurerm_storage_container" "bosh_storage_container" {
-  name                  = "${var.env_name}bosh"
+  name                  = "bosh"
   depends_on            = ["azurerm_storage_account.bosh_storage_account"]
   resource_group_name   = "${azurerm_resource_group.oss_bosh_infra_resource_group.name}"
   storage_account_name  = "${azurerm_storage_account.bosh_storage_account.name}"
@@ -14,7 +14,7 @@ resource "azurerm_storage_container" "bosh_storage_container" {
 }
 
 resource "azurerm_storage_container" "stemcell_storage_container" {
-  name                  = "${var.env_name}stemcell"
+  name                  = "stemcell"
   depends_on            = ["azurerm_storage_account.bosh_storage_account"]
   resource_group_name   = "${azurerm_resource_group.oss_bosh_infra_resource_group.name}"
   storage_account_name  = "${azurerm_storage_account.bosh_storage_account.name}"
