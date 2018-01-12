@@ -13,7 +13,7 @@ resource "aws_instance" "jumpbox" {
         volume_size = 30
     }
     tags {
-        Name = "${var.env_name}-BoshInfraJumpbox"
+        Name = "${var.env_name}BoshInfraJumpbox"
     }
   
     connection {

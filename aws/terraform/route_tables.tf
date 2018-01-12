@@ -9,7 +9,7 @@ resource "aws_route_table" "PublicSubnetRouteTable" {
     }
 
     tags {
-        Name = "${var.env_name}-Public Subnet Route Table"
+        Name = "${var.env_name}Public Subnet Route Table"
     }
 }
 
@@ -23,6 +23,6 @@ resource "aws_route_table" "PrivateSubnetRouteTable_az1" {
     }
 
     tags {
-        Name = "${var.env_name}-Private Subnet Route Table AZ1"
+        Name = "${var.env_name}Private Subnet Route Table AZ1"
     }
 }

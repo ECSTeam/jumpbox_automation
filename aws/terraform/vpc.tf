@@ -11,7 +11,7 @@ resource "aws_vpc" "BoshInfraVpc" {
 resource "aws_internet_gateway" "internetGw" {
     vpc_id = "${aws_vpc.BoshInfraVpc.id}"
     tags {
-        Name = "${var.env_name}-internet-gateway"
+        Name = "${var.env_name}internet-gateway"
     }
 }
 
@@ -22,7 +22,7 @@ resource "aws_security_group" "nat_instance_sg" {
     description = "${var.env_name} NAT Instance Security Group"
     vpc_id = "${aws_vpc.BoshInfraVpc.id}"
     tags {
-        Name = "${var.env_name}-NAT intance security group"
+        Name = "${var.env_name}NAT intance security group"
     }
     ingress {
         from_port = 0
@@ -50,6 +50,6 @@ resource "aws_instance" "nat_az1" {
     private_ip = "${var.nat_ip}"
 
     tags {
-        Name = "${var.env_name}-Nat Instance az1"
+        Name = "${var.env_name}Nat Instance az1"
     }
 }
