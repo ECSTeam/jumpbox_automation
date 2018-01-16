@@ -104,6 +104,7 @@ function destroy_env () {
   # Remove the state files. If present, this would take precedence.
   echo "Deleting $TERRAFORM_DIR/*.tfstate*"
   rm $TERRAFORM_DIR/*.tfstate*
+  rm -rf $SSH_KEY_DIR
 }
 
 CWD=$(pwd)
