@@ -110,6 +110,14 @@ if [[ ! -f /usr/local/bin/vault ]]; then
   rm vault.zip
 fi
 
+if [[ ! -f /usr/local/bin/terraform ]]; then
+  echo "terraform not installed, now installing!"
+  wget -q -O terraform.zip $(curl -s https://www.terraform.io/downloads.html | grep linux_amd | awk -F "\"" '{print$2}')
+  unzip terraform.zip
+  mv terraform /usr/local/bin/
+  rm terraform.zip
+fi
+
 if [[ ! -f /usr/local/bin/fly ]]; then
   echo "fly not installed, now installing!"
   wget -q -O /usr/local/bin/fly "$(curl -s https://api.github.com/repos/concourse/fly/releases/latest | jq --raw-output '.assets[] | .browser_download_url' | grep linux)"
