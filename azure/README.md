@@ -15,7 +15,7 @@ Use the provided script, `jumpbox_infra.sh`, in this repo to spin up an Azure Re
 
 ### Run the script
 Available commands are:
-- `./jumpbox-infra.sh apply`
+- `./jumpbox_infra.sh apply`
 - `./jumpbox_infra.sh destroy`
 - `./jumpbox_infra.sh output`
     - only works if state file is present. This is created during `apply`.
