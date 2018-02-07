@@ -2,7 +2,8 @@ resource "azurerm_storage_account" "bosh_storage_account" {
   name                = "${var.env_name}boshinfrastorage"
   resource_group_name = "${azurerm_resource_group.oss_bosh_infra_resource_group.name}"
   location            = "${var.location}"
-  account_type        = "Standard_LRS"
+  account_tier        = "Standard"
+  account_replication_type = "LRS"
 }
 
 resource "azurerm_storage_container" "bosh_storage_container" {
