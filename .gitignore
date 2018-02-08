@@ -7,3 +7,4 @@
 *.out
 **/metadata.txt
 credentials.yml
+.terraform.tfstate.lock.info
