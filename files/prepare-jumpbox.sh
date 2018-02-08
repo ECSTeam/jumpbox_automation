@@ -76,11 +76,11 @@ pip install awscli
 fi
 
 # Install bosh-init if not already installed
-if [[ ! -f /usr/local/bin/bosh-init ]]; then
-  echo "bosh-init not installed, now installing!"
-  wget -q -O /usr/local/bin/bosh-init https://s3.amazonaws.com/bosh-init-artifacts/bosh-init-"$(curl -s https://api.github.com/repos/cloudfoundry/bosh-init/releases/latest | jq -r '.name' | tr -d 'v')"-linux-amd64
-  chmod +x /usr/local/bin/bosh-init
-fi
+#if [[ ! -f /usr/local/bin/bosh-init ]]; then
+#  echo "bosh-init not installed, now installing!"
+#  wget -O /usr/local/bin/bosh-init https://s3.amazonaws.com/bosh-init-artifacts/bosh-init-"$(curl -s https://api.github.com/repos/cloudfoundry/bosh-init/releases/latest | jq -r '.name' | tr -d 'v')"-linux-amd64
+#  chmod +x /usr/local/bin/bosh-init
+#fi
 
 if [[ ! -f /usr/local/bin/spiff ]]; then
   echo "Spiff not installed, now installing!"
@@ -98,7 +98,7 @@ fi
 
 if [[ ! -f /usr/local/bin/yaml2json ]]; then
   echo "yaml2json not installed, now installing!"
-  wget -q -O /usr/local/bin/yaml2json https://github.com/bronze1man/yaml2json/blob/master/builds/linux_amd64/yaml2json?raw=true
+  wget -O /usr/local/bin/yaml2json https://github.com/bronze1man/yaml2json/blob/master/builds/linux_amd64/yaml2json?raw=true
   chmod +x /usr/local/bin/yaml2json
 fi
 
@@ -110,48 +110,42 @@ if [[ ! -f /usr/local/bin/vault ]]; then
   rm vault.zip
 fi
 
-if [[ ! -f /usr/local/bin/terraform ]]; then
-  echo "terraform not installed, now installing!"
-  wget -q -O terraform.zip $(curl -s https://www.terraform.io/downloads.html | grep linux_amd | awk -F "\"" '{print$2}')
-  unzip terraform.zip
-  mv terraform /usr/local/bin/
-  rm terraform.zip
-fi
-
 if [[ ! -f /usr/local/bin/fly ]]; then
   echo "fly not installed, now installing!"
   wget -q -O /usr/local/bin/fly "$(curl -s https://api.github.com/repos/concourse/fly/releases/latest | jq --raw-output '.assets[] | .browser_download_url' | grep linux)"
   chmod +x /usr/local/bin/fly
 fi
 
-if [[ ! -f /usr/local/bin/bosh2 ]]; then
+#install bosh2
+if [[ ! -f /usr/local/bin/bosh ]]; then
   echo "bosh2 not installed, now installing!"
-  wget -q -O /usr/local/bin/bosh2 https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-$(curl -s https://api.github.com/repos/cloudfoundry/bosh-cli/releases/latest | jq -r '.name' | tr -d 'v')-linux-amd64
-  chmod +x /usr/local/bin/bosh2
+  wget -q -O /usr/local/bin/bosh https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-$(curl -s https://api.github.com/repos/cloudfoundry/bosh-cli/releases/latest | jq -r '.name' | tr -d 'v')-linux-amd64
+  chmod +x /usr/local/bin/bosh
 fi
 
 # Install RVM
-if [[ ! -d "/usr/local/rvm" ]]; then
-  cd /usr/local/
-  curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-  curl -sSL https://get.rvm.io | bash -s stable
-fi
-cd /
-if [[ ! "$(ls -A /usr/local/rvm/environments)" ]]; then
-  /usr/local/rvm/bin/rvm install ruby-2.3.0
-fi
-if [[ ! -d "/usr/local/rvm/environments/default" ]]; then
-  /usr/local/rvm/bin/rvm alias create default 2.3.0
-fi
-/usr/local/rvm/bin/rvm use 2.3.0 --default
+#if [[ ! -d "/usr/local/rvm" ]]; then
+#  cd /usr/local/
+#  curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+#  curl -sSL https://get.rvm.io | bash -s stable
+#fi
+#cd /
+#if [[ ! "$(ls -A /usr/local/rvm/environments)" ]]; then
+#  /usr/local/rvm/bin/rvm install ruby-2.3.0
+#fi
+#if [[ ! -d "/usr/local/rvm/environments/default" ]]; then
+#  /usr/local/rvm/bin/rvm alias create default 2.3.0
+#fi
+#/usr/local/rvm/bin/rvm use 2.3.0 --default
 # Install BOSH_CLI and UAAC
-gem install bosh_cli --no-ri --no-rdoc
+#gem install bosh_cli --no-ri --no-rdoc
 
 gem install cf-uaac --no-ri --no-rdoc
 
 # su - ubuntu
-source /etc/profile.d/rvm.sh
+#source /etc/profile.d/rvm.sh
 
 echo "Script completed"
-echo "NOTE - .profile updated for rvm, get new login shell or source it to get env"
+#echo "NOTE - .profile updated for rvm, get new login shell or source it to get env"
 echo 0
+reboot
