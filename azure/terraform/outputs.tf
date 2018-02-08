@@ -17,7 +17,7 @@ output "resource_group_name" {
   value = "${azurerm_resource_group.oss_bosh_infra_resource_group.name}"
 }
 output "storage_account_name" {
-  value = "${azurerm_storage_account.bosh_storage_account.name}"
+  value = "${azurerm_storage_account.bosh.name}"
 }
 output "security_group_name" {
   value = "${azurerm_network_security_group.jumpbox_security_group.name}"
